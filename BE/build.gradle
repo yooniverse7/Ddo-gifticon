@@ -36,6 +36,7 @@ dependencies {
 	
 	// security 의존성, 시큐리티 이슈 발생 시 아래 의존성 주석처리
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'io.jsonwebtoken:jjwt:0.12.6'
 }
 
 tasks.named('test') {
