@@ -10,4 +10,6 @@ public class GiftCreateRequestDto {
     private String phoneNum;
     private String message;
     private String image;
+
+    private int userId;
 }
