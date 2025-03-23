@@ -1,4 +1,4 @@
-package com.example.ddo_pay.pay.dto;
+package com.example.ddo_pay.pay.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

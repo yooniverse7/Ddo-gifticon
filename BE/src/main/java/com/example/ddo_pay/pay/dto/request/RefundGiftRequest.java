@@ -1,4 +1,4 @@
-package com.example.ddo_pay.pay.dto;
+package com.example.ddo_pay.pay.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RegisterPasswordRequest {
-    private String password;
+public class RefundGiftRequest {
+    private int userId;
+    private int giftId;
 }

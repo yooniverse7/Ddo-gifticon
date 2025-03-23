@@ -2,7 +2,12 @@ package com.example.ddo_pay.pay.controller;
 
 import com.example.ddo_pay.common.response.Response;
 import com.example.ddo_pay.common.response.ResponseCode;
-import com.example.ddo_pay.pay.dto.*;
+import com.example.ddo_pay.pay.dto.request.BalanceChargeRequest;
+import com.example.ddo_pay.pay.dto.request.RegisterAccountRequest;
+import com.example.ddo_pay.pay.dto.request.RegisterPasswordRequest;
+import com.example.ddo_pay.pay.dto.response.BalanceResponse;
+import com.example.ddo_pay.pay.dto.response.GetAccountResponse;
+import com.example.ddo_pay.pay.dto.response.GetPointResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
