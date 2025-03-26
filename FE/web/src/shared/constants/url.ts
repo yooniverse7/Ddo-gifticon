@@ -1,3 +1,5 @@
+export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+
 export const URL = {
   store_register: '/store/register',
   gift_create: '/gift/create',
@@ -6,4 +8,6 @@ export const URL = {
   me_info: '/me/info',
 };
 
-export const API_URL = {};
+export const API_URL = {
+  favoriteStores: '/api/restaurants',
+};

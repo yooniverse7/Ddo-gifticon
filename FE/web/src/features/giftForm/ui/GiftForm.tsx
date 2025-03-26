@@ -3,14 +3,12 @@ import Form from 'next/form';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import { ArrowBigLeft } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 
 export const GiftForm = () => {
   return (
-    <section className="flex flex-col justify-between h-full">
-      <div className="relative flex justify-center h-8">
-        <ArrowBigLeft className="absolute left-4" />
+    <section className="flex flex-col justify-between w-full h-full">
+      <div className="flex justify-center h-8 mt-8">
         <h1>선물하기</h1>
       </div>
       <Form action={''} className="h-full">
@@ -38,7 +36,9 @@ export const GiftForm = () => {
           <textarea id="message" name="message" placeholder="메세지로 마음을 전하세요!" required />
         </div>
       </Form>
-      <Button type="submit">(돈 얼마) 결제하기</Button>
+      <Button type="submit" className="w-full h-20">
+        (돈 얼마) 결제하기
+      </Button>
     </section>
   );
 };

@@ -6,14 +6,14 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 public class CustomUserDetails extends User {
-    private final Integer userId;
+    private final Long userId;
 
-    public CustomUserDetails(Integer userId) {
+    public CustomUserDetails(Long userId) {
         super("testUser", "password", Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
         this.userId = userId;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 }

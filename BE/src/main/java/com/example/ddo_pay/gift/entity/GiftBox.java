@@ -20,4 +20,9 @@ public class GiftBox {
 
     @OneToOne(mappedBy = "giftBox")
     private Gift gift;
+
+    public GiftBox(User user, Gift gift) {
+        this.user = user;
+        this.gift = gift;
+    }
 }

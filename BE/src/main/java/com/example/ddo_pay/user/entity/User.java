@@ -4,20 +4,28 @@ import com.example.ddo_pay.gift.entity.Gift;
 import com.example.ddo_pay.gift.entity.GiftBox;
 import com.example.ddo_pay.pay.entity.DdoPay;
 import com.example.ddo_pay.restaurant.entity.UserRestaurant;
+import com.example.ddo_pay.user.dto.UserDto;
+
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
+@Builder
 public class User {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
     private String loginId; // 로그인 ID
@@ -48,5 +56,21 @@ public class User {
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private DdoPay ddoPay; // 또페이와 1 대 1
+
+    public void changePrivateInfo(UserDto userDto) {
+        if (userDto.getName() != null) {
+            this.name = userDto.getName();
+        }
+        if (userDto.getEmail() != null) {
+            this.email = userDto.getEmail();
+        }
+        if (userDto.getPhoneNum() != null) {
+            this.phoneNum = userDto.getPhoneNum();
+        }
+        if (userDto.getBirth() != null && !userDto.getBirth().isEmpty()) {
+            this.birthday = LocalDateTime.parse(userDto.getBirth() + "T00:00:00",
+                    DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        }
+    }
 
 }

@@ -13,11 +13,11 @@ import java.util.List;
 @Getter
 public class UserRestaurant  {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_restaurant_id")
     private Long id;
-
-    private int visitedCount; // 방문 횟수
+    private Integer visitedCount; // 방문 횟수
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

@@ -6,6 +6,9 @@ import { Button } from '@/components/ui/button';
 import useDebounce from '@/shared/utils/useDebounce';
 import Places from './Places';
 import { Coordinates, Marker } from '../model/marker';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { SquareMenu } from 'lucide-react';
+import { useMapStore } from '@/store/useMapStore';
 
 export const KakaoMap = () => {
   useKakaoLoader({
@@ -13,7 +16,7 @@ export const KakaoMap = () => {
     libraries: ['services', 'clusterer', 'drawing'],
   });
 
-  const [map, setMap] = useState<kakao.maps.Map | null>(null);
+  const { map, setMap } = useMapStore();
   const [markers, setMarkers] = useState<Marker[]>([]);
   const [category, setCategory] = useState<string | null>(null);
   const [center, setCenter] = useState<Coordinates>({ lat: 35.095326, lng: 128.855668 });
@@ -81,6 +84,8 @@ export const KakaoMap = () => {
     );
   };
 
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className="relative w-full h-full">
       <Map
@@ -90,9 +95,31 @@ export const KakaoMap = () => {
         onCreate={setMap}
         onCenterChanged={handleCenterChanged}
       >
-        <Button className="absolute top-16 right-2 z-10" onClick={handleCategory}>
-          근처 가게
-        </Button>
+        <Collapsible
+          open={isOpen}
+          onOpenChange={setIsOpen}
+          className="absolute top-16 right-2 flex flex-col items-end z-10"
+        >
+          <CollapsibleTrigger asChild>
+            <Button variant="ghost">
+              <SquareMenu className="size-8" />
+            </Button>
+          </CollapsibleTrigger>
+          <CollapsibleContent className="flex flex-col space-y-2">
+            <Button className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+              나만의 또갈집
+            </Button>
+            <Button
+              className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm"
+              onClick={handleCategory}
+            >
+              근처 가게
+            </Button>
+            <Button className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+              기프티콘 가게
+            </Button>
+          </CollapsibleContent>
+        </Collapsible>
         {markers.length > 0 && <Places markers={markers} changeCenter={changeCenter} />}
       </Map>
     </div>

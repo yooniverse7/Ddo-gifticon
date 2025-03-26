@@ -28,6 +28,8 @@ public enum ResponseCode {
     // 로그아웃
     SUCCESS_LOGOUT(204, HttpStatus.OK, "로그아웃 성공"),
 
+    // User
+    NO_EXIST_USER(400, HttpStatus.BAD_REQUEST, "등록된 사용자가 아닙니다."),
 
     // Restaurant
 	SUCCESS_CREATE_RESTAURANT(204, HttpStatus.NO_CONTENT, "맛집 등록 성공."),
@@ -37,6 +39,8 @@ public enum ResponseCode {
     SUCCESS_CREATE_CUSTOM_MENU(200, HttpStatus.OK, "커스텀 메뉴 등록에 성공했습니다."),
     SUCCESS_DELETE_CUSTOM_MENU(200, HttpStatus.OK, "커스텀 메뉴 삭제되었습니다."),
     SUCCESS_CRAWLING_RESTAURANT(200, HttpStatus.OK, "가게 상세 정보 조회(크롤링) 성공."),
+    NO_EXIST_RESTAURANT(400, HttpStatus.BAD_REQUEST, "등록된 사용자가 아닙니다."),
+
 
     // 페이 도메인
     SUCCESS_BALANCE_CHECK(successCode(), HttpStatus.OK, "잔액조회가 성공적으로 완료되었습니다."),
@@ -54,6 +58,9 @@ public enum ResponseCode {
     SUCCESS_LIST_GIFTICON(200, HttpStatus.OK, "받은 기프티콘 리스트가 조회되었습니다."),
     SUCCESS_DETAIL_GIFTICON(200, HttpStatus.OK, "기프티콘 상세 정보가 조회되었습니다."),
     SUCCESS_CHECK_GIFTICON(200, HttpStatus.OK, "기프티콘 사용여부가 조회되었습니다."),
+    NO_EXIST_GIFTICON(400, HttpStatus.BAD_REQUEST, "등록된 기프티콘이 아닙니다."),
+    NO_EXIST_GIFTBOX(400, HttpStatus.BAD_REQUEST, "받은 기프티콘이 아닙니다."),
+    EXPIRED_GIFTICON(400, HttpStatus.BAD_REQUEST, "기프티콘의 유효기간이 만료되었습니다."),
 
     // enum 마지막. 복붙하는 과정에서 ,/; 차이에서 오는 충돌 이슈를 방지하기 위해 만들어놓음
     FINAL_FINAL(0, null, "enum 마지막 입니다. 쓰지 마세요");

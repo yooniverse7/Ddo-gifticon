@@ -9,18 +9,18 @@ const checkContactsPermission = async (): Promise<boolean> => {
   try {
     const result: PermissionStatus = await check(PERMISSIONS.ANDROID.READ_CONTACTS);
     console.log('전화번호부 권한 상태:', result);
-    
+
     switch (result) {
       case RESULTS.UNAVAILABLE:
         console.log('이 기기에서는 전화번호부 기능을 사용할 수 없습니다.');
         return false;
-        
+
       case RESULTS.DENIED:
         console.log('전화번호부 권한 요청 중...');
         const requestResult: PermissionStatus = await request(PERMISSIONS.ANDROID.READ_CONTACTS);
         console.log('요청 결과:', requestResult);
         return requestResult === RESULTS.GRANTED;
-        
+
       case RESULTS.BLOCKED:
         // 권한이 영구적으로 차단된 경우 설정으로 이동하도록 안내
         Alert.alert(
@@ -38,11 +38,11 @@ const checkContactsPermission = async (): Promise<boolean> => {
           ]
         );
         return false;
-        
+
       case RESULTS.GRANTED:
         console.log('전화번호부 권한이 이미 허용되어 있습니다.');
         return true;
-        
+
       default:
         return false;
     }
