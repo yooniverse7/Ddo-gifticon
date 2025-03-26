@@ -51,6 +51,8 @@ public enum ResponseCode {
     SUCCESS_REGISTER_PASSWORD(successCode(), HttpStatus.OK, "비밀번호 등록이 성공적으로 완료되었습니다."),
     SUCCESS_BALANCE_CHARGE(successCode(), HttpStatus.OK, "또페이 충전이 성공적으로 완료되었습니다."),
     SUCCESS_ACCOUNT_CHECK(successCode(), HttpStatus.OK, "계좌조회가 성공적으로 완료되었습니다."),
+    SUCCESS_VERIFY_ACCOUNT(successCode(), HttpStatus.OK, "연결 가능한 계좌입니다."),
+
 
     // 기프티콘
     SUCCESS_CREATE_GIFTICON(201, HttpStatus.CREATED, "기프티콘이 성공적으로 생성되었습니다."),
