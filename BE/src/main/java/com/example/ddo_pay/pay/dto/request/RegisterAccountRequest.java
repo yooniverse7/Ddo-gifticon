@@ -1,4 +1,4 @@
-package com.example.ddo_pay.pay.dto;
+package com.example.ddo_pay.pay.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class BalanceResponse {
-    private int payBalance;
-    private int payPoint;
-
+public class RegisterAccountRequest {
+    private String accountNumber;
 }
