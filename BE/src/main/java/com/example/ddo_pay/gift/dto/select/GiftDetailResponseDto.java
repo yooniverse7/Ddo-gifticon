@@ -27,10 +27,10 @@ public class GiftDetailResponseDto {
         dto.phoneNum = gift.getPhoneNum();
         dto.message = gift.getMessage();
         dto.image = gift.getImage();
-        dto.period = gift.getPeriod();
+        dto.period = gift.getExpirationDate();
         dto.usedStatus = gift.getUsedStatus();
         dto.restaurantId = gift.getRestaurant().getId();
-        dto.restaurantName = gift.getRestaurant().getName();
+        dto.restaurantName = gift.getRestaurant().getResName();
 
         return dto;
     }

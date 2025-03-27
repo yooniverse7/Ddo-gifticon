@@ -7,5 +7,5 @@ import org.springframework.stereotype.Service;
 public interface PayService {
 
     // 계좌 유효 확인 로직
-    String verifyAccount(Long userId, AccountVerifyRequest accountVerifyRequest);
+    String verifyAccount(Long userId, AccountVerifyRequest request);
 }

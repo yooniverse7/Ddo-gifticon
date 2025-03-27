@@ -20,7 +20,7 @@ public class GiftSelectResponseDto {
         GiftSelectResponseDto dto = new GiftSelectResponseDto();
         dto.giftId = gift.getId();
         dto.sendUserName = gift.getUser().getName();
-        dto.period = gift.getPeriod();
+        dto.period = gift.getExpirationDate();
         dto.image = gift.getImage();
         dto.usedStatus = gift.getUsedStatus();
         return dto;

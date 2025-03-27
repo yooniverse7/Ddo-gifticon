@@ -1,4 +1,4 @@
-package com.example.ddo_pay.common.config.redis.service;
+package com.example.ddo_pay.common.util.redis.service;
 
 import java.time.Duration;
 

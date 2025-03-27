@@ -1,4 +1,4 @@
-package com.example.ddo_pay.common.config.redis.config;
+package com.example.ddo_pay.common.config.redis;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

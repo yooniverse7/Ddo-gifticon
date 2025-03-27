@@ -1,14 +1,14 @@
 package com.example.ddo_pay.pay.dto.finance;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
-
-// 계좌이체 요청 dto
-
+// 계좌이체 요청 DTO
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,11 +16,22 @@ import java.util.Map;
 public class DepositAccountWithdrawRequestDto {
 
     @Builder.Default
+    @JsonProperty("Header")
     private Map<String, Object> Header = new HashMap<>();
+
+    @JsonProperty("depositAccountNo")
     private String depositAccountNo;
+
+    @JsonProperty("depositTransactionSummary")
     private String depositTransactionSummary;
+
+    @JsonProperty("transactionBalance")
     private String transactionBalance;
+
+    @JsonProperty("withdrawalAccountNo")
     private String withdrawalAccountNo;
+
+    @JsonProperty("withdrawalTransactionSummary")
     private String withdrawalTransactionSummary;
 
     public static DepositAccountWithdrawRequestDto of(String depositAccountNo, String memo) {
@@ -37,17 +48,16 @@ public class DepositAccountWithdrawRequestDto {
         header.put("fintechAppNo", "001");
         header.put("apiServiceCode", "updateDemandDepositAccountTransfer");
         header.put("institutionTransactionUniqueNo", institutionTransactionUniqueNo);
-        header.put("apiKey", "bcc132cc5c0e43fc9cf9ffb61369c224"); // 고정 키
-        header.put("userKey", "f6c4be2f-823e-4341-83aa-bd19240c564f"); // 법인 userKey
+        header.put("apiKey", "bcc132cc5c0e43fc9cf9ffb61369c224");
+        header.put("userKey", "f6c4be2f-823e-4341-83aa-bd19240c564f");
 
         return DepositAccountWithdrawRequestDto.builder()
                 .Header(header)
                 .depositAccountNo(depositAccountNo)
                 .depositTransactionSummary("(수시입출금) : 입금(" + memo + ")")
                 .transactionBalance("1")
-                .withdrawalAccountNo("9990627419918613") // 법인 계좌
+                .withdrawalAccountNo("9990627419918613")
                 .withdrawalTransactionSummary("(수시입출금) : 출금(이체)")
                 .build();
     }
-
 }

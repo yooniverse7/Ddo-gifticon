@@ -160,8 +160,8 @@ public class GiftServiceImpl implements GiftService {
         double distance = calculateDistance(
                 Double.parseDouble(dto.getLatitude()),
                 Double.parseDouble(dto.getLongitude()),
-                restaurant.getLatitude(),
-                restaurant.getLongitude()
+                restaurant.getResLat(),
+                restaurant.getResLng()
         );
 
         // 4. 거리 검증 (반경 15m 이내)

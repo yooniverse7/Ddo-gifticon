@@ -1,7 +1,7 @@
-package com.example.ddo_pay.common.config.redis.service.impl;
+package com.example.ddo_pay.common.util.redis.service.impl;
 
-import com.example.ddo_pay.common.config.redis.handler.RedisHandler;
-import com.example.ddo_pay.common.config.redis.service.RedisSingleDataService;
+import com.example.ddo_pay.common.util.redis.handler.RedisHandler;
+import com.example.ddo_pay.common.util.redis.service.RedisSingleDataService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

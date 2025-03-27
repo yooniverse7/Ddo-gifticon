@@ -1,15 +1,13 @@
 package com.example.ddo_pay.pay.service.impl;
 
-import com.example.ddo_pay.common.config.redis.handler.RedisHandler;
+import com.example.ddo_pay.common.util.redis.handler.RedisHandler;
 import com.example.ddo_pay.pay.dto.finance.DepositAccountWithdrawRequestDto;
 import com.example.ddo_pay.pay.dto.request.AccountVerifyRequest;
 import com.example.ddo_pay.pay.finance_api.FinanceClient;
 import com.example.ddo_pay.pay.service.PayService;
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -32,40 +30,45 @@ public class PayServiceImpl implements PayService {
         String accountNumber = request.getAccountNo();
         String randomMemo = generateRandomMemo(); // 랜덤 단어 생성
 
-        DepositAccountWithdrawRequestDto dto
-                = DepositAccountWithdrawRequestDto.of(accountNumber, randomMemo);
+        DepositAccountWithdrawRequestDto dto = DepositAccountWithdrawRequestDto.of(accountNumber, randomMemo);
 
-        // 금융망에 post 요청
         ResponseEntity<?> response = financeClient.sendOneWonTransfer(dto);
 
-        if(response == null || !response.getStatusCode().is2xxSuccessful()) {
+        if (response == null) {
+            return "ERR_API";
+        }
+
+        if (!response.getStatusCode().is2xxSuccessful()) {
+            System.out.println("금융망 응답 실패: " + response.getBody());
             return "ERR_API";
         }
 
         try {
-            JsonNode root = objectMapper.readTree((JsonParser) response.getBody());
+
+            JsonNode root = objectMapper.readTree(objectMapper.writeValueAsString(response.getBody()));
             String responseCode = root.path("Header").path("responseCode").asText();
 
-            if("H0000".equals(responseCode)) {
-                // 레디스 저장
+            System.out.println("금융망 응답 코드: " + responseCode);
+
+            if ("H0000".equals(responseCode)) {
                 String key = "userId:" + userId;
                 String value = "word:" + randomMemo + ",accountNo:" + accountNumber;
 
                 redisHandler.executeOperation(() ->
-                    redisHandler.getValueOperations().set(key, value, Duration.ofMinutes(6))
+                        redisHandler.getValueOperations().set(key, value, Duration.ofMinutes(6))
                 );
-
+                System.out.println("Redis 저장 완료 → key: " + key + " / value: " + value);
 
             } else if ("A1003".equals(responseCode)) {
                 redisHandler.deleteKey("userId:" + userId);
+                System.out.println("Redis 키 삭제: userId:" + userId + " (유효하지 않은 계좌)");
             }
-            return responseCode;
 
+            return responseCode;
 
         } catch (IOException e) {
             return "ERR_PARSING";
         }
-
     }
 
 

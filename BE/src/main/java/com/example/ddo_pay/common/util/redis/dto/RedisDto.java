@@ -1,4 +1,4 @@
-package com.example.ddo_pay.common.config.redis.dto;
+package com.example.ddo_pay.common.util.redis.dto;
 
 import lombok.*;
 
