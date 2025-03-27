@@ -233,7 +233,7 @@ def main():
     # 전체 실행 시간 시작
     total_start = time.time()
 
-    query = "우연횟집"
+    query = "쏘렌토"
 
     # (A) allSearch 호출
     start_a = time.time()

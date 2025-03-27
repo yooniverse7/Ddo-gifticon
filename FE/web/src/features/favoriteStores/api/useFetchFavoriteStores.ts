@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { FavoriteStores } from '../model/stores';
 
 export const useFetchFavoriteStores = () => {
-  const { data: favoriteStores } = useQuery<FavoriteStores[]>({
+  const { data: favoriteStores = [] } = useQuery<FavoriteStores[]>({
     queryKey: ['favoriteStores'],
     queryFn: async () => {
       const response = await axiosInstance.get(API_URL.favoriteStores);

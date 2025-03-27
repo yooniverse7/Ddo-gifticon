@@ -9,6 +9,8 @@ import { Coordinates, Marker } from '../model/marker';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { SquareMenu } from 'lucide-react';
 import { useMapStore } from '@/store/useMapStore';
+import MyStores from './MyStores';
+import { useMarkersStore } from '@/store/useMarkerStore';
 
 export const KakaoMap = () => {
   useKakaoLoader({
@@ -17,7 +19,7 @@ export const KakaoMap = () => {
   });
 
   const { map, setMap } = useMapStore();
-  const [markers, setMarkers] = useState<Marker[]>([]);
+  const { markers, setMarkers } = useMarkersStore();
   const [category, setCategory] = useState<string | null>(null);
   const [center, setCenter] = useState<Coordinates>({ lat: 35.095326, lng: 128.855668 });
 
@@ -85,6 +87,11 @@ export const KakaoMap = () => {
   };
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isShow, setIsShow] = useState(false);
+
+  const handleMyStore = () => {
+    setIsShow(true);
+  };
 
   return (
     <div className="relative w-full h-full">
@@ -106,7 +113,10 @@ export const KakaoMap = () => {
             </Button>
           </CollapsibleTrigger>
           <CollapsibleContent className="flex flex-col space-y-2">
-            <Button className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+            <Button
+              className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm"
+              onClick={handleMyStore}
+            >
               나만의 또갈집
             </Button>
             <Button
@@ -121,6 +131,7 @@ export const KakaoMap = () => {
           </CollapsibleContent>
         </Collapsible>
         {markers.length > 0 && <Places markers={markers} changeCenter={changeCenter} />}
+        {isShow && <MyStores changeCenter={changeCenter} />}
       </Map>
     </div>
   );

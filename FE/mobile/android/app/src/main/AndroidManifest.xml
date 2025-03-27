@@ -2,7 +2,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-        <!-- 위치 권한 설정 -->
+    <!-- 위치 권한 설정 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
@@ -20,6 +20,10 @@
 
     <!-- 전화번호부 권한 설정 -->
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <!-- NFC 권한 설정 -->
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-feature android:name="android.hardware.nfc.hce" android:required="true" />
 
     <application
       android:name=".MainApplication"
@@ -41,5 +45,21 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity>
+
+    <!-- NFC 관련 설정 -->
+    <service
+        android:name="com.mobile.nfc.CardService"
+        android:exported="true"
+        android:permission="android.permission.BIND_NFC_SERVICE" >
+        <intent-filter>
+            <action android:name="android.nfc.cardemulation.action.HOST_APDU_SERVICE" />
+            <category android:name="android.intent.category.DEFAULT"/>
+        </intent-filter>
+
+        <meta-data
+            android:name="android.nfc.cardemulation.host_apdu_service"
+            android:resource="@xml/aid_list" />
+    </service>
+
     </application>
 </manifest>

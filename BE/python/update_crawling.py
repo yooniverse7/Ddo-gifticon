@@ -279,7 +279,7 @@ def convert_dto_to_dict(dto: RestaurantCrawlingStoreDto) -> dict:
 
 
 if __name__ == "__main__":
-    keyword = "월남면반 하단"
+    keyword = "하단끝집 하단"
     start_time = time.time()
 
     results = crawl_store_details_by_address(keyword)

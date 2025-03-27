@@ -7,4 +7,7 @@ export const storeHandlers = [
     console.log('최애 식당');
     return HttpResponse.json(favoriteStores);
   }),
+  http.post(`${BASE_URL}${API_URL.favoriteStores}`, () => {
+    return HttpResponse.json(favoriteStores);
+  }),
 ];

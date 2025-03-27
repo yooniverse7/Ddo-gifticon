@@ -14,7 +14,7 @@ public class GiftDetailResponseDto {
     private String phoneNum;
     private String message;
     private String image;
-    private LocalDateTime period;
+    private LocalDateTime expirationDate;
     private USED usedStatus;
     private Long restaurantId;
     private String restaurantName;
@@ -27,11 +27,10 @@ public class GiftDetailResponseDto {
         dto.phoneNum = gift.getPhoneNum();
         dto.message = gift.getMessage();
         dto.image = gift.getImage();
-        dto.period = gift.getExpirationDate();
+        dto.expirationDate = gift.getExpirationDate();
         dto.usedStatus = gift.getUsedStatus();
         dto.restaurantId = gift.getRestaurant().getId();
-        dto.restaurantName = gift.getRestaurant().getResName();
-
+        dto.restaurantName = gift.getRestaurant().getPlaceName();
         return dto;
     }
 }

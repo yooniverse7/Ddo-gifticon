@@ -2,6 +2,8 @@ package com.example.ddo_pay.restaurant.entity;
 
 import com.example.ddo_pay.user.entity.User;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 public class UserRestaurant  {
@@ -29,4 +32,12 @@ public class UserRestaurant  {
 
     @OneToMany(mappedBy = "userRestaurant", cascade = CascadeType.ALL)
     private List<CustomMenu> customMenuList = new ArrayList<>();
+
+
+    @Builder
+    public UserRestaurant(Integer visitedCount, User user, Restaurant restaurant) {
+        this.visitedCount = visitedCount;
+        this.user = user;
+        this.restaurant = restaurant;
+    }
 }

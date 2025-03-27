@@ -1,14 +1,13 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
+import { CustomMenuForm } from '@/features/menuForm/ui/CustomMenuForm';
 import { X } from 'lucide-react';
 import { motion } from 'motion/react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
 const crawledData = {
   id: null,
@@ -73,17 +72,8 @@ type Menu = {
 export default function page() {
   const router = useRouter();
   const [customMenu, setCustomMenu] = useState<Menu[]>([]);
-  const nameRef = useRef<HTMLInputElement>(null);
-  const priceRef = useRef<HTMLInputElement>(null);
 
-  const addCustomMenu = () => {
-    const name = nameRef.current?.value || '';
-    const price = Number(priceRef.current?.value) || 0;
-
-    if (!name || !price) {
-      return;
-    }
-
+  const addCustomMenu = (name: string, price: number) => {
     setCustomMenu((prev) => [...prev, { menu_name: name, menu_price: price }]);
   };
 
@@ -93,14 +83,22 @@ export default function page() {
       initial={{ transform: 'translateY(100%)' }}
       animate={{ transform: 'translateY(0)' }}
     >
-      <Button className="absolute top-4 left-4" onClick={() => router.back()}>
-        <X />
-      </Button>
-      <h1 className="text-2xl font-bold">맛집 등록</h1>
-      <div className="w-40 h-40 bg-gray-200"> 대표 이미지</div>
-      <h2>{crawledData.place_name}</h2>
-      <p>주소 : {crawledData.address_name}</p>
-      <h2>기존 메뉴</h2>
+      <div className="relative w-full bg-amber-50">
+        <Button variant={'ghost'} className="absolute top-4 left-4" onClick={() => router.back()}>
+          <X className="size-6" />
+        </Button>
+        <h1 className="my-4 text-2xl font-bold text-center">맛집 등록</h1>
+      </div>
+      <div className="flex items-center w-full px-8 gap-4">
+        <div className="w-40 h-40 my-4">
+          <Image src={crawledData.main_image_url} width={200} height={200} alt="메인 이미지" />
+        </div>
+        <div>
+          <h2 className="font-semibold text-xl mb-4">{crawledData.place_name}</h2>
+          <p>주소 : {crawledData.address_name}</p>
+        </div>
+      </div>
+      <h2 className="font-semibold text-lg">기존 메뉴</h2>
       <div className="flex flex-col w-full max-h-96 px-8 overflow-y-auto">
         <ul>
           {crawledData.menus.map((menu) => (
@@ -128,33 +126,9 @@ export default function page() {
           ))}
         </ul>
       </div>
-      <h2>나만의 메뉴 추가하기</h2>
-      <div>
-        <section className="flex justify-between">
-          <div className="flex flex-col w-2/5">
-            <Label htmlFor="menuName">메뉴 이름</Label>
-            <Input
-              ref={nameRef}
-              type="text"
-              id="menuName"
-              name="menuName"
-              placeholder="메뉴 이름이 뭔가요?"
-            />
-          </div>
-          <div className="flex flex-col w-2/5">
-            <Label htmlFor="menuPrice">가격</Label>
-            <Input
-              ref={priceRef}
-              type="number"
-              id="menuPrice"
-              name="menuPrice"
-              placeholder="가격 형성이 어떻게 되어있쬬?"
-            />
-          </div>
-        </section>
-        <Button onClick={addCustomMenu}>추가</Button>
-      </div>
-      <Button className="fixed bottom-0 h-20 w-full ">등록하기</Button>
+      <h2 className="font-semibold text-lg mb-2">나만의 메뉴 추가하기</h2>
+      <CustomMenuForm addCustomMenu={addCustomMenu} />
+      <Button className="fixed bottom-0 w-full h-20 ">등록하기</Button>
     </motion.div>
   );
 }
