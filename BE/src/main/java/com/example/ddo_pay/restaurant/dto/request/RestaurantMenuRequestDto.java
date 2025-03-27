@@ -7,6 +7,7 @@ import lombok.Data;
  */
 @Data
 public class RestaurantMenuRequestDto {
+	private Long userId;
 	private String menuName;
 	private int menuPrice;
 	private String menuImage;  // URL

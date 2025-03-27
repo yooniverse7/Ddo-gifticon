@@ -12,11 +12,11 @@ public class SecurityUtil {
      * 시큐리티 필터에서 검증된 유저의 ID를 받는다
      * 
      * @return
-     *         {@code int} userId
+     *         {@code long} userId
      */
 
     // 현재 인증된 사용자 ID를 반환
-    public static Integer getUserId() {
+    public static Long getUserId() {
         // SecurityContextHolder에서 Authentication 객체를 가져옴
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 

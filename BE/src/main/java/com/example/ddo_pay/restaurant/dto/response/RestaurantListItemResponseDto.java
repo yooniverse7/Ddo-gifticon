@@ -7,11 +7,10 @@ import lombok.Data;
  */
 @Data
 public class RestaurantListItemResponseDto {
-
-	private String restaurantName;
-	private String restaurantImage;  // URL
-	private String address;
-	private Double latitude;
-	private Double longitude;
+	private Long id;
+	private String placeName;         // 가게명
+	private String mainImageUrl;      // 가게 대표 이미지 (기존 restaurantImage)
+	private String addressName;       // 가게 주소
+	private ResponsePositionDto position;
 	private int visitedCount;
 }

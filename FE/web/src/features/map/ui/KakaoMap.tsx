@@ -6,15 +6,20 @@ import { Button } from '@/components/ui/button';
 import useDebounce from '@/shared/utils/useDebounce';
 import Places from './Places';
 import { Coordinates, Marker } from '../model/marker';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { SquareMenu } from 'lucide-react';
+import { useMapStore } from '@/store/useMapStore';
+import MyStores from './MyStores';
+import { useMarkersStore } from '@/store/useMarkerStore';
 
-export const KakaoMap: React.FC = () => {
+export const KakaoMap = () => {
   useKakaoLoader({
     appkey: process.env.NEXT_PUBLIC_KAKAO_MAP_KEY!,
     libraries: ['services', 'clusterer', 'drawing'],
   });
 
-  const [map, setMap] = useState<kakao.maps.Map | null>(null);
-  const [markers, setMarkers] = useState<Marker[]>([]);
+  const { map, setMap } = useMapStore();
+  const { markers, setMarkers } = useMarkersStore();
   const [category, setCategory] = useState<string | null>(null);
   const [center, setCenter] = useState<Coordinates>({ lat: 35.095326, lng: 128.855668 });
 
@@ -35,7 +40,9 @@ export const KakaoMap: React.FC = () => {
 
   const handleCenterChanged = useDebounce(async () => {
     if (!map) return;
-    searchStores();
+    if (category === 'FD6') {
+      searchStores();
+    }
   }, 500);
 
   const searchStores = () => {
@@ -53,7 +60,7 @@ export const KakaoMap: React.FC = () => {
           const bounds = new kakao.maps.LatLngBounds();
           const markers: Marker[] = [];
           for (let i = 0; i < data.length; i++) {
-            const { x, y, address_name, category_group_name, id, place_url, place_name } = data[i];
+            const { x, y, address_name, id, place_url, place_name } = data[i];
 
             markers.push({
               id,
@@ -63,7 +70,6 @@ export const KakaoMap: React.FC = () => {
               },
               place_name,
               address_name,
-              category_group_name,
               place_url,
             });
             bounds.extend(new kakao.maps.LatLng(Number(y), Number(x)));
@@ -80,6 +86,13 @@ export const KakaoMap: React.FC = () => {
     );
   };
 
+  const [isOpen, setIsOpen] = useState(false);
+  const [isShow, setIsShow] = useState(false);
+
+  const handleMyStore = () => {
+    setIsShow(true);
+  };
+
   return (
     <div className="relative w-full h-full">
       <Map
@@ -89,10 +102,36 @@ export const KakaoMap: React.FC = () => {
         onCreate={setMap}
         onCenterChanged={handleCenterChanged}
       >
-        <Button className="absolute top-2 right-2 z-10" onClick={handleCategory}>
-          Store
-        </Button>
-        <Places markers={markers} changeCenter={changeCenter} />
+        <Collapsible
+          open={isOpen}
+          onOpenChange={setIsOpen}
+          className="absolute top-16 right-2 flex flex-col items-end z-10"
+        >
+          <CollapsibleTrigger asChild>
+            <Button variant="ghost">
+              <SquareMenu className="size-8" />
+            </Button>
+          </CollapsibleTrigger>
+          <CollapsibleContent className="flex flex-col space-y-2">
+            <Button
+              className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm"
+              onClick={handleMyStore}
+            >
+              나만의 또갈집
+            </Button>
+            <Button
+              className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm"
+              onClick={handleCategory}
+            >
+              근처 가게
+            </Button>
+            <Button className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+              기프티콘 가게
+            </Button>
+          </CollapsibleContent>
+        </Collapsible>
+        {markers.length > 0 && <Places markers={markers} changeCenter={changeCenter} />}
+        {isShow && <MyStores changeCenter={changeCenter} />}
       </Map>
     </div>
   );

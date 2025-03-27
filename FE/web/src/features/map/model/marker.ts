@@ -4,10 +4,10 @@ export type Coordinates = {
 };
 
 export type Marker = {
-  id: string;
+  id: string | number;
   position: Coordinates;
   place_name: string;
   address_name: string;
   place_url: string;
-  category_group_name: string;
+  visited_count?: number;
 };

@@ -21,7 +21,7 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        log.info("its : dadadadadadada%%%%%%%%$$$$$$$$$$$$$$$");
+        log.debug("token check filter");
 
         // "/api/users/social/kakao/login"을 제외한 모든 요청 처리
         if (!request.getRequestURI().equals("/api/users/social/kakao/login")) {
@@ -30,7 +30,13 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
             log.info("its : " + token);
             if ("acc-tkn".equals(token)) {
                 // 토큰이 valid하면 유저 정보 설정 (예: userId = 32)
-                CustomUserDetails userDetails = new CustomUserDetails(3211153);
+                CustomUserDetails userDetails = new CustomUserDetails((long) 1);
+                CustomAuthToken authToken = new CustomAuthToken(userDetails, null,
+                        userDetails.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authToken);
+            } else if ("acc-tkn2".equals(token)) {
+                // 토큰이 valid하면 유저 정보 설정 (예: userId = 32)
+                CustomUserDetails userDetails = new CustomUserDetails((long) 2);
                 CustomAuthToken authToken = new CustomAuthToken(userDetails, null,
                         userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authToken);

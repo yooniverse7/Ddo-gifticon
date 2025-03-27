@@ -2,7 +2,6 @@ package com.example.ddo_pay.restaurant.controller;
 
 import static com.example.ddo_pay.common.response.ResponseCode.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.example.ddo_pay.common.response.Response;
@@ -10,126 +9,111 @@ import com.example.ddo_pay.common.response.ResponseCode;
 import com.example.ddo_pay.restaurant.dto.request.CustomMenuRequestDto;
 import com.example.ddo_pay.restaurant.dto.request.RestaurantCreateRequestDto;
 import com.example.ddo_pay.restaurant.dto.request.RestaurantDeleteRequestDto;
+import com.example.ddo_pay.restaurant.dto.response.RestaurantDetailResponseDto;
 import com.example.ddo_pay.restaurant.dto.response.RestaurantListItemResponseDto;
 import com.example.ddo_pay.restaurant.dto.response.RestaurantSimpleResponseDto;
-
-import org.springframework.http.HttpStatus;
+import com.example.ddo_pay.restaurant.dto.response.ResponsePositionDto;
+import com.example.ddo_pay.restaurant.service.RestaurantService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-
+/**
+ * 실제 DB 연동: Service 호출을 통해 비즈니스 로직 수행
+ */
 @RestController
 @RequestMapping("/api/restaurants")
+@RequiredArgsConstructor
 public class RestaurantController {
+
+	private final RestaurantService restaurantService; // Service 주입
 
 	/**
 	 * 맛집 등록 (POST /api/restaurants)
-	 *
-	 * RequestBody 예시
-	 * {
-	 *   "restaurantName": "김밥천국",
-	 *   "restaurantImage": "http://example.com/images/abc.jpg",
-	 *   "address": "서울 어딘가",
-	 *   "latitude": 37.1234,
-	 *   "longitude": 127.5678,
-	 *   "menu": [
-	 *     {
-	 *       "menuName": "라면",
-	 *       "menuPrice": 4000,
-	 *       "menuImage": "http://example.com/images/ramen.jpg"
-	 *     },
-	 *     ...
-	 *   ],
-	 *   "visitedCount": 0
-	 * }
-	 *
-	 * Response 예시 (status 204):
-	 * {
-	 *   "status": {
-	 *     "code": 204,
-	 *     "message": "맛집 등록 성공."
-	 *   },
-	 *   "content": null
-	 * }
 	 */
 	@PostMapping
 	public ResponseEntity<?> create(@RequestBody RestaurantCreateRequestDto requestDto) {
+		// 실제 DB 연동
+		restaurantService.createRestaurant(requestDto);
+
 		return ResponseEntity
-			.status(ResponseCode.SUCCESS_CREATE_RESTAURANT.getHttpStatus())
-			.body(Response.create(ResponseCode.SUCCESS_CREATE_RESTAURANT, null));
+				.status(SUCCESS_CREATE_RESTAURANT.getHttpStatus())  // 204, 혹은 201 등
+				.body(Response.create(SUCCESS_CREATE_RESTAURANT, null));
 	}
 
+	/**
+	 * 맛집 해제(삭제) (DELETE /api/restaurants)
+	 */
 	@DeleteMapping
 	public ResponseEntity<?> removeRestaurant(@RequestBody RestaurantDeleteRequestDto requestDto) {
-		// 실제 삭제 로직: e.g. restaurantService.deleteRestaurant(requestDto.getRestaurantId());
+		// 실제 DB 연동
+		restaurantService.removeRestaurant(requestDto);
 
-		// 200 OK
 		return ResponseEntity
-			.status(SUCCESS_REMOVE_RESTAURANT.getHttpStatus())  // 200
-			.body(Response.create(SUCCESS_REMOVE_RESTAURANT, null));
+				.status(SUCCESS_REMOVE_RESTAURANT.getHttpStatus())  // 200
+				.body(Response.create(SUCCESS_REMOVE_RESTAURANT, null));
 	}
 
+	/**
+	 * 등록된 맛집 리스트 조회 (GET /api/restaurants)
+	 */
 	@GetMapping
-	public ResponseEntity<?> getRegisteredRestaurantList() {
-		List<RestaurantListItemResponseDto> dummyList = new ArrayList<>();
+	public ResponseEntity<?> getRegisteredRestaurantList(
+			@RequestParam(required = false) Double lat,
+			@RequestParam(required = false) Double lng
+	) {
+		// lat, lng가 넘어오는 경우 사용
+		// 넘어오지 않을 경우엔 null 이므로, 추가 처리나 기본값 설정 가능
 
-		RestaurantListItemResponseDto r1 = new RestaurantListItemResponseDto();
-		r1.setRestaurantName("김밥천국");
-		r1.setRestaurantImage("http://example.com/images/kimbab.jpg");
-		r1.setAddress("서울 종로구 어딘가");
-		r1.setLatitude(37.1234);
-		r1.setLongitude(127.5678);
-		r1.setVisitedCount(0);
+		// 실제 DB 연동
+		List<RestaurantListItemResponseDto> list = restaurantService.getRegisteredRestaurantList();
 
-		RestaurantListItemResponseDto r2 = new RestaurantListItemResponseDto();
-		r2.setRestaurantName("식당B");
-		r2.setRestaurantImage("http://example.com/images/restaurant_b.jpg");
-		r2.setAddress("서울 강남구 어딘가");
-		r2.setLatitude(37.5678);
-		r2.setLongitude(127.1234);
-		r2.setVisitedCount(3);
-
-		dummyList.add(r1);
-		dummyList.add(r2);
-
-		// 공통 Response로 감싸서 반환
 		return ResponseEntity
-			.status(SUCCESS_GET_RESTAURANT_LIST.getHttpStatus())
-			.body(Response.create(SUCCESS_GET_RESTAURANT_LIST, dummyList));
+				.status(SUCCESS_GET_RESTAURANT_LIST.getHttpStatus())
+				.body(Response.create(SUCCESS_GET_RESTAURANT_LIST, list));
 	}
 
+
+	/**
+	 * 맛집 상세 조회 (GET /api/restaurants/{restaurantId})
+	 * - 간단 정보 혹은 상세 정보 모두 가능
+	 */
 	@GetMapping("/{restaurantId}")
-	public ResponseEntity<?> getRestaurantSimple(@PathVariable Long restaurantId) {
-		// 실제 로직: e.g. restaurantService.getRestaurantSimple(restaurantId)
-		// 여기서는 임시 mock 데이터 예시
-		RestaurantSimpleResponseDto dto = new RestaurantSimpleResponseDto();
-		dto.setRestaurantName("김밥천국");
-		dto.setRestaurantAddress("서울 종로구 어딘가");
-		dto.setRestaurantLatitude(37.1234);
-		dto.setRestaurantLongitude(127.5678);
+	public ResponseEntity<?> getSimpleRestaurantInfo(@PathVariable Long restaurantId) {
+
+		// 실제 DB 엔티티 조회
+		// Service 로직에서 RestaurantDetailResponseDto 등을 리턴한다고 가정
+		RestaurantDetailResponseDto detail = restaurantService.getRestaurantDetail(restaurantId);
 
 		return ResponseEntity
-			.status(SUCCESS_GET_SIMPLE_RESTAURANT.getHttpStatus()) // 200
-			.body(Response.create(SUCCESS_GET_SIMPLE_RESTAURANT, dto));
+				.ok(
+						Response.create(ResponseCode.SUCCESS_GET_SIMPLE_RESTAURANT, detail)
+				);
 	}
 
+	/**
+	 * 커스텀 메뉴 등록 (POST /api/restaurants/custom)
+	 */
 	@PostMapping("/custom")
 	public ResponseEntity<?> createCustomMenu(@RequestBody CustomMenuRequestDto requestDto) {
-		// 실제 등록 로직: e.g. customMenuService.createMenu(requestDto);
+		// 실제 등록 로직
+		restaurantService.createCustomMenu(requestDto);
+
 		return ResponseEntity
-			.status(SUCCESS_CREATE_CUSTOM_MENU.getHttpStatus())  // 200
-			.body(Response.create(SUCCESS_CREATE_CUSTOM_MENU, null));
+				.status(SUCCESS_CREATE_CUSTOM_MENU.getHttpStatus())  // 200
+				.body(Response.create(SUCCESS_CREATE_CUSTOM_MENU, null));
 	}
 
+	/**
+	 * 커스텀 메뉴 삭제 (DELETE /api/restaurants/custom/{customId})
+	 */
 	@DeleteMapping("/custom/{customId}")
 	public ResponseEntity<?> deleteCustomMenu(@PathVariable Long customId) {
-		// 실제 비즈니스 로직: e.g. customMenuService.deleteCustomMenu(customId);
+		// 실제 비즈니스 로직
+		restaurantService.deleteCustomMenu(customId);
 
 		return ResponseEntity
-			.status(SUCCESS_DELETE_CUSTOM_MENU.getHttpStatus())  // 200
-			.body(Response.create(SUCCESS_DELETE_CUSTOM_MENU, null));
+				.status(SUCCESS_DELETE_CUSTOM_MENU.getHttpStatus())  // 200
+				.body(Response.create(SUCCESS_DELETE_CUSTOM_MENU, null));
 	}
-
 }

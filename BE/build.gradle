@@ -24,18 +24,31 @@ repositories {
 }
 
 dependencies {
-//	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	runtimeOnly 'org.postgresql:postgresql'
+	// runtimeOnly 'org.postgresql:postgresql'
+	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// Selenium
+	implementation 'org.seleniumhq.selenium:selenium-java:4.26.0'
+
+	// WebDriverManager (자동 버전 맞춤)
+	implementation 'io.github.bonigarcia:webdrivermanager:5.9.2'
+
 	
 	// security 의존성, 시큐리티 이슈 발생 시 아래 의존성 주석처리
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	// MapStruct 매퍼
+	implementation 'org.mapstruct:mapstruct:1.5.3.Final'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
+
 	implementation 'io.jsonwebtoken:jjwt:0.12.6'
 }
 

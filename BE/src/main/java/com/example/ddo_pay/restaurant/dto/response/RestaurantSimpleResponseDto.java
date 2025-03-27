@@ -7,8 +7,8 @@ import lombok.Data;
  */
 @Data
 public class RestaurantSimpleResponseDto {
-	private String restaurantName;
-	private String restaurantAddress;
-	private Double restaurantLatitude;
-	private Double restaurantLongitude;
+	private Long id;
+	private String placeName;
+	private String addressName;
+	private ResponsePositionDto position;
 }

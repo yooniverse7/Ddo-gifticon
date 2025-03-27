@@ -26,10 +26,10 @@ export const checkCameraAndAudioPermissions = async (): Promise<boolean> => {
     const cameraResult: PermissionStatus = await check(PERMISSIONS.ANDROID.CAMERA);
     // 오디오 권한 확인
     const audioResult: PermissionStatus = await check(PERMISSIONS.ANDROID.RECORD_AUDIO);
-    
+
     console.log('카메라 권한 상태:', cameraResult);
     console.log('오디오 권한 상태:', audioResult);
-    
+
     // 카메라 권한이 필요한 경우
     if (cameraResult === RESULTS.DENIED) {
       console.log('카메라 권한 요청 중...');
@@ -39,7 +39,7 @@ export const checkCameraAndAudioPermissions = async (): Promise<boolean> => {
       showSettingsAlert('카메라');
       return false; // 설정으로 이동하는 얼럿이 표시된 경우 함수 종료
     }
-    
+
     // 오디오 권한이 필요한 경우
     if (audioResult === RESULTS.DENIED) {
       console.log('오디오 권한 요청 중...');
@@ -49,11 +49,11 @@ export const checkCameraAndAudioPermissions = async (): Promise<boolean> => {
       showSettingsAlert('오디오');
       return false;
     }
-    
+
     // 최종 권한 상태 확인
     const finalCameraResult: PermissionStatus = await check(PERMISSIONS.ANDROID.CAMERA);
     const finalAudioResult: PermissionStatus = await check(PERMISSIONS.ANDROID.RECORD_AUDIO);
-    
+
     if (finalCameraResult === RESULTS.GRANTED && finalAudioResult === RESULTS.GRANTED) {
       console.log('모든 권한이 허용되어 있습니다. 카메라 기능을 사용할 수 있습니다.');
       return true;
