@@ -1,4 +1,4 @@
-package com.example.ddo_pay.common.util.redis.handler;
+package com.example.ddo_pay.common.util;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

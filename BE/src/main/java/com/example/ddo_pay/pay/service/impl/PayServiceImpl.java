@@ -1,6 +1,6 @@
 package com.example.ddo_pay.pay.service.impl;
 
-import com.example.ddo_pay.common.util.redis.handler.RedisHandler;
+import com.example.ddo_pay.common.util.RedisHandler;
 import com.example.ddo_pay.pay.dto.finance.DepositAccountWithdrawRequestDto;
 import com.example.ddo_pay.pay.dto.request.AccountVerifyRequest;
 import com.example.ddo_pay.pay.finance_api.FinanceClient;
