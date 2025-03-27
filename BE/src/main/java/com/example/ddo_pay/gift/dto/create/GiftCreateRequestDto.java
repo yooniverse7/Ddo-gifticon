@@ -25,7 +25,7 @@ public class GiftCreateRequestDto {
     @Data
     public static class RestaurantDto {
         private Long id;
-        private List<MenuInfoDto> menuDtoList;
+        private List<MenuInfoDto> menu;
     }
 
     @Data

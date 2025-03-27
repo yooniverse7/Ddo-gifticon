@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class GiftSelectResponseDto {
     private Long giftId;
     private String sendUserName;
-    private LocalDateTime period;
+    private LocalDateTime expirationDate;
     private String image;
     private USED usedStatus;
 
@@ -20,7 +20,7 @@ public class GiftSelectResponseDto {
         GiftSelectResponseDto dto = new GiftSelectResponseDto();
         dto.giftId = gift.getId();
         dto.sendUserName = gift.getUser().getName();
-        dto.period = gift.getExpirationDate();
+        dto.expirationDate = gift.getExpirationDate();
         dto.image = gift.getImage();
         dto.usedStatus = gift.getUsedStatus();
         return dto;

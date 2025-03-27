@@ -64,8 +64,12 @@ public class Gift {
         this.phoneNum = dto.getPhoneNum();
     }
 
-    public void setGiftBox(GiftBox giftBox) {
+    public void changeGiftBox(GiftBox giftBox) {
         this.giftBox = giftBox;
+    }
+
+    public void changeUsedStatus() {
+        this.usedStatus = USED.AFTER_USE;
     }
 }
 

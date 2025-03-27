@@ -11,5 +11,7 @@ import com.example.ddo_pay.restaurant.dto.response.ResponsePositionDto;
 @Data
 public class RestaurantCrawlingRequestDto {
 	private ResponsePositionDto position;
-	private int userId;
+	private Long userId;
+	private String placeName;
+	private String addressName;
 }

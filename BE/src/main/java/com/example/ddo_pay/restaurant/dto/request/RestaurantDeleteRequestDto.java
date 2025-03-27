@@ -7,6 +7,6 @@ import lombok.Data;
  */
 @Data
 public class RestaurantDeleteRequestDto {
-	private int userId;
+	private Long userId;
 	private Long restaurantId;
 }

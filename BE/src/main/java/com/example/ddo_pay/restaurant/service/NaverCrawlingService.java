@@ -1,5 +1,6 @@
 package com.example.ddo_pay.restaurant.service;
 
+import com.example.ddo_pay.restaurant.dto.request.RestaurantCrawlingRequestDto;
 import com.example.ddo_pay.restaurant.dto.response.RestaurantCrawlingMenuDto;
 import com.example.ddo_pay.restaurant.dto.response.RestaurantCrawlingStoreDto;
 import com.example.ddo_pay.restaurant.dto.response.ResponsePositionDto;
@@ -17,6 +18,22 @@ import java.util.List;
 @Service
 @Slf4j
 public class NaverCrawlingService {
+
+	/**
+	 * 1) 새로 추가한 메서드
+	 *    - 컨트롤러에서 "requestDto"를 넘겨주면,
+	 *      내부적으로 "addressName"을 꺼내서 crawlStoreDetailsByAddress(...)를 재활용합니다.
+	 */
+	public List<RestaurantCrawlingStoreDto> getCrawlingInfo(RestaurantCrawlingRequestDto requestDto) {
+		// DTO 내부에 "addressName" 필드가 있다고 가정
+		String address = requestDto.getAddressName();
+
+		// 필요하다면 placeName도 쓸 수 있음
+		// String placeName = requestDto.getPlaceName();
+
+		// 여기서 "crawlStoreDetailsByAddress" 재사용
+		return crawlStoreDetailsByAddress(address);
+	}
 
 	public List<RestaurantCrawlingStoreDto> crawlStoreDetailsByAddress(String address) {
 		List<RestaurantCrawlingStoreDto> resultList = new ArrayList<>();

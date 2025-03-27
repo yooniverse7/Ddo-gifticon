@@ -10,7 +10,7 @@ export const FavoriteStores = () => {
   return (
     <div className="flex flex-col w-full h-full gap-4">
       {favoriteStores?.map(
-        ({ id, place_name, position, restaurant_image, visited_count, address_name }) => (
+        ({ id, place_name, position, main_image_url, visited_count, address_name }) => (
           <div className="flex items-center gap-2" key={id}>
             <Input id={address_name} type="checkbox" className="w-6 h-6 rounded-full" />
             <Label htmlFor={address_name}>
@@ -19,7 +19,7 @@ export const FavoriteStores = () => {
                   <p>가게명: {place_name}</p>
                   <p>주소: {address_name}</p>
                   <p>방문 횟수: {visited_count}</p>
-                  <div>이미지 주소: {restaurant_image}</div>
+                  <div>이미지 주소: {main_image_url}</div>
                 </div>
               </div>
             </Label>

@@ -26,6 +26,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,6 +39,8 @@ public class GiftServiceImpl implements GiftService {
     private final RestaurantRepository restaurantRepository;
     private final PayService payService;
 
+    private static final Logger log = Logger.getLogger(GiftServiceImpl.class.getName());
+
     /* 맛집 기반으로 기프티콘을 생성할 수 있다. 현재 생성할 때, 같이 이뤄져야 할 결제 로직 빠져있다. */
     @Override
     public void create(GiftCreateRequestDto dto, Long userId) {
@@ -47,11 +50,11 @@ public class GiftServiceImpl implements GiftService {
         User user = userRepository.findById(Long.valueOf(userId)).orElseThrow(() -> new CustomException(ResponseCode.NO_EXIST_USER));
         Restaurant restaurant = restaurantRepository.findById(dto.getRestaurant().getId()).orElseThrow(() -> new CustomException(ResponseCode.NO_EXIST_RESTAURANT));
 
-        String menuComb = dto.getRestaurant().getMenuDtoList().stream()
+        String menuComb = dto.getRestaurant().getMenu().stream()
                 .map(menu -> menu.getMenuName() + "(" + menu.getMenuCount() + "개)")
                 .collect(Collectors.joining(", "));
 
-
+        log.info("메뉴 조합 : " + menuComb);
 
         Gift gift = Gift.builder()
                 .title(dto.getGiftTitle())
@@ -68,19 +71,20 @@ public class GiftServiceImpl implements GiftService {
 
         // 기프티콘 저장
         giftRepository.save(gift);
-
+        log.info(gift.toString());
         // 2. 저장된 기프티콘에 대해 받은 기프티콘 목록에 추가하기
         GiftBox giftBox = new GiftBox(user, gift);
         giftBoxRepository.save(giftBox);
 
-        gift.setGiftBox(giftBox);
+        gift.changeGiftBox(giftBox);
         giftRepository.save(gift);
 
 
         // 3. 맛집 메뉴들의 총액을 계산 후, 결제자의 또페이 잔고에서 출금한다.
-        int totalMenuAmount = dto.getRestaurant().getMenuDtoList().stream()
+        int totalMenuAmount = dto.getRestaurant().getMenu().stream()
                 .mapToInt(menu -> menu.getMenuAmount() * menu.getMenuCount())
                 .sum();
+        log.info("메뉴 총 금액 : " + totalMenuAmount);
 
         // 해당 유저의 또페이 계정의 잔고에서 출금되는 로직이라고 가정.
 //        payService.Withdrawal(user, totalMenuAmount);
@@ -109,13 +113,35 @@ public class GiftServiceImpl implements GiftService {
         }
     }
 
+    /**
+     * 1. 시큐리티에서 userId 꺼내기
+     * 2. userId로 DB 조회, user Entity 조회
+     * 3. user.getGiftBoxList()
+     * 4. iter giftbox entitiy
+     * 5. 만료 기간, 현재시간 비교
+     * 6. 상태 변경
+     * 7. db 저장
+     * 8. 응답
+     */
     @Override
     public List<GiftSelectResponseDto> selectMyList(Long userId) {
-        User findUser = userRepository.findById(userId).orElseThrow(() -> new CustomException(ResponseCode.NO_EXIST_USER));
-        List<Gift> findList = giftRepository.findByUser(findUser);
-        List<GiftSelectResponseDto> dtoList = new ArrayList<>();
 
-        for (Gift gift : findList) {
+        // 1. userId로 DB 조회, user Entity 조회
+        User findUser = userRepository.findById(userId).orElseThrow(() -> new CustomException(ResponseCode.NO_EXIST_USER));
+        // 2. user.getGiftBoxList()
+        List<GiftBox> giftBoxList = findUser.getGiftBoxList();
+
+        // 3. iter giftbox entitiy
+        List<GiftSelectResponseDto> dtoList = new ArrayList<>();
+        for (GiftBox giftBox : giftBoxList) {
+            Gift gift = giftBox.getGift();
+            // 4. 만료 기간, 현재시간 비교
+            if(!isGiftOver(gift)) { // 만료일이 지난 경우
+                // 5. 상태 변경
+                gift.changeUsedStatus();
+                // 6. DB 저장
+                giftRepository.save(gift);
+            }
             GiftSelectResponseDto dto = GiftSelectResponseDto.from(gift);
             dtoList.add(dto);
         }
@@ -143,10 +169,15 @@ public class GiftServiceImpl implements GiftService {
                 .available(isUsable).build();
     }
 
+    // 기프티콘 만료 확인 메서드
+    private boolean isGiftOver(Gift gift) {
+        return gift.getExpirationDate().isBefore(LocalDateTime.now());
+    }
+
     // 기프티콘 사용 가능 여부 검증 메서드
     private boolean isGiftUsable(Gift gift, GiftCheckRequestDto dto) {
         // 1. 유효기간 만료 확인
-        if (gift.getExpirationDate().isBefore(LocalDateTime.now())) {
+        if (isGiftOver(gift)) {
             return false;
         }
 
@@ -160,8 +191,8 @@ public class GiftServiceImpl implements GiftService {
         double distance = calculateDistance(
                 Double.parseDouble(dto.getLatitude()),
                 Double.parseDouble(dto.getLongitude()),
-                restaurant.getResLat(),
-                restaurant.getResLng()
+                restaurant.getLat(),
+                restaurant.getLng()
         );
 
         // 4. 거리 검증 (반경 15m 이내)

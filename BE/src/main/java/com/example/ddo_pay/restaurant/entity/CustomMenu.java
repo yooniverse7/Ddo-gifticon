@@ -1,12 +1,16 @@
 package com.example.ddo_pay.restaurant.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Builder
 public class CustomMenu {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,4 +28,13 @@ public class CustomMenu {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_restaurant_id")
     private UserRestaurant userRestaurant;
+
+    @Builder
+    public CustomMenu(String customMenuName, Integer customMenuPrice, String customMenuImage, UserRestaurant userRestaurant) {
+        this.customMenuName = customMenuName;
+        this.customMenuPrice = customMenuPrice;
+        this.customMenuImage = customMenuImage;
+        this.userRestaurant = userRestaurant;
+    }
+
 }
