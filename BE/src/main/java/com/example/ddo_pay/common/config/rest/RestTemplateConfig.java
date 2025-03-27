@@ -1,4 +1,4 @@
-package com.example.ddo_pay.global.config;
+package com.example.ddo_pay.common.config.rest;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

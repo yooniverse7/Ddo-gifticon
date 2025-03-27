@@ -36,10 +36,19 @@ public class PayController {
     @PostMapping("/account/verify")
     public ResponseEntity<?> verifyAccount(@RequestBody AccountVerifyRequest request) {
         Long userId = SecurityUtil.getUserId();
-        payService.verifyAccount(request, userId);
+        String financeCode = payService.verifyAccount(userId, request);
 
-        return new ResponseEntity<>(Response.create(SUCCESS_VERIFY_ACCOUNT, null), SUCCESS_VERIFY_ACCOUNT.getHttpStatus());
+        ResponseCode responseCode = switch (financeCode) {
+            case "H0000" -> ResponseCode.SUCCESS_VERIFY_ACCOUNT;
+            case "A1003" -> ResponseCode.INVALID_ACCOUNT;
+            case "ERR_API" -> ResponseCode.FINANCE_API_ERROR;
+            case "ERR_PARSING" -> ResponseCode.FINANCE_PARSING_ERROR;
+            default -> ResponseCode.UNKNOWN_ERROR;
+        };
+
+        return new ResponseEntity<>(Response.create(responseCode, null), responseCode.getHttpStatus());
     }
+
 
 
 

@@ -21,19 +21,18 @@ public class FinanceClient {
             "https://finopenapi.ssafy.io/ssafy/api/v1/edu/demandDeposit/updateDemandDepositAccountTransfer";
 
 
-    // 계좌 이체 api 호출
-    public boolean sendOneWonTransfer(DepositAccountWithdrawRequestDto dto) {
+    // 1원 계좌 이체 api 호출
+    public ResponseEntity<String> sendOneWonTransfer(DepositAccountWithdrawRequestDto dto) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         HttpEntity<DepositAccountWithdrawRequestDto> request = new HttpEntity<>(dto, headers);
 
         try {
-            ResponseEntity<String> response = restTemplate.postForEntity(FINANCE_API_URL, request, String.class);
-            return response.getStatusCode().is2xxSuccessful();
+            return restTemplate.postForEntity(FINANCE_API_URL, request, String.class);
         } catch (Exception e) {
             System.out.println("금융망 호출 실패: " + e.getMessage());
-            return false;
+            return null;
         }
     }
 
