@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         MATTERMOST_WEBHOOK = "https://meeting.ssafy.com/hooks/kd8p46dntiys5xc9tukqedt9jr"
-        IMAGE_NAME = "5almiakki/s12p21e106"
+        IMAGE_NAME = "daum4572/s12p21e106"
         TAG = "latest"
         CONTAINER_NAME = "s12p21e106-backend"
         WORKSPACE_DIR = "BE"
