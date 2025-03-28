@@ -6,21 +6,10 @@ pipeline {
         IMAGE_NAME = "5almiakki/s12p21e106"
         TAG = "latest"
         CONTAINER_NAME = "s12p21e106-backend"
-        WORKSPACE_DIR = '/var/jenkins_home/workspace/ddopay/BE'
+        WORKSPACE_DIR = "BE"
     }
 
     stages {
-        stage('gitlab') {
-            steps {
-                echo 'Notify GitLab'
-                updateGitlabCommitStatus name: 'build', state: 'pending'
-                script {
-                    // Check if build status failed and notify
-                    updateGitlabCommitStatus name: 'build', state: currentBuild.result == 'SUCCESS' ? 'success' : 'failed'
-                }
-            }
-        }
-
         stage('Checkout') {
             steps {
                 checkout([$class: 'GitSCM',
@@ -30,29 +19,34 @@ pipeline {
                         credentialsId: 'gitlab-credentials'
                     ]]
                 ])
+
+                // Git 상태 업데이트는 clone 후에 실행
+                updateGitlabCommitStatus name: 'build', state: 'pending'
             }
         }
 
         stage('Build') {
             steps {
-                sh "cd ${WORKSPACE_DIR}; chmod +x ./gradlew; ./gradlew clean build -x test"
+                dir("${WORKSPACE_DIR}") {
+                    sh "chmod +x ./gradlew"
+                    sh "./gradlew clean build -x test"
+                }
             }
         }
 
         stage('Docker Build & Push') {
             steps {
                 script {
-                    // Build Docker image
-                    sh "cd ${WORKSPACE_DIR}; docker build -t ${IMAGE_NAME}:${TAG} ."
+                    dir("${WORKSPACE_DIR}") {
+                        sh "docker build -t ${IMAGE_NAME}:${TAG} ."
+                    }
 
-                    // Docker Hub login
                     withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                         sh '''
                             echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
                         '''
                     }
 
-                    // Push Docker image to Docker Hub
                     sh "docker push ${IMAGE_NAME}:${TAG}"
                 }
             }
@@ -61,7 +55,6 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    // Clean up and deploy new container
                     sh """
                         docker container rm -f ${CONTAINER_NAME} || true
                         docker image rm -f ${IMAGE_NAME}:${TAG} || true
@@ -83,6 +76,7 @@ pipeline {
                     "text": "✅ [Spring Boot] Jenkins Build & Deployment Success! 🎉\n🔹 프로젝트: S12P21E106\n🔹 서비스: Backend (Spring Boot + Docker)\n🔹 상태: 성공 ✅"
                 }' ${MATTERMOST_WEBHOOK}
                 '''
+                updateGitlabCommitStatus name: 'build', state: 'success'
             }
         }
         failure {
@@ -92,6 +86,7 @@ pipeline {
                     "text": "❌ [Spring Boot] Jenkins Build Failed! 🔥\n🔹 프로젝트: S12P21E106\n🔹 서비스: Backend (Spring Boot + Docker)\n🔹 상태: 실패 ❌"
                 }' ${MATTERMOST_WEBHOOK}
                 '''
+                updateGitlabCommitStatus name: 'build', state: 'failed'
             }
         }
     }
