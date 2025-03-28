@@ -30,7 +30,7 @@ pipeline {
                 script {
                     withCredentials([file(credentialsId: 'application-yml', variable: 'APP_YML')]) {
                         // 리소스 경로에 application.yml 복사
-                        sh 'cp $APP_YML ./src/main/resources/application.yml'
+                        sh 'cp $APP_YML ./ddo-pay/src/main/resources/application.yml'
                     }
                 }
             }
