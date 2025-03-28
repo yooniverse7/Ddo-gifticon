@@ -40,11 +40,12 @@ pipeline {
         stage('Build') {
             steps {
                 echo "[DEBUG] Build 단계 진입"
-                sh "ls -l ./gradlew"                        // 실행 권한 확인
-                sh "chmod +x ./gradlew"                     // 실행 권한 부여
-                sh "./gradlew clean build -x test"
+                sh "ls -l BE/gradlew"
+                sh "chmod +x BE/gradlew"
+                sh "BE/gradlew clean build -x test"
             }
         }
+
 
 
         stage('Docker Build & Push') {
