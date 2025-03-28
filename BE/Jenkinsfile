@@ -13,7 +13,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout([$class: 'GitSCM',
-                    branches: [[name: '*/develop']],
+                    branches: [[name: '*/BE/#262/Feature/Infra']],
                     userRemoteConfigs: [[
                         url: 'https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106.git',
                         credentialsId: 'gitlab-credentials'
