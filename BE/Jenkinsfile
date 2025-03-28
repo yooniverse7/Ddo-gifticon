@@ -6,8 +6,8 @@ pipeline {
         IMAGE_NAME = "daum4572/s12p21e106"
         TAG = "latest"
         CONTAINER_NAME = "s12p21e106-backend"
-        WORKSPACE_DIR = "ddo-pay"
-        CONFIG_PATH = "./ddo-pay/src/main/resources/application.yml"
+        WORKSPACE_DIR = "."  // 현재 Jenkinsfile 기준 (BE)
+        CONFIG_PATH = "./src/main/resources/application.yml"
     }
 
     stages {
@@ -29,9 +29,10 @@ pipeline {
             steps {
                 script {
                     withCredentials([file(credentialsId: 'application-yml', variable: 'APP_YML')]) {
+                        sh 'mkdir -p ./src/main/resources'
                         sh 'echo "[INFO] Copying application.yml to resources folder..."'
                         sh 'cp $APP_YML ${CONFIG_PATH}'
-                        sh 'ls -al ${CONFIG_PATH}'
+                        sh 'ls -al ./src/main/resources'
                     }
                 }
             }
@@ -39,19 +40,15 @@ pipeline {
 
         stage('Build') {
             steps {
-                dir("${WORKSPACE_DIR}") {
-                    sh "chmod +x ./gradlew"
-                    sh "./gradlew clean build -x test"
-                }
+                sh "chmod +x ./gradlew"
+                sh "./gradlew clean build -x test"
             }
         }
 
         stage('Docker Build & Push') {
             steps {
                 script {
-                    dir("${WORKSPACE_DIR}") {
-                        sh "docker build -t ${IMAGE_NAME}:${TAG} ."
-                    }
+                    sh "docker build -t ${IMAGE_NAME}:${TAG} ."
                     withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                         sh 'echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin'
                     }
