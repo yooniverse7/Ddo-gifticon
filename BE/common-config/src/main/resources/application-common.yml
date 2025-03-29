@@ -1,0 +1,44 @@
+#logging:
+#  level:
+#    root: INFO
+spring:
+  # 요청 응답 형식 변환(카멜->스네이크 / 스네이크 -> 카멜)
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+    serialization:
+      indent_output: true
+  # DB 설정
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ddopay?useSSL=false&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 1234
+    hikari:
+      pool-name: jpa-hikari-pool
+      maximum-pool-size: 5
+      jdbc-url: ${spring.datasource.url}
+      username: ${spring.datasource.username}
+      password: ${spring.datasource.password}
+      driver-class-name: ${spring.datasource.driver-class-name}
+      data-source-properties:
+        rewriteBatchedStatements: true
+
+  # JPA 설정
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    generate-ddl: false
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 100
+        jdbc.batch_size: 20
+        order_inserts: true
+        order_updates: true
+  # Redis 설정
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
