@@ -3,7 +3,7 @@ FROM gradle:8.4-jdk17 AS builder
 
 WORKDIR /app
 
-COPY . .
+COPY .. .
 
 RUN gradle clean build -x test
 
