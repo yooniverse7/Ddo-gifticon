@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+
+dependencies {
+    implementation project(':common-config')
+}
+
+//dependencies {
+//
+//
+//    implementation 'org.mapstruct:mapstruct:1.5.3.Final'
+//    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
+//
+//    compileOnly 'org.projectlombok:lombok:1.18.30'
+//    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+//
+//}
+// 필요하면 별도 의존성만 추가 (루트에서 공유 안 되는 경우만)
