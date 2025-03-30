@@ -10,9 +10,9 @@ spring:
   # DB 설정
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/ddopay?useSSL=false&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://mysql:3306/ddopay?useSSL=false&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
     username: root
-    password: 1234
+    password: root
     hikari:
       pool-name: jpa-hikari-pool
       maximum-pool-size: 5
@@ -28,7 +28,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
     generate-ddl: false
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     show-sql: true
     properties:
       hibernate:
@@ -40,5 +40,5 @@ spring:
   # Redis 설정
   data:
     redis:
-      host: 127.0.0.1
+      host: redis
       port: 6379

@@ -1,0 +1,10 @@
+**/build
+**/.gradle
+**/out
+.gradle
+build
+.git
+.gitignore
+README.md
+Dockerfile
+docker-compose.yml
