@@ -1,4 +1,6 @@
 rootProject.name = 'BE'
-include 'common-config', 'ddo-store-service', 'bank-service', 'pos-service'
 
-
+include 'bank-service'
+include 'ddo-store-service'
+include 'pos-service'
+include 'common-config'

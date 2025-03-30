@@ -12,6 +12,9 @@ import java.util.List;
 
 @Service
 public interface GiftService {
+
+    // feignClient test api -> 로그 확인하기
+    boolean verifyAccount(String accountNumber, String userId);
     // 기프티콘 발행하기
     void create(GiftCreateRequestDto dto, Long userId);
 

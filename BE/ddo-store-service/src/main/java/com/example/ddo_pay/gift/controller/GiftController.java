@@ -26,6 +26,14 @@ public class GiftController {
 
     private final GiftService giftService;
 
+    @PostMapping("/ping")
+    public ResponseEntity<?> ping() {
+
+        giftService.verifyAccount("accountNumber", "userId");
+
+        return new ResponseEntity<>(Response.create(SUCCESS_CREATE_GIFTICON, null), SUCCESS_CREATE_GIFTICON.getHttpStatus());
+    }
+
     @PostMapping
     public ResponseEntity<?> create(@RequestBody GiftCreateRequestDto dto) {
 

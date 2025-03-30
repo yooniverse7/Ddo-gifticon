@@ -9,10 +9,19 @@ java {
 }
 
 
-    dependencies {
-        implementation project(':common-config')
-    }
+dependencies {
+    implementation project(':common-config')
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    implementation 'org.springframework.boot:spring-boot-starter-web' // 기본 REST 통신도 필요 시
+    implementation 'org.springframework.boot:spring-boot-starter-security'
 
+    testImplementation 'org.springframework.security:spring-security-test'
+}
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:2023.0.0" // 원하는 버전 사용
+    }
+}
 //dependencies {
 //
 //

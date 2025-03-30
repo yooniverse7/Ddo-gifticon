@@ -2,6 +2,9 @@ package com.example.ddo_pay.gift.service.impl;
 
 import com.example.ddo_pay.common.exception.CustomException;
 import com.example.ddo_pay.common.response.ResponseCode;
+import com.example.ddo_pay.feign.BankClient;
+import com.example.ddo_pay.feign.dto.BankVerifyRequest;
+import com.example.ddo_pay.feign.dto.BankVerifyResponse;
 import com.example.ddo_pay.gift.dto.GiftCheckResponseDto;
 import com.example.ddo_pay.gift.dto.GiftSelectResponseDto;
 import com.example.ddo_pay.gift.dto.create.GiftCreateRequestDto;
@@ -42,6 +45,17 @@ public class GiftServiceImpl implements GiftService {
     private static final Logger log = Logger.getLogger(GiftServiceImpl.class.getName());
 
     /* 맛집 기반으로 기프티콘을 생성할 수 있다. 현재 생성할 때, 같이 이뤄져야 할 결제 로직 빠져있다. */
+    private final BankClient bankClient;
+
+    @Override
+    public boolean verifyAccount(String accountNumber, String userId) {
+        BankVerifyRequest request = new BankVerifyRequest(accountNumber, userId);
+        BankVerifyResponse response  = bankClient.verifyAccount(request);
+
+        return response.isVerified();
+    }
+
+
     @Override
     public void create(GiftCreateRequestDto dto, Long userId) {
 

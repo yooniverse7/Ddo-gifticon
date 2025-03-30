@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '3.4.3'
+		springBootVersion = '3.2.3' // spring cloud 버전과 호환되지 않아 버전 낮춤
 	}
 	repositories {
 		mavenCentral()
@@ -30,8 +30,6 @@ subprojects {
 
 		implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
-		implementation 'org.springframework.boot:spring-boot-starter-security'
-
 		implementation 'org.seleniumhq.selenium:selenium-java:4.26.0'
 		implementation 'io.github.bonigarcia:webdrivermanager:5.9.2'
 
@@ -45,9 +43,7 @@ subprojects {
 
 		runtimeOnly 'com.mysql:mysql-connector-j'
 
-
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
-		testImplementation 'org.springframework.security:spring-security-test'
 		testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	}
 }

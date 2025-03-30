@@ -11,6 +11,8 @@ java {
 
 dependencies {
     implementation project(':common-config')
+
+    implementation 'org.springframework.boot:spring-boot-starter-web' // 기본 REST 통신도 필요 시
 }
 
 //dependencies {
