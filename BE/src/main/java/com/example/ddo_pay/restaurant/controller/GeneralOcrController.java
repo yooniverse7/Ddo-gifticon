@@ -33,7 +33,7 @@ public class GeneralOcrController {
     private final RestaurantRepository restaurantRepository;
     private final UserRestaurantRepository userRestaurantRepository;
     private final UserRepo userRepo; // 유저 조회용
-    // (또는 RestaurantServiceImpl를 주입받아 처리 로직 위임)
+    // (또는 RestaurantServiceImpl를 주입받아 처리 로직 위임)  
 
     /**
      *  POST /api/ocr/scan
