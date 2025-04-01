@@ -35,6 +35,8 @@ public class User {
     private String phoneNum; // 전화번호
     private LocalDateTime birthday; // 생일
     private String refreshToken; // 리프레시 토큰
+    @Column(unique = true)
+    private Long kakaoId;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Agreement agreement; // 동의항목과 1 대 1
@@ -77,6 +79,11 @@ public class User {
             this.birthday = LocalDateTime.parse(userDto.getBirth() + "T00:00:00",
                     DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         }
+    }
+
+    // 일반 회원이 나중에 카카오 로그인을 연동할 때 사용하는 메서드 (카카오 ID 추가)
+    public void linkKakaoAccount(Long kakaoId) {
+        this.kakaoId = kakaoId;
     }
 
 }
