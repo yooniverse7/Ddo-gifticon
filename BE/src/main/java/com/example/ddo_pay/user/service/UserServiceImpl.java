@@ -22,7 +22,6 @@ import lombok.extern.slf4j.Slf4j;
 public class UserServiceImpl implements UserService {
     private final UserRepo userRepo;
     private final UserMapper userMapper;
-    private final KakaoAuthService kakaoAuthService;
 
     @Override
     public SocialLoginResponseDto socialUserLogin(SocialLoginRequestDto reqDto) {

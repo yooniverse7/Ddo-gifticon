@@ -13,6 +13,11 @@ import static com.example.ddo_pay.common.response.ResponseCode.SUCCESS_GET_USER_
 import static com.example.ddo_pay.common.response.ResponseCode.SUCCESS_LOGOUT;
 import static com.example.ddo_pay.common.response.ResponseCode.SUCCESS_SOCIAL_LOGIN;
 import static com.example.ddo_pay.common.response.ResponseCode.SUCCESS_UPDATE_USER_INFO;
+
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 import com.example.ddo_pay.common.util.SecurityUtil;
 import com.example.ddo_pay.user.dto.UserDto;
 import com.example.ddo_pay.user.dto.request.SocialLoginRequestDto;
@@ -22,6 +27,7 @@ import com.example.ddo_pay.user.dto.response.UserInfoResponseDto;
 import com.example.ddo_pay.user.mapper.UserMapper;
 import com.example.ddo_pay.user.service.UserService;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -85,4 +91,5 @@ public class UserController {
         return new ResponseEntity<>(Response.create(SUCCESS_LOGOUT, null),
                 SUCCESS_LOGOUT.getHttpStatus());
     }
+
 }

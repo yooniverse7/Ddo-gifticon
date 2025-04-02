@@ -5,95 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec356b9-a81b-47af-bac5-7a4afa140429" name="Changes" comment=":wrench: [Chore] BANK 폴더 구조 변경">
-      <change afterPath="$PROJECT_DIR$/.gitlab-ci.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BANK/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BANK/settings.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BANK/src/main/java/com/example/ssafy_bank/bank/controller/BankController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BANK/src/main/java/com/example/ssafy_bank/bank/dto/finance_request/CreateAccountRequestDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BANK/src/main/java/com/example/ssafy_bank/bank/dto/finance_request/CreateUserKeyRequestDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BANK/src/main/java/com/example/ssafy_bank/bank/dto/finance_response/CreateAccountResponseDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BANK/src/main/java/com/example/ssafy_bank/bank/dto/finance_response/CreateUserKeyResponseDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BANK/src/main/java/com/example/ssafy_bank/bank/dto/request/EmailRequestDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BANK/src/main/java/com/example/ssafy_bank/bank/service/BankService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BANK/src/main/java/com/example/ssafy_bank/bank/service/impl/BankServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BANK/src/main/java/com/example/ssafy_bank/common/exception/CustomException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BANK/src/main/java/com/example/ssafy_bank/common/exception/GlobalExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BANK/src/main/java/com/example/ssafy_bank/common/response/ErrorResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BANK/src/main/java/com/example/ssafy_bank/common/response/Response.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BANK/src/main/java/com/example/ssafy_bank/common/response/ResponseCode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BANK/src/main/java/com/example/ssafy_bank/config/BankApiConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BANK/src/main/java/com/example/ssafy_bank/config/WebClientConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FE/web/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FE/web/public/NFCLogo.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FE/web/public/gift.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FE/web/public/heart.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FE/web/public/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FE/web/public/myStore.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FE/web/src/app/(BarLayout)/gift/get/[id]/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FE/web/src/app/(NoLayout)/pay/completed/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FE/web/src/app/(NoLayout)/pay/password/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FE/web/src/components/ui/card.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FE/web/src/components/ui/carousel.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FE/web/src/entity/gift/api/useFetchNFC.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FE/web/src/features/giftForm/ui/CustomMenuImageSelector.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FE/web/src/features/giftForm/ui/FavoriteMarketList.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FE/web/src/features/gitfBox/ui/GivenGiftDetail.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FE/web/src/features/gitfBox/ui/GivenGiftItem.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FE/web/src/features/gitfBox/ui/GivenGiftList.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FE/web/src/features/gitfBox/ui/SentGiftItem.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FE/web/src/features/gitfBox/ui/SentGiftList.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FE/web/src/features/kakaoLogin/api/useFetchLogin.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FE/web/src/features/kakaoLogin/ui/KakaoCallback.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FE/web/src/shared/modal/Modal.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FE/web/types/next-auth.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/S12P21E106.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/S12P21E106.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BANK/ssafy_bank/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/BANK/.gitattributes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BANK/ssafy_bank/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/BANK/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BANK/ssafy_bank/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/BANK/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BANK/ssafy_bank/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/BANK/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BANK/ssafy_bank/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BANK/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BANK/ssafy_bank/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/BANK/gradlew" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BANK/ssafy_bank/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/BANK/gradlew.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BANK/ssafy_bank/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BANK/ssafy_bank/src/main/java/com/example/ssafy_bank/SsafyBankApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/BANK/src/main/java/com/example/ssafy_bank/SsafyBankApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BANK/ssafy_bank/src/main/java/com/example/ssafy_bank/bank/controller/BankController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BANK/ssafy_bank/src/main/java/com/example/ssafy_bank/bank/entity/SsafyUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/BANK/src/main/java/com/example/ssafy_bank/bank/entity/SsafyUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BANK/ssafy_bank/src/main/java/com/example/ssafy_bank/bank/repository/BankRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/BANK/src/main/java/com/example/ssafy_bank/bank/repository/BankRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BANK/ssafy_bank/src/test/java/com/example/ssafy_bank/SsafyBankApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/BANK/src/test/java/com/example/ssafy_bank/SsafyBankApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/Jenkinsfile" beforeDir="false" afterPath="$PROJECT_DIR$/BE/Jenkinsfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/BE/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/ddo_pay/common/config/S3/FileUploadController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/ddo_pay/common/config/S3/S3Config.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/ddo_pay/common/config/security/CustomAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/ddo_pay/common/config/security/CustomAuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/ddo_pay/common/config/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/ddo_pay/common/config/security/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/mobile/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/FE/mobile/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/mobile/android/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/FE/mobile/android/gradlew" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/mobile/src/shared/utils/CheckPermission.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE/mobile/src/shared/utils/CheckPermission.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/web/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/FE/web/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/web/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/FE/web/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/web/public/restaurant.png" beforeDir="false" afterPath="$PROJECT_DIR$/FE/web/public/restaurant.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/web/src/app/(BarLayout)/gift/get/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/FE/web/src/app/(BarLayout)/gift/get/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/web/src/app/(NoLayout)/gift/create/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/FE/web/src/app/(NoLayout)/gift/create/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/web/src/app/(NoLayout)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/FE/web/src/app/(NoLayout)/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/web/src/app/(NoLayout)/login/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/FE/web/src/app/(NoLayout)/login/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/web/src/app/api/auth/[...nextauth]/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE/web/src/app/api/auth/[...nextauth]/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/web/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/FE/web/src/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/web/src/entity/store/api/useFetchFavoriteStores.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE/web/src/entity/store/api/useFetchFavoriteStores.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/web/src/entity/store/model/stores.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE/web/src/entity/store/model/stores.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/web/src/features/giftForm/ui/ContactList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/FE/web/src/features/giftForm/ui/ContactList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/web/src/features/giftForm/ui/GiftForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/FE/web/src/features/giftForm/ui/GiftForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/web/src/features/giftForm/ui/SearchBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/FE/web/src/features/giftForm/ui/SearchBar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/web/src/features/kakaoLogin/ui/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/FE/web/src/features/kakaoLogin/ui/Login.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/web/src/features/map/model/category.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE/web/src/features/map/model/category.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/web/src/features/map/model/marker.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE/web/src/features/map/model/marker.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/web/src/features/map/ui/KakaoMap.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/FE/web/src/features/map/ui/KakaoMap.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/web/src/features/map/ui/Markers.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/FE/web/src/features/map/ui/Markers.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/web/src/features/map/ui/MyGifts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/FE/web/src/features/map/ui/MyGifts.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/web/src/features/map/ui/MyStores.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/FE/web/src/features/map/ui/MyStores.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/web/src/features/map/ui/Places.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/FE/web/src/features/map/ui/Places.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/web/src/shared/msw/mock/data/gift.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE/web/src/shared/msw/mock/data/gift.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE/web/src/shared/msw/mock/data/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE/web/src/shared/msw/mock/data/store.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,9 +91,9 @@
     "Gradle.BE [bootRun].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Merging BE/#555/Feature/Login",
+    "git-widget-placeholder": "BE/#555/Feature/Login",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/SSAFY/Desktop/S12P21E106",
+    "last_opened_file_path": "C:/Users/SSAFY/Desktop/S12P21E106/BE",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -245,7 +157,8 @@
       <workItem from="1742793664216" duration="86000" />
       <workItem from="1742793766684" duration="19000" />
       <workItem from="1743508840226" duration="1729000" />
-      <workItem from="1743570091333" duration="101000" />
+      <workItem from="1743570091333" duration="171000" />
+      <workItem from="1743570372144" duration="36000" />
     </task>
     <servers />
   </component>
