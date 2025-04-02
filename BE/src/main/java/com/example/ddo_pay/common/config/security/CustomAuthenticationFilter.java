@@ -21,11 +21,11 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        log.debug("token check filter");
+        log.info("token check filter loading");
 
         // "/api/users/social/kakao/login"을 제외한 모든 요청 처리
         if (!request.getRequestURI().equals("/api/users/social/kakao/login")) {
-            String token = request.getHeader("Authorization");
+            String token = request.getHeader("XX-Auth");
 
             log.info("its : " + token);
             if ("acc-tkn".equals(token)) {

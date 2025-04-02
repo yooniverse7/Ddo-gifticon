@@ -1,5 +1,7 @@
 package com.example.ddo_pay.common.config.security;
 
+import java.util.Arrays;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -51,9 +53,11 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource coreConfigurationSource() {
         CorsConfiguration corsconfig = new CorsConfiguration();
-        corsconfig.addAllowedOrigin("*");
-        corsconfig.addAllowedMethod("*");
-        corsconfig.addAllowedHeader("*");
+        corsconfig.setAllowedOrigins(
+                Arrays.asList("http://j12e106.p.ssafy.io/", "https://j12e106.p.ssafy.io/", "http://localhost:3000"));
+        corsconfig.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+        corsconfig
+                .setAllowedHeaders(Arrays.asList("*"));
 
         // 엔드포인트 설정
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
