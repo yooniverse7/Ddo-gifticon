@@ -1,14 +1,18 @@
-package com.example.ssafy_bank.bank.controller;
+package com.example .ssafy_bank.bank.controller;
 
+import com.example.ssafy_bank.bank.dto.finance_request.SelectHistoryRequestDto;
 import com.example.ssafy_bank.bank.dto.request.EmailRequestDto;
+import com.example.ssafy_bank.bank.dto.request.TransactionSummaryDto;
+import com.example.ssafy_bank.bank.dto.request.UserIdRequestDto;
+import com.example.ssafy_bank.bank.dto.response.BalanceResponseDto;
+import com.example.ssafy_bank.bank.dto.response.LoginResponseDto;
 import com.example.ssafy_bank.bank.service.BankService;
 import com.example.ssafy_bank.common.response.Response;
 import com.example.ssafy_bank.common.response.ResponseCode;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,5 +27,26 @@ public class BankController {
         bankService.createUserKey(request.getEmail());
         return Response.create(ResponseCode.SUCCESS_CREATE_USER_KEY, null);
     }
+
+    // 이메일로 로그인
+    @PostMapping("/login")
+    public Response<Object> emailLogin(@RequestBody EmailRequestDto request) {
+        LoginResponseDto response = bankService.login(request.getEmail());
+        return Response.create(ResponseCode.SUCCESS_LOGIN, response);
+    }
+    // 계좌 내역 조회
+    @PostMapping("/list")
+    public Response<Object> selectHistory(@RequestBody UserIdRequestDto request) {
+        List<TransactionSummaryDto> summaries = bankService.selectHistory(request.getUserId());
+        return Response.create(ResponseCode.SUCCESS_SELECT_HISTORY, summaries);
+    }
+
+    // 잔액 조회
+    @PostMapping("/balance")
+    public Response<Object> selectBalance(@RequestBody UserIdRequestDto request) {
+        BalanceResponseDto response = bankService.getBalance(request.getUserId());
+        return Response.create(ResponseCode.SUCCESS_SELECT_BALANCE, response);
+    }
+
 
 }

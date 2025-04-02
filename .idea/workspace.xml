@@ -89,7 +89,8 @@
     "Gradle.BE [bootRun].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "BE/#298/Feature/CreateAccount",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "BE/#308/Feature/Bank/AccountDetails",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/SSAFY/Desktop/S12P21E106/BE",
     "node.js.detected.package.eslint": "true",
@@ -162,6 +163,7 @@
       <workItem from="1742793664216" duration="86000" />
       <workItem from="1742793766684" duration="19000" />
       <workItem from="1743508840226" duration="1729000" />
+      <workItem from="1743560090323" duration="23000" />
     </task>
     <servers />
   </component>

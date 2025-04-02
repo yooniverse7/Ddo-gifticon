@@ -1,0 +1,105 @@
+version: "3.8"
+
+services:
+  nginx:
+    build: .
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+    depends_on:
+      - fe-web
+      - s12p21e106-backend
+      - bank-service
+    networks:
+      - s12p21e106-network
+
+  fe-web:
+    image: daum4572/fe-web:latest
+    container_name: fe-web
+    ports:
+      - "3000:3000"
+    networks:
+      - s12p21e106-network
+
+  s12p21e106-backend:
+    build: ../BE  # 백엔드 프로젝트 디렉토리 경로
+#    image: daum4572/s12p21e106:latest
+    container_name: s12p21e106-backend
+    ports:
+      - "8082:8080"
+    depends_on:
+      mysql-container:
+        condition: service_healthy
+      dev-redis:
+        condition: service_started
+    networks:
+      - s12p21e106-network
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "mysql-container" ]
+      interval: 10s
+      retries: 10
+      start_period: 30s
+      timeout: 5s
+
+
+  bank-service:
+    image: daum4572/bank-service:latest
+    container_name: bank-service
+    ports:
+      - "8083:8080"
+    depends_on:
+      - bank-mysql
+    networks:
+      - s12p21e106-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "bank-mysql"]
+      interval: 10s
+      retries: 10
+      start_period: 30s
+      timeout: 5s
+
+  mysql-container:
+    image: mysql:latest
+    container_name: mysql-container
+    ports:
+      - "3308:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: ddopay
+    networks:
+      - s12p21e106-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 10
+      start_period: 30s
+      timeout: 5s
+
+  bank-mysql:
+    image: mysql:latest
+    container_name: bank-mysql
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: bank
+    networks:
+      - s12p21e106-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 10
+      start_period: 30s
+      timeout: 5s
+
+  dev-redis:
+    image: redis:latest
+    container_name: dev-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - s12p21e106-network
+
+networks:
+  s12p21e106-network:
+    external: true
