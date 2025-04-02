@@ -65,7 +65,7 @@ public class SecurityConfig {
                                                 "http://localhost:3000"));
                 corsconfig.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                 corsconfig
-                                .setAllowedHeaders(Arrays.asList("*", "XX-Auth", "Content-Type", "Authorization"));
+                                .setAllowedHeaders(Arrays.asList("*", "xx-auth", "content-type", "authorization"));
 
                 // 엔드포인트 설정
                 UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
