@@ -22,6 +22,10 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         log.info("token check filter loading");
+        if (request.getMethod().equals("OPTIONS")) {
+            response.setStatus(HttpServletResponse.SC_OK);
+            return;
+        }
 
         // "/api/users/social/kakao/login"을 제외한 모든 요청 처리
         if (!request.getRequestURI().equals("/api/users/social/kakao/login")) {
