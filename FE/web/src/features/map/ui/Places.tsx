@@ -26,7 +26,12 @@ export default function Places({ markers, changeCenter }: PlacesProps) {
 
   return (
     <>
-      <Markers markers={markers} onClick={handleMarker} selectedMarker={info} />
+      <Markers
+        markers={markers}
+        onClick={handleMarker}
+        selectedMarker={info}
+        imgSrc={'/restaurant.png'}
+      />
       {isVisible ? (
         <FadeUpContainer
           className={`absolute bottom-0 flex flex-col w-full h-80 p-2 z-10 rounded-lg bg-white overflow-y-auto will-change-transform`}

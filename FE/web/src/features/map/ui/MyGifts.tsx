@@ -31,15 +31,15 @@ export default function MyGifts({ changeCenter }: PlacesProps) {
             onClick={() => handleMarker(gift)}
             position={gift.position}
             image={{
-              src: `/restaurant.png`,
+              src: `/gift.png`,
               size: {
-                width: info?.id === gift.id ? 44 : 22,
-                height: info?.id === gift.id ? 52 : 26,
+                width: info?.id === gift.id ? 66 : 33,
+                height: info?.id === gift.id ? 70 : 35,
               },
               options: {
                 offset: {
-                  x: info?.id === gift.id ? 19 : 9,
-                  y: info?.id === gift.id ? 52 : 26,
+                  x: info?.id === gift.id ? 26 : 13,
+                  y: info?.id === gift.id ? 70 : 35,
                 }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
                 alt: `음식점`,
               },
@@ -62,6 +62,7 @@ export default function MyGifts({ changeCenter }: PlacesProps) {
               key={gift.id}
               onClick={() => {
                 changeCenter(gift.position);
+                setInfo(gift);
               }}
             >
               <div className="flex flex-col">

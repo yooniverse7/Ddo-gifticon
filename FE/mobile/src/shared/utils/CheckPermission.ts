@@ -1,5 +1,14 @@
-import { Alert, Linking } from 'react-native';
-import { check, PERMISSIONS, request, RESULTS, PermissionStatus, NotificationsResponse, checkNotifications, requestNotifications } from 'react-native-permissions';
+import {Alert, Linking} from 'react-native';
+import {
+  check,
+  PERMISSIONS,
+  request,
+  RESULTS,
+  PermissionStatus,
+  NotificationsResponse,
+  checkNotifications,
+  requestNotifications,
+} from 'react-native-permissions';
 
 // 설정으로 이동하는 Alert 표시 함수
 const showSettingsAlert = (permissionType: string): void => {
@@ -15,7 +24,7 @@ const showSettingsAlert = (permissionType: string): void => {
         text: '취소',
         style: 'cancel',
       },
-    ]
+    ],
   );
 };
 
@@ -23,9 +32,13 @@ const showSettingsAlert = (permissionType: string): void => {
 export const checkCameraAndAudioPermissions = async (): Promise<boolean> => {
   try {
     // 카메라 권한 확인
-    const cameraResult: PermissionStatus = await check(PERMISSIONS.ANDROID.CAMERA);
+    const cameraResult: PermissionStatus = await check(
+      PERMISSIONS.ANDROID.CAMERA,
+    );
     // 오디오 권한 확인
-    const audioResult: PermissionStatus = await check(PERMISSIONS.ANDROID.RECORD_AUDIO);
+    const audioResult: PermissionStatus = await check(
+      PERMISSIONS.ANDROID.RECORD_AUDIO,
+    );
 
     console.log('카메라 권한 상태:', cameraResult);
     console.log('오디오 권한 상태:', audioResult);
@@ -33,7 +46,9 @@ export const checkCameraAndAudioPermissions = async (): Promise<boolean> => {
     // 카메라 권한이 필요한 경우
     if (cameraResult === RESULTS.DENIED) {
       console.log('카메라 권한 요청 중...');
-      const cameraRequestResult: PermissionStatus = await request(PERMISSIONS.ANDROID.CAMERA);
+      const cameraRequestResult: PermissionStatus = await request(
+        PERMISSIONS.ANDROID.CAMERA,
+      );
       console.log('카메라 요청 결과:', cameraRequestResult);
     } else if (cameraResult === RESULTS.BLOCKED) {
       showSettingsAlert('카메라');
@@ -43,7 +58,9 @@ export const checkCameraAndAudioPermissions = async (): Promise<boolean> => {
     // 오디오 권한이 필요한 경우
     if (audioResult === RESULTS.DENIED) {
       console.log('오디오 권한 요청 중...');
-      const audioRequestResult: PermissionStatus = await request(PERMISSIONS.ANDROID.RECORD_AUDIO);
+      const audioRequestResult: PermissionStatus = await request(
+        PERMISSIONS.ANDROID.RECORD_AUDIO,
+      );
       console.log('오디오 요청 결과:', audioRequestResult);
     } else if (audioResult === RESULTS.BLOCKED) {
       showSettingsAlert('오디오');
@@ -51,11 +68,20 @@ export const checkCameraAndAudioPermissions = async (): Promise<boolean> => {
     }
 
     // 최종 권한 상태 확인
-    const finalCameraResult: PermissionStatus = await check(PERMISSIONS.ANDROID.CAMERA);
-    const finalAudioResult: PermissionStatus = await check(PERMISSIONS.ANDROID.RECORD_AUDIO);
+    const finalCameraResult: PermissionStatus = await check(
+      PERMISSIONS.ANDROID.CAMERA,
+    );
+    const finalAudioResult: PermissionStatus = await check(
+      PERMISSIONS.ANDROID.RECORD_AUDIO,
+    );
 
-    if (finalCameraResult === RESULTS.GRANTED && finalAudioResult === RESULTS.GRANTED) {
-      console.log('모든 권한이 허용되어 있습니다. 카메라 기능을 사용할 수 있습니다.');
+    if (
+      finalCameraResult === RESULTS.GRANTED &&
+      finalAudioResult === RESULTS.GRANTED
+    ) {
+      console.log(
+        '모든 권한이 허용되어 있습니다. 카메라 기능을 사용할 수 있습니다.',
+      );
       return true;
     } else {
       console.log('일부 권한이 거부되어 있습니다.');
@@ -72,7 +98,9 @@ export const checkCameraAndAudioPermissions = async (): Promise<boolean> => {
  */
 export const checkContactsPermission = async (): Promise<boolean> => {
   try {
-    const result: PermissionStatus = await check(PERMISSIONS.ANDROID.READ_CONTACTS);
+    const result: PermissionStatus = await check(
+      PERMISSIONS.ANDROID.READ_CONTACTS,
+    );
     console.log('전화번호부 권한 상태:', result);
 
     switch (result) {
@@ -82,7 +110,9 @@ export const checkContactsPermission = async (): Promise<boolean> => {
 
       case RESULTS.DENIED:
         console.log('전화번호부 권한 요청 중...');
-        const requestResult: PermissionStatus = await request(PERMISSIONS.ANDROID.READ_CONTACTS);
+        const requestResult: PermissionStatus = await request(
+          PERMISSIONS.ANDROID.READ_CONTACTS,
+        );
         console.log('요청 결과:', requestResult);
         return requestResult === RESULTS.GRANTED;
 
@@ -100,7 +130,7 @@ export const checkContactsPermission = async (): Promise<boolean> => {
               text: '취소',
               style: 'cancel',
             },
-          ]
+          ],
         );
         return false;
 
@@ -123,7 +153,9 @@ export const checkContactsPermission = async (): Promise<boolean> => {
 export const checkStoragePermission = async (): Promise<boolean> => {
   try {
     // 이미지 권한 상태 확인 (기준 권한으로 사용)
-    const result: PermissionStatus = await check(PERMISSIONS.ANDROID.READ_MEDIA_IMAGES);
+    const result: PermissionStatus = await check(
+      PERMISSIONS.ANDROID.READ_MEDIA_IMAGES,
+    );
     console.log('저장소 권한 상태:', result);
 
     switch (result) {
@@ -134,11 +166,17 @@ export const checkStoragePermission = async (): Promise<boolean> => {
       case RESULTS.DENIED:
         console.log('저장소 권한 요청 중...');
         // 모든 미디어 권한 요청
-        const imageResult = await request(PERMISSIONS.ANDROID.READ_MEDIA_IMAGES);
+        const imageResult = await request(
+          PERMISSIONS.ANDROID.READ_MEDIA_IMAGES,
+        );
         const videoResult = await request(PERMISSIONS.ANDROID.READ_MEDIA_VIDEO);
         const audioResult = await request(PERMISSIONS.ANDROID.READ_MEDIA_AUDIO);
 
-        console.log('미디어 권한 요청 결과:', { imageResult, videoResult, audioResult });
+        console.log('미디어 권한 요청 결과:', {
+          imageResult,
+          videoResult,
+          audioResult,
+        });
 
         // 모든 권한이 허용되었는지 확인
         return (
@@ -161,12 +199,14 @@ export const checkStoragePermission = async (): Promise<boolean> => {
               text: '취소',
               style: 'cancel',
             },
-          ]
+          ],
         );
         return false;
 
       case RESULTS.GRANTED:
-        console.log('이미지 권한이 이미 허용되어 있습니다. 나머지 권한 확인 중...');
+        console.log(
+          '이미지 권한이 이미 허용되어 있습니다. 나머지 권한 확인 중...',
+        );
         // 다른 권한들도 이미 허용되어 있는지 확인
         const videoCheck = await check(PERMISSIONS.ANDROID.READ_MEDIA_VIDEO);
         const audioCheck = await check(PERMISSIONS.ANDROID.READ_MEDIA_AUDIO);
@@ -179,10 +219,14 @@ export const checkStoragePermission = async (): Promise<boolean> => {
 
         // 일부 권한이 없다면 요청
         console.log('일부 미디어 권한이 없습니다. 권한 요청 중...');
-        const missingVideoResult = videoCheck !== RESULTS.GRANTED ?
-          await request(PERMISSIONS.ANDROID.READ_MEDIA_VIDEO) : RESULTS.GRANTED;
-        const missingAudioResult = audioCheck !== RESULTS.GRANTED ?
-          await request(PERMISSIONS.ANDROID.READ_MEDIA_AUDIO) : RESULTS.GRANTED;
+        const missingVideoResult =
+          videoCheck !== RESULTS.GRANTED
+            ? await request(PERMISSIONS.ANDROID.READ_MEDIA_VIDEO)
+            : RESULTS.GRANTED;
+        const missingAudioResult =
+          audioCheck !== RESULTS.GRANTED
+            ? await request(PERMISSIONS.ANDROID.READ_MEDIA_AUDIO)
+            : RESULTS.GRANTED;
 
         return (
           missingVideoResult === RESULTS.GRANTED &&
@@ -203,7 +247,9 @@ export const checkStoragePermission = async (): Promise<boolean> => {
  */
 export const checkLocationPermission = async (): Promise<boolean> => {
   try {
-    const result: PermissionStatus = await check(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
+    const result: PermissionStatus = await check(
+      PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+    );
     console.log('위치 권한 상태:', result);
 
     switch (result) {
@@ -213,7 +259,9 @@ export const checkLocationPermission = async (): Promise<boolean> => {
 
       case RESULTS.DENIED:
         console.log('위치 권한 요청 중...');
-        const requestResult: PermissionStatus = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
+        const requestResult: PermissionStatus = await request(
+          PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+        );
         console.log('요청 결과:', requestResult);
         return requestResult === RESULTS.GRANTED;
 
@@ -231,7 +279,7 @@ export const checkLocationPermission = async (): Promise<boolean> => {
               text: '취소',
               style: 'cancel',
             },
-          ]
+          ],
         );
         return false;
 
@@ -259,7 +307,8 @@ export const checkNotificationPermission = async (): Promise<boolean> => {
 
       case RESULTS.DENIED:
         console.log('알림 권한 요청 중...');
-        const requestResult: NotificationsResponse = await requestNotifications();
+        const requestResult: NotificationsResponse =
+          await requestNotifications();
         console.log('요청 결과:', requestResult);
         return requestResult.status === RESULTS.GRANTED;
 

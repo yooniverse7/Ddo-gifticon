@@ -27,6 +27,7 @@ export default function MyStores({ changeCenter }: PlacesProps) {
     <>
       <Markers
         onClick={handleMarker}
+        imgSrc="/myStore.png"
         markers={favoriteStores.map(
           ({ address_name, id, place_name, position, visited_count }) => ({
             address_name,
@@ -54,6 +55,13 @@ export default function MyStores({ changeCenter }: PlacesProps) {
               key={marker.id}
               onClick={() => {
                 changeCenter(marker.position);
+                setInfo({
+                  address_name: marker.address_name,
+                  id: marker.id,
+                  place_name: marker.place_name,
+                  position: marker.position,
+                  visited_count: marker.visited_count,
+                });
               }}
             >
               <div className="flex flex-col">

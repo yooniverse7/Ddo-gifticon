@@ -11,8 +11,9 @@ import { SquareMenu } from 'lucide-react';
 import { useMapStore } from '@/store/useMapStore';
 import MyStores from './MyStores';
 import { useMarkersStore } from '@/store/useMarkerStore';
-import { TCategory } from '../model/category';
+import { CATEGORY_MAP, TCategory } from '../model/category';
 import MyGifts from './MyGifts';
+import Image from 'next/image';
 
 export const KakaoMap = () => {
   useKakaoLoader({
@@ -29,8 +30,10 @@ export const KakaoMap = () => {
     //FIXME - 추후 토글이나 다른 방식으로 변경경
     if (category !== value) {
       setCategory(value);
-      if (value === 'FD6') {
+      if (value === CATEGORY_MAP.STORES) {
         searchStores();
+      } else {
+        setMarkers([]);
       }
     } else {
       setCategory(null);
@@ -44,7 +47,7 @@ export const KakaoMap = () => {
 
   const handleCenterChanged = useDebounce(async () => {
     if (!map) return;
-    if (category === 'FD6') {
+    if (category === CATEGORY_MAP.STORES) {
       searchStores();
     }
   }, 500);
@@ -111,30 +114,42 @@ export const KakaoMap = () => {
               <SquareMenu className="size-8" />
             </Button>
           </CollapsibleTrigger>
-          <CollapsibleContent className="flex flex-col space-y-2">
+          <CollapsibleContent className="flex flex-col gap-2 mt-2">
             <Button
-              className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm"
-              onClick={() => handleCategory('store')}
+              variant={'ghost'}
+              className="bg-white h-full"
+              onClick={() => handleCategory(CATEGORY_MAP.MY_STORE)}
             >
-              나만의 또갈집
+              <div className="flex flex-col items-center gap-1">
+                <Image src="/myStore.png" alt="나만의 또갈집" width={24} height={24} />
+                <span className="text-xs">또갈집</span>
+              </div>
             </Button>
             <Button
-              className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm"
-              onClick={() => handleCategory('FD6')}
+              variant={'ghost'}
+              className="bg-white h-full"
+              onClick={() => handleCategory(CATEGORY_MAP.STORES)}
             >
-              근처 가게
+              <div className="flex flex-col items-center gap-1">
+                <Image src="/restaurant.png" alt="나만의 또갈집" width={24} height={24} />
+                <span className="text-xs">근처가게</span>
+              </div>
             </Button>
             <Button
-              className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm"
-              onClick={() => handleCategory('gift')}
+              variant={'ghost'}
+              className="bg-white h-full"
+              onClick={() => handleCategory(CATEGORY_MAP.GIFT)}
             >
-              기프티콘 가게
+              <div className="flex flex-col items-center gap-1">
+                <Image src="/gift.png" alt="나만의 또갈집" width={24} height={24} />
+                <span className="text-xs">기프티콘</span>
+              </div>
             </Button>
           </CollapsibleContent>
         </Collapsible>
         {markers.length > 0 && <Places markers={markers} changeCenter={changeCenter} />}
-        {category === 'store' && <MyStores changeCenter={changeCenter} />}
-        {category === 'gift' && <MyGifts changeCenter={changeCenter} />}
+        {category === CATEGORY_MAP.MY_STORE && <MyStores changeCenter={changeCenter} />}
+        {category === CATEGORY_MAP.GIFT && <MyGifts changeCenter={changeCenter} />}
       </Map>
     </div>
   );

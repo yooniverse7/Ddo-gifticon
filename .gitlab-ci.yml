@@ -1,0 +1,29 @@
+stages:
+  - build
+
+build-be:
+  stage: build
+  script:
+    - echo "🔧 BE 서비스 빌드 중..."
+    # 여기에 실제 BE 빌드/배포 스크립트 추가
+  only:
+    changes:
+      - BE/**
+
+build-bank:
+  stage: build
+  script:
+    - echo "🏦 BANK 서비스 빌드 중..."
+    # 여기에 실제 BANK 빌드/배포 스크립트 추가
+  only:
+    changes:
+      - BANK/**
+
+build-fe-web:
+  stage: build
+  script:
+    - echo "🏦 FE-web 서비스 빌드 중..."
+    # 여기에 실제 FE-web 빌드/배포 스크립트 추가
+  only:
+    changes:
+      - FE/web/**

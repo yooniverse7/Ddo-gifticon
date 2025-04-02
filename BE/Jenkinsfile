@@ -28,19 +28,9 @@ pipeline {
             steps {
                 script {
                     withCredentials([file(credentialsId: 'application-yml', variable: 'APP_YML')]) {
-                        sh 'mkdir -p BE/src/main/resources'
-                        sh 'cp $APP_YML ${CONFIG_PATH}'
-                        sh 'ls -al BE/src/main/resources'
-
-                        // Docker에 마운트할 실제 config 경로에도 복사
-                        sh 'mkdir -p /home/ubuntu/Project/S12P21E106/BE/config'
-                        sh 'cp $APP_YML ${DOCKER_CONFIG_PATH}'
-                        sh 'ls -al /home/ubuntu/Project/S12P21E106/BE/config'
-
-                        // ✅ 권한 자동 설정
-                        sh 'chmod 644 ${DOCKER_CONFIG_PATH}'
-
-                        sh 'cat ${DOCKER_CONFIG_PATH}'
+                        dir('BE'){
+                            sh 'cp $APP_YML ./src/main/resources/application.yml'
+                        }
                     }
                 }
             }
@@ -82,11 +72,18 @@ pipeline {
                         string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_ACCESS_KEY')
                     ]) {
                         sh """
+                            echo "[INFO] 컨테이너 및 이미지 정리"
                             docker container rm -f ${CONTAINER_NAME} || true
                             docker image rm -f ${IMAGE_NAME}:${TAG} || true
                             docker rmi -f \$(docker images -f "dangling=true" -q) || true
+
+                            echo "[INFO] 도커 이미지 pull"
                             docker pull ${IMAGE_NAME}:${TAG}
+
+                            echo "[INFO] 네트워크 존재 확인 및 생성"
                             docker network inspect s12p21e106-network >/dev/null 2>&1 || docker network create s12p21e106-network
+
+                            echo "[INFO] 백엔드 컨테이너 실행"
                             docker run -d \
                                 --name ${CONTAINER_NAME} \
                                 -p 8082:8080 \
@@ -101,6 +98,7 @@ pipeline {
                 }
             }
         }
+
 
     }
 

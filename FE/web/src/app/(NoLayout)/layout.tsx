@@ -3,5 +3,5 @@ export default function NoLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <main className="h-dvh">{children}</main>;
+  return <main className='h-dvh'>{children}</main>;
 }

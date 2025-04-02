@@ -5,7 +5,10 @@ import { MSWProvider } from '@/shared/msw';
 import CustomQueryClientProvider from '@/shared/reactQuery/CustomQueryClientProvider';
 import { NextAuthProvider } from '@/features/kakaoLogin';
 
-if (process.env.NEXT_RUNTIME === 'nodejs' && process.env.NODE_ENV !== 'production') {
+if (
+  process.env.NEXT_RUNTIME === 'nodejs' &&
+  process.env.NODE_ENV !== 'production'
+) {
   const { server } = require('@/shared/msw/mock/http');
   server.listen();
 }
@@ -31,8 +34,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased w-dvw `}>
+    <html lang='en'>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased w-dvw `}
+      >
         <CustomQueryClientProvider>
           <MSWProvider>
             <NextAuthProvider>{children}</NextAuthProvider>

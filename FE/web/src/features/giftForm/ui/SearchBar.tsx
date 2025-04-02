@@ -1,60 +1,31 @@
-import useDebounce from "@/shared/utils/useDebounce";
-import { useRef } from "react";
+'use client';
 
-type Props = Readonly<{
+import { Search, X } from 'lucide-react';
+
+interface SearchBarProps {
+  placeholder: string;
   setQuery: React.Dispatch<React.SetStateAction<string>>;
   setIsShow: React.Dispatch<React.SetStateAction<boolean>>;
-}>;
+}
 
-export default function SearchForm({ setQuery, setIsShow }: Props) {
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const handleUpdate = useDebounce((e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value);
-  }, 400);
-
-  const handleSearchButton = () => {
-    if (inputRef.current) {
-      const inputValue = inputRef.current.value;
-      setQuery(inputValue);
-    }
-  };
-
-  const handleCloseButton = () => {
-    setIsShow(false);
-  };
+const SearchBar = ({ placeholder, setQuery, setIsShow }: SearchBarProps) => {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-      }}
-    >
-      <label htmlFor="query" className="sr-only">
-        검색
-      </label>
+    <div className='relative w-full'>
+      <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400' />
       <input
-        type="search"
-        name="query"
-        id="query"
-        className="py-1 px-1.5 border-2 border-current focus:outline-none focus:ring-1 focus:ring-blue-500 focus:relative focus:z-10"
-        onChange={handleUpdate}
-        ref={inputRef}
+        type='text'
+        placeholder={placeholder}
+        className='w-full pl-10 pr-10 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20'
+        onChange={(e) => setQuery(e.target.value)}
       />
       <button
-        type="submit"
-        className="cursor-pointer bg-black text-white py-1.5 px-2 border-none focus:outline-none focus:ring-1 focus:ring-blue-500"
-        onClick={handleSearchButton}
+        className='absolute right-3 top-1/2 transform -translate-y-1/2 p-1 hover:bg-gray-100 rounded-full transition-colors'
+        onClick={() => setIsShow(false)}
       >
-        검색
-      </button>
-      <button
-        type="submit"
-        className="cursor-pointer bg-black text-white py-1.5 px-2 border-none focus:outline-none focus:ring-1 focus:ring-blue-500"
-        onClick={handleCloseButton}
-      >
-        닫기
+        <X className='h-5 w-5 text-gray-500' />
       </button>
     </div>
   );
-}
+};
+
+export default SearchBar;

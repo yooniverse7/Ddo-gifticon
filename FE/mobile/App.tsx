@@ -30,7 +30,7 @@ function App() {
 
   return (
     <WebView
-      source={{uri: 'http://localhost:3001'}}
+      source={{uri: 'http://localhost:3000'}}
       style={{flex: 1}}
       javaScriptEnabled={true}
       onMessage={onMessage}
