@@ -21,14 +21,17 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        log.info("token check filter loading" + request.getMethod());
-        if (request.getMethod().equals("OPTIONS")) {
-            response.setStatus(HttpServletResponse.SC_OK);
-            filterChain.doFilter(request, response);
+        // OPTIONS 요청은 CORS 예비 요청으로 필터를 건너뛰게 처리
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            log.info("Preflight (OPTIONS) request detected. Skipping authenticationfilter.");
+            response.setStatus(HttpServletResponse.SC_OK); // 200 OK 응답
+            filterChain.doFilter(request, response); // 필터 체인 계속 진행
+            return; // 이후 로직은 실행하지 않음
         }
 
         // "/api/users/social/kakao/login"을 제외한 모든 요청 처리
         if (!request.getRequestURI().equals("/api/users/social/kakao/login")) {
+            log.info("request : " + request);
             String token = request.getHeader("xx-auth");
 
             log.info("its : " + token);
