@@ -1,6 +1,6 @@
 'use client';
 
-import { useFetchMyMoney } from './api/useFetchMyMoney';
+import { useFetchMyMoney } from '../api/useFetchMyMoney';
 import { useRouter } from 'next/navigation';
 import Modal from '@/shared/modal/Modal';
 import { useState } from 'react';

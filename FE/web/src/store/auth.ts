@@ -1,6 +1,6 @@
-// authStore.ts
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { setAuthToken } from '@/shared/api/axiosInstance';
 
 interface AuthState {
   accessToken: string | null;
@@ -24,8 +24,7 @@ export const useAuthStore = create(
 
       setTokens: (accessToken, refreshToken) => {
         set({ accessToken, isAuthenticated: !!accessToken });
-
-        // refreshToken은 HTTP-only 쿠키에서 관리되므로 여기서는 저장하지 않음
+        setAuthToken(accessToken);
       },
 
       setUserInfo: (info) => {
@@ -34,6 +33,7 @@ export const useAuthStore = create(
 
       logout: () => {
         set({ accessToken: null, isAuthenticated: false, userInfo: null });
+        setAuthToken(null);
         // 서버에 로그아웃 요청 보내기
         fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });
       },
