@@ -12,6 +12,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Builder
+@Builder(toBuilder = true)
 public class User {
 
     @Id
@@ -35,6 +36,9 @@ public class User {
     private String phoneNum; // 전화번호
     private LocalDateTime birthday; // 생일
     private String refreshToken; // 리프레시 토큰
+
+    @Column(unique = true)
+    private Long kakaoId;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Agreement agreement; // 동의항목과 1 대 1

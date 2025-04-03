@@ -83,21 +83,25 @@ pipeline {
                             echo "[INFO] 네트워크 존재 확인 및 생성"
                             docker network inspect s12p21e106-network >/dev/null 2>&1 || docker network create s12p21e106-network
 
-                            echo "[INFO] 백엔드 컨테이너 실행"
-                            docker run -d \
-                                --name ${CONTAINER_NAME} \
-                                -p 8082:8080 \
-                                --network s12p21e106-network \
-                                -v /home/ubuntu/Project/S12P21E106/BE/config:/config \
-                                -e SPRING_CONFIG_LOCATION=classpath:/,file:/config/application.yml \
-                                -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
-                                -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
+                            echo "[INFO] 백엔드 컨테이너 실행 (서울 시간 포함)"
+                            docker run -d \\
+                                --name ${CONTAINER_NAME} \\
+                                -p 8082:8080 \\
+                                --network s12p21e106-network \\
+                                -v /home/ubuntu/Project/S12P21E106/BE/config:/config \\
+                                -v /etc/localtime:/etc/localtime:ro \\
+                                -v /etc/timezone:/etc/timezone:ro \\
+                                -e TZ=Asia/Seoul \\
+                                -e SPRING_CONFIG_LOCATION=classpath:/,file:/config/application.yml \\
+                                -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \\
+                                -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \\
                                 ${IMAGE_NAME}:${TAG}
                         """
                     }
                 }
             }
         }
+
 
 
     }

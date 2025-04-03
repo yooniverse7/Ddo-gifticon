@@ -1,35 +1,47 @@
-// pages/kakao.jsx 또는 pages/kakao.tsx
+'use client';
+
 import { useEffect } from 'react';
-import { useRouter } from 'next/router';
-import useFetchLogin from '../api/useFetchLogin';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { fetchKakaoLogin } from '../api/useFetchLogin';
 
 export default function KakaoCallback() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const code = searchParams.get('code');
 
   useEffect(() => {
     const handleLogin = async () => {
-      // URL에서 인가 코드 추출
-      const code = router.query.code as string;
+      if (!code) {
+        router.push('/login');
+        return;
+      }
 
-      if (code) {
-        try {
-          // 인가 코드가 있으면 서버로 전송하여 토큰 획득
-          await useFetchLogin(code);
-          // useFetchLogin 내부에서 이미 리다이렉트 처리가 되어있으므로 추가 작업 불필요
-        } catch (error) {
-          console.error('로그인 처리 중 오류 발생:', error);
-          // 에러 발생 시 로그인 페이지로 리다이렉트
-          router.push('/login');
+      try {
+        const data = await fetchKakaoLogin(code);
+        if (data.accessToken) {
+          // 토큰을 localStorage나 쿠키에 저장
+          localStorage.setItem('accessToken', data.accessToken);
+          router.push('/');
+        } else {
+          throw new Error('토큰이 없습니다.');
         }
+      } catch (error) {
+        console.error('로그인 처리 중 오류 발생:', error);
+        router.push('/login');
       }
     };
 
     handleLogin();
-  }, [router.query]);
+  }, [code, router]);
 
   return (
-    <div>
-      <p>카카오 로그인 처리 중...</p>
+    <div className='min-h-screen flex items-center justify-center bg-gray-50'>
+      <div className='text-center'>
+        <h2 className='text-xl font-semibold text-gray-900 mb-2'>
+          로그인 처리 중...
+        </h2>
+        <p className='text-gray-600'>잠시만 기다려주세요.</p>
+      </div>
     </div>
   );
 }

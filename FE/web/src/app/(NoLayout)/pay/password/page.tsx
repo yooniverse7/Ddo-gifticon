@@ -2,12 +2,17 @@
 
 import React, { useState } from 'react';
 import { X, Lock } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 
 const PinDemo: React.FC = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [input, setInput] = useState<string>('');
+  const from = searchParams.get('from');
+  const amount = searchParams.get('amount');
+  const recipient = searchParams.get('recipient');
+  const storeName = searchParams.get('storeName');
 
   const handleKeyPress = (key: string) => {
     if (input.length < 6) {
@@ -24,7 +29,13 @@ const PinDemo: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    router.push('/pay/completed');
+    if (from === 'giftForm') {
+      router.push(
+        `/pay/completed?from=giftForm&amount=${amount}&recipient=${recipient}&storeName=${storeName}`
+      );
+    } else if (from === 'moneyCharge') {
+      router.push(`/pay/completed?from=moneyCharge&amount=${amount}`);
+    }
   };
 
   return (

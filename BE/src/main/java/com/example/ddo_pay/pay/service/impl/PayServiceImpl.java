@@ -1,17 +1,23 @@
 package com.example.ddo_pay.pay.service.impl;
 
+import com.example.ddo_pay.client.BankClient;
 import com.example.ddo_pay.common.exception.CustomException;
 import com.example.ddo_pay.common.response.ResponseCode;
 import com.example.ddo_pay.common.util.RedisHandler;
+import com.example.ddo_pay.pay.dto.bank_request.BankDdoPayChargeRequest;
+import com.example.ddo_pay.pay.dto.bank_response.BankChargeResponseDto;
 import com.example.ddo_pay.pay.dto.finance.DepositAccountWithdrawRequest;
 import com.example.ddo_pay.pay.dto.request.AccountVerifyRequest;
+import com.example.ddo_pay.pay.dto.request.ChargeDdoPayRequest;
 import com.example.ddo_pay.pay.dto.request.RegisterAccountRequest;
 import com.example.ddo_pay.pay.dto.request.RegisterPasswordRequest;
 import com.example.ddo_pay.pay.dto.response.GetAccountResponse;
 import com.example.ddo_pay.pay.dto.response.GetBalanceResponse;
 import com.example.ddo_pay.pay.dto.response.GetPointResponse;
 import com.example.ddo_pay.pay.entity.Account;
+import com.example.ddo_pay.pay.entity.AssetType;
 import com.example.ddo_pay.pay.entity.DdoPay;
+import com.example.ddo_pay.pay.entity.History;
 import com.example.ddo_pay.pay.finance_api.FinanceClient;
 import com.example.ddo_pay.pay.repository.AccountRepository;
 import com.example.ddo_pay.pay.repository.DdoPayRepository;
@@ -22,14 +28,17 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -42,6 +51,7 @@ public class PayServiceImpl implements PayService {
     private final DdoPayRepository ddoPayRepository;
     private final UserRepository userRepository;
     private final AccountRepository accountRepository;
+    private final BankClient bankClient;
 
 
     // 유효 계좌 인증
@@ -246,6 +256,72 @@ public class PayServiceImpl implements PayService {
 
         ddoPay.increaseBalance(amount);
         ddoPayRepository.save(ddoPay);
+
+    }
+
+    // 또페이 충전
+    @Override
+    public void transferDdoPay(Long userId, ChargeDdoPayRequest request) {
+        DdoPay ddoPay = ddoPayRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ResponseCode.NO_EXIST_DDOPAY));
+
+        // 비밀번호가 일치하지 않다면,
+        if (!ddoPay.checkPassword(request.getPassword())){
+            throw new CustomException(ResponseCode.DIFFRENT_PASSWORD);
+        }
+
+        // 사용자 계좌 가져오기. 하나만 있다고 가정
+        if(ddoPay.getAccountList().isEmpty()) {
+            throw new CustomException(ResponseCode.NO_EXIST_ACCOUNT);
+        }
+        String accountNum = ddoPay.getAccountList().get(0).getAccountNum();
+
+        BankDdoPayChargeRequest bankRequest = BankDdoPayChargeRequest.builder()
+                .userAccountNum(accountNum)
+                .corporationAccountNum("9990627419918613")
+                .amount(request.getAmount())
+                .build();
+
+        log.info("Feign 요청 바디: userAccountNum={}, corpAccountNum={}, amount={}",
+                bankRequest.getUserAccountNum(),
+                bankRequest.getCorporationAccountNum(),
+                bankRequest.getAmount()
+        );
+
+
+        ResponseEntity<BankChargeResponseDto> bankResponse = bankClient.chargeDdoPay(bankRequest);
+
+        BankChargeResponseDto responseBody = bankResponse.getBody();
+        log.info("Feign 전체 응답 = {}", bankResponse);
+        log.info("Feign 응답 바디 = {}", bankResponse.getBody());
+
+        if (responseBody == null || responseBody.getHeader() == null) {
+            throw new CustomException(ResponseCode.INTERNAL_SERVER_ERROR, "bank", "응답이 비어 있음");
+        }
+
+        String responseCode = responseBody.getHeader().getResponseCode();
+
+
+        // 성공 코드가 오면 balance 변경, history 생성
+        if ("H0000".equals(responseCode)) {
+            ddoPay.plueBalance(request.getAmount());
+            ddoPayRepository.save(ddoPay);
+
+            // History 생성 및 연결
+            History history = new History();
+            history.setTitle("또페이 충전");
+            history.setTime(LocalDateTime.now());
+            history.setInOutAmount(request.getAmount());
+            history.setType(AssetType.BALANCE);
+            history.setDdoPay(ddoPay);
+
+            ddoPay.getHistoryList().add(history);
+
+        } else if ("A1014".equals(responseCode)) {
+            throw new CustomException(ResponseCode.INSUFFICIENT_BALANCE, "잔액 부족", "출금 계좌 잔액 부족");
+        } else throw new CustomException(ResponseCode.INTERNAL_SERVER_ERROR, "bank", "은행 응답 실패 코드: " + responseCode);
+
+
 
     }
 

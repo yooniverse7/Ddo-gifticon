@@ -2,6 +2,7 @@ package com.example.ddo_pay.pay.service;
 
 
 import com.example.ddo_pay.pay.dto.request.AccountVerifyRequest;
+import com.example.ddo_pay.pay.dto.request.ChargeDdoPayRequest;
 import com.example.ddo_pay.pay.dto.request.RegisterAccountRequest;
 import com.example.ddo_pay.pay.dto.request.RegisterPasswordRequest;
 
@@ -40,5 +41,8 @@ public interface PayService {
 
     // 기프티콘 취소 환불
     void depositDdoPay(Long userId, int amount);
+
+    // 또페이 충전
+    void transferDdoPay(Long userId, ChargeDdoPayRequest request);
 
 }

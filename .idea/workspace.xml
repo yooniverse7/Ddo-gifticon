@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ec356b9-a81b-47af-bac5-7a4afa140429" name="Changes" comment=":wrench: [Chore] BANK 폴더 구조 변경" />
+    <list default="true" id="6ec356b9-a81b-47af-bac5-7a4afa140429" name="Changes" comment=":wrench: [Chore] BANK 폴더 구조 변경">
+      <change beforePath="$PROJECT_DIR$/BE/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/BE/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/ddo_pay/DdoPayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/ddo_pay/DdoPayApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/example/ddo_pay/client/BankClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/example/ddo_pay/client/BankClient.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -90,7 +94,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "BE/#308/Feature/Bank/AccountDetails",
+    "git-widget-placeholder": "BE/#207/Feature/Pay/ChargeDdoPay",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/SSAFY/Desktop/S12P21E106/BE",
     "node.js.detected.package.eslint": "true",
@@ -164,6 +168,7 @@
       <workItem from="1742793766684" duration="19000" />
       <workItem from="1743508840226" duration="1729000" />
       <workItem from="1743560090323" duration="23000" />
+      <workItem from="1743600532609" duration="14000" />
     </task>
     <servers />
   </component>

@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 public class RefundGiftRequest {
     private int giftId;
 
-    private int userId;
+    private Long userId;
 }

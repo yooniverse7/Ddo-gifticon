@@ -4,5 +4,6 @@ import lombok.Data;
 
 @Data
 public class SocialLoginRequestDto {
+    private String code;
     private String socialId;
 }

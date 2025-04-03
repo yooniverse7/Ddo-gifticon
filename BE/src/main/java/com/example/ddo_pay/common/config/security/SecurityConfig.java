@@ -51,8 +51,10 @@ public class SecurityConfig {
         }
 
         // Cors 설정 부분
+        // 변경 부분: 빈 이름을 "corsConfigurationSource"로 변경해야 Spring Security가 자동 인식합니다.
+
         @Bean
-        public CorsConfigurationSource coreConfigurationSource() {
+        public CorsConfigurationSource corsConfigurationSource() {
                 CorsConfiguration corsconfig = new CorsConfiguration();
                 // corsconfig.setAllowedOrigins(
                 // Arrays.asList("http://j12e106.p.ssafy.io",

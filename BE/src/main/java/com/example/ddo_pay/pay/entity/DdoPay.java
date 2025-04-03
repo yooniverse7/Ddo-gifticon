@@ -53,9 +53,18 @@ public class DdoPay {
         this.balance = (int)(this.balance + (amount * 0.9f));
     }
 
+    public void plueBalance(int amount) {
+        this.balance = balance + amount;
+    }
+
+
     // 결제가 가능하다면, true 아니면 false
     public boolean isAvailableToPay(int amount) {
         return this.balance >= amount;
+    }
+
+    public boolean checkPassword(String password) {
+        return this.payPassword.equals(password);
     }
 
 

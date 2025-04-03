@@ -12,10 +12,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 // 계좌 잔액 조회
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class SelectBalanceRequestDto {
 
     @Builder.Default

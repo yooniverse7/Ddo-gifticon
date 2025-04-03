@@ -102,7 +102,9 @@ export const GiftForm = () => {
       return;
     }
 
-    router.push('/pay/password');
+    router.push(
+      `/pay/password?from=giftForm&amount=${totalPrice}&recipient=${selectedContact.name}&storeName=${marketName}`
+    );
   };
 
   return (

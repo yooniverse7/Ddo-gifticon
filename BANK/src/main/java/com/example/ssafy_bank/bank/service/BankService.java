@@ -1,6 +1,10 @@
 package com.example.ssafy_bank.bank.service;
 
 import java.util.List;
+import java.util.Map;
+
+import com.example.ssafy_bank.bank.dto.ddopay_request.ChargeDdoPayRequestDto;
+import com.example.ssafy_bank.bank.dto.ddopay_response.BankChargeResponseDto;
 import com.example.ssafy_bank.bank.dto.request.TransactionSummaryDto;
 import com.example.ssafy_bank.bank.dto.response.BalanceResponseDto;
 import com.example.ssafy_bank.bank.dto.response.LoginResponseDto;
@@ -18,4 +22,8 @@ public interface BankService {
 
     // 잔액 조회
     BalanceResponseDto getBalance(Long userId);
+
+
+    // 또페이 계좌이체 요청
+    BankChargeResponseDto chargeDdoPay(ChargeDdoPayRequestDto request);
 }

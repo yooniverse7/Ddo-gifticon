@@ -1,54 +1,73 @@
 'use client';
 
-import React from 'react';
 import { CheckCircle2, Gift } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 
-export default function PayCompleted() {
+export default function Page() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const from = searchParams.get('from');
+  const amount = searchParams.get('amount');
+  const recipient = searchParams.get('recipient');
+  const storeName = searchParams.get('storeName');
 
   return (
     <div className='min-h-screen bg-gray-50'>
       {/* 메인 컨텐츠 */}
-      <div className='flex flex-col items-center justify-center min-h-screen px-4'>
-        <div className='max-w-md w-full bg-white rounded-2xl shadow-sm p-8 space-y-8 text-center'>
-          {/* 완료 아이콘 */}
-          <div className='flex justify-center'>
-            <div className='w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center'>
-              <CheckCircle2 className='w-12 h-12 text-primary' />
+      <div className='pt-20 pb-8 px-4'>
+        <div className='max-w-md mx-auto bg-white rounded-2xl shadow-sm p-6 space-y-8'>
+          {/* 완료 메시지 */}
+          <div className='text-center space-y-4'>
+            <div className='flex justify-center'>
+              <div className='w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center'>
+                <CheckCircle2 className='w-10 h-10 text-primary' />
+              </div>
+            </div>
+            <div>
+              <h2 className='text-xl font-semibold text-gray-900 mb-1'>
+                {from === 'moneyCharge' ? '충전 완료' : '선물하기 완료'}
+              </h2>
+              <p className='text-gray-600'>
+                {from === 'moneyCharge'
+                  ? '충전이 완료되었습니다'
+                  : '선물하기가 완료되었습니다'}
+              </p>
             </div>
           </div>
 
-          {/* 완료 메시지 */}
-          <div className='space-y-2'>
-            <h1 className='text-2xl font-bold text-gray-900'>
-              결제가 완료되었습니다
-            </h1>
-            <p className='text-gray-600'>선물이 성공적으로 전달되었습니다</p>
-          </div>
-
-          {/* 선물 정보 요약 */}
+          {/* 충전/선물 정보 */}
           <div className='bg-gray-50 rounded-xl p-4 space-y-3'>
             <div className='flex items-center justify-center gap-2 text-primary'>
               <Gift className='w-5 h-5' />
-              <span className='font-medium'>선물 정보</span>
+              <span className='font-medium'>
+                {from === 'moneyCharge' ? '충전 정보' : '선물 정보'}
+              </span>
             </div>
-            <div className='text-sm text-gray-600 space-y-1'>
-              <p>받는 사람: 홍길동</p>
-              <p>선물 금액: 15,000원</p>
-              <p>선물 가게: 맛있는 식당</p>
+            <div className='text-sm text-gray-600 space-y-2 text-center'>
+              <p>
+                {from === 'moneyCharge' ? '충전 금액' : '선물 금액'}:{' '}
+                {amount ? parseInt(amount).toLocaleString('ko-KR') : '0'}원
+              </p>
+              {from === 'giftForm' && (
+                <>
+                  <p>받는 사람: {recipient}</p>
+                  <p>선물 가게: {storeName}</p>
+                </>
+              )}
             </div>
           </div>
 
-          {/* 버튼 그룹 */}
-          <div className='space-y-3'>
-            <Button
-              className='w-full py-6 text-lg font-medium bg-primary hover:bg-primary/90'
-              onClick={() => router.push('/gift/create')}
-            >
-              다른 선물하기
-            </Button>
+          {/* 버튼 */}
+          <div className='space-y-3 pt-4'>
+            {from === 'moneyCharge' ? (
+              <Button
+                className='w-full py-6 text-lg font-medium bg-primary hover:bg-primary/90'
+                onClick={() => router.push('/gift/create')}
+              >
+                선물하러 가기
+              </Button>
+            ) : null}
             <Button
               variant='outline'
               className='w-full py-6 text-lg font-medium'

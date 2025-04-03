@@ -4,6 +4,7 @@ import com.example.ddo_pay.common.response.Response;
 import com.example.ddo_pay.common.response.ResponseCode;
 import com.example.ddo_pay.common.util.SecurityUtil;
 import com.example.ddo_pay.pay.dto.request.AccountVerifyRequest;
+import com.example.ddo_pay.pay.dto.request.ChargeDdoPayRequest;
 import com.example.ddo_pay.pay.dto.request.RegisterAccountRequest;
 import com.example.ddo_pay.pay.dto.request.RegisterPasswordRequest;
 import com.example.ddo_pay.pay.dto.response.GetAccountResponse;
@@ -41,6 +42,14 @@ public class PayController {
         return new ResponseEntity<>(Response.create(responseCode, null), responseCode.getHttpStatus());
     }
 
+    // 비밀번호 등록 및 또페이 생성
+    @PostMapping("/password")
+    public ResponseEntity<?> registerPassword(@RequestBody RegisterPasswordRequest request) {
+        Long userId = SecurityUtil.getUserId();
+        payService.registerPayPassword(userId, request);
+        return ResponseEntity.ok(Response.create(ResponseCode.SUCCESS_REGISTER_DDOPAY, null));
+    }
+
     // 본인 계좌 인증 후 계좌 연동
     @PostMapping("/account")
     public ResponseEntity<?> registerAccount(@RequestBody RegisterAccountRequest request) {
@@ -52,14 +61,6 @@ public class PayController {
         );
     }
 
-
-    // 비밀번호 등록 및 또페이 생성
-    @PostMapping("/password")
-    public ResponseEntity<?> registerPassword(@RequestBody RegisterPasswordRequest request) {
-        Long userId = SecurityUtil.getUserId();
-        payService.registerPayPassword(userId, request);
-        return ResponseEntity.ok(Response.create(ResponseCode.SUCCESS_REGISTER_DDOPAY, null));
-    }
 
     // 잔고 조회
     @GetMapping("/balance")
@@ -85,4 +86,21 @@ public class PayController {
         List<GetAccountResponse> dtos = payService.selectAccountList(userId);
         return ResponseEntity.ok(Response.create(ResponseCode.SUCCESS_ACCOUNT_CHECK, dtos));
     }
+
+    // 또페이 충전
+    @PostMapping("/charge")
+    public ResponseEntity<?> chargeDdoPay(@RequestBody ChargeDdoPayRequest request) {
+        Long userId = SecurityUtil.getUserId();
+        payService.transferDdoPay(userId, request);
+        return ResponseEntity.ok(Response.create(ResponseCode.SUCCESS_BALANCE_CHARGE, "충전성공"));
+    }
+
+    // POS에서 토큰, 결제 금액, 가게 계좌 받기
+    @PostMapping("/pos")
+    public ResponseEntity<?> posPayment() {
+        return null;
+    }
+
+
+
 }
