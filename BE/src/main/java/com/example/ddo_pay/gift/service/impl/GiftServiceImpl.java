@@ -24,6 +24,7 @@ import com.example.ddo_pay.user.entity.User;
 import com.example.ddo_pay.user.service.impl.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -35,8 +36,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
@@ -163,6 +166,8 @@ public class GiftServiceImpl implements GiftService {
         Gift gift = giftRepository.findById(dto.getGiftId())
                 .orElseThrow(() -> new CustomException(ResponseCode.NO_EXIST_GIFTICON));
 
+        log.info("요청바디: " + dto);
+
         // 2. 기프티콘 유효기간 및 사용 가능 여부 확인
         boolean isUsable = isGiftUsable(gift, dto);
         if (!isUsable) {
@@ -252,7 +257,7 @@ public class GiftServiceImpl implements GiftService {
         // UUID를 이용해 토큰 생성
         String token = UUID.randomUUID().toString();
 
-        String key = "token" + token;
+        String key = "token:" + token;
         // 문자열 형태로 Redis에 저장할 값 구성
         String value = "giftId:" + gift.getId() + ",userId:" + userId + ",amount:" + gift.getAmount();
 
