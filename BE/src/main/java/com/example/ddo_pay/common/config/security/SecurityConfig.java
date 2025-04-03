@@ -25,7 +25,7 @@ public class SecurityConfig {
         public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
                 http
                                 // Cors 설정. Webconfig 에서 설정되었다면 기본 설정(withDefault)
-                                .cors((cors) -> cors.configurationSource(coreConfigurationSource()))
+                                .cors((cors) -> cors.configurationSource(corsConfigurationSource()))
 
                                 // Csrf 설정. 뭔지 모름. 끄기(disable)
                                 .csrf((cf) -> cf.disable())
