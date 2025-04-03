@@ -62,7 +62,8 @@ public class GiftController {
     // 특정 기프티콘의 사용 가능 여부를 알 수 있다.
     @PostMapping("/check")
     public ResponseEntity<?> usedCheck(@RequestBody GiftCheckRequestDto dto) {
-        GiftCheckResponseDto respDto = giftService.usedCheck(dto);
+        Long userId = SecurityUtil.getUserId();
+        GiftCheckResponseDto respDto = giftService.usedCheck(userId, dto);
         return new ResponseEntity<>(Response.create(SUCCESS_CHECK_GIFTICON, respDto), SUCCESS_CHECK_GIFTICON.getHttpStatus());
     }
 

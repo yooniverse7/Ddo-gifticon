@@ -49,4 +49,6 @@ public interface PayService {
     // 포스 계좌이체
     void posPayment(PosRequest request);
 
+    // 기프티콘 사용 요청 password 확인
+    Boolean verifyGiftPassword(Long userId, String inputPassword);
 }

@@ -150,18 +150,27 @@ public class GiftServiceImpl implements GiftService {
     }
 
     @Override
-    public GiftCheckResponseDto usedCheck(GiftCheckRequestDto dto) {
+    public GiftCheckResponseDto usedCheck(Long userId, GiftCheckRequestDto dto) {
         // 1. 기프티콘 조회
         Gift gift = giftRepository.findById(dto.getGiftId())
                 .orElseThrow(() -> new CustomException(ResponseCode.NO_EXIST_GIFTICON));
 
         // 2. 기프티콘 유효기간 및 사용 가능 여부 확인
         boolean isUsable = isGiftUsable(gift, dto);
+        if(!isUsable) {
+            return GiftCheckResponseDto.builder()
+                    .available(false)
+                    .build();
+        }
 
-        // 3. 응답 DTO 생성
-        return GiftCheckResponseDto
-                .builder()
-                .available(isUsable).build();
+        // 비밀번호 확인 로직
+        if (!payService.verifyGiftPassword(userId, dto.getGiftUsePassword())) {
+            throw new CustomException(ResponseCode.INVALID_GIFT_PASSWORD);
+        }
+
+        return GiftCheckResponseDto.builder()
+                .available(true)
+                .build();
     }
 
     // 기프티콘 만료 확인 메서드

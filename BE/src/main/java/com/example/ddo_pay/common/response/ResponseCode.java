@@ -70,7 +70,7 @@ public enum ResponseCode {
     INSUFFICIENT_BALANCE(4001, HttpStatus.BAD_REQUEST, "잔액이 부족합니다."),
     DIFFRENT_PASSWORD(1500, HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다"),
     INTERNAL_SERVER_ERROR(1999, HttpStatus.INTERNAL_SERVER_ERROR, "서버 오류가 발생했습니다."),
-
+    INVALID_GIFT_PASSWORD(3000, HttpStatus.BAD_REQUEST, "기프티콘 비밀번호가 일치하지 않습니다."),
 
     // 기프티콘
     SUCCESS_CREATE_GIFTICON(201, HttpStatus.CREATED, "기프티콘이 성공적으로 생성되었습니다."),

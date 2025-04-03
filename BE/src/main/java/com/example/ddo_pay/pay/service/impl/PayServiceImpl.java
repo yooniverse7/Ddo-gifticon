@@ -331,5 +331,18 @@ public class PayServiceImpl implements PayService {
         
     }
 
+    // 기프티콘 결제 시 비밀번호 조회
+    @Override
+    public Boolean verifyGiftPassword(Long userId, String inputPassword) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ResponseCode.NO_EXIST_USER));
+
+        DdoPay ddoPay = user.getDdoPay();
+        if (ddoPay == null) {
+            throw new CustomException(ResponseCode.NO_EXIST_DDOPAY);
+        }
+        return ddoPay.checkPassword(inputPassword);
+    }
+
 
 }
