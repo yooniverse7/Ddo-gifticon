@@ -6,19 +6,11 @@ import { useState } from 'react';
 import { Store, Search, X } from 'lucide-react';
 import Image from 'next/image';
 import { useFetchFavoriteStores } from '@/entity/store/api/useFetchFavoriteStores';
+import { useFetchMenu } from '../api/useFetchMenu';
+import { TMenu } from '@/entity/store/model/menu';
 
 interface FavoriteMarketListProps {
-  setMenuList: React.Dispatch<
-    React.SetStateAction<
-      {
-        id: number;
-        menu_name: string;
-        menu_desc: string;
-        menu_price: string;
-        menu_image: string;
-      }[]
-    >
-  >;
+  setMenuList: React.Dispatch<React.SetStateAction<TMenu[]>>;
   setCustomMenuList: React.Dispatch<
     React.SetStateAction<
       {
@@ -41,13 +33,14 @@ const FavoriteMarketList = ({
 }: FavoriteMarketListProps) => {
   const { favoriteStores } = useFetchFavoriteStores();
   const [query, setQuery] = useState<string>('');
+  const [selectedMarketId, setSelectedMarketId] = useState<number | null>(null);
+  const { data: menus } = selectedMarketId ? useFetchMenu(selectedMarketId) : { data: null };
 
-  const filteredMarkets = favoriteStores.filter((market) =>
-    market.place_name.includes(query)
-  );
+  const filteredMarkets = favoriteStores?.filter((market) => market.place_name.includes(query));
 
   const handleMarketSelect = (market: any) => {
-    setMenuList(market.menus);
+    setSelectedMarketId(market.id);
+    setMenuList(Array.isArray(menus) ? menus : []);
     setCustomMenuList([]);
     setMarketName(market.place_name);
     setIsFavoriteMarketShow((toggle) => !toggle);
@@ -93,17 +86,11 @@ const FavoriteMarketList = ({
             >
               <div className='flex items-center gap-3'>
                 <div className='relative w-16 h-16 rounded-lg overflow-hidden'>
-                  <Image
-                    src={market.main_image_url}
-                    alt={market.place_name}
-                    fill
-                    className='object-cover'
-                  />
+                  // Fixme, 이미지 주소 수정필요
+                  <Image src='' alt={market.place_name} fill className='object-cover' />
                 </div>
                 <div className='text-left'>
-                  <p className='font-medium text-gray-900'>
-                    {market.place_name}
-                  </p>
+                  <p className='font-medium text-gray-900'>{market.place_name}</p>
                   <p className='text-sm text-gray-500'>{market.address_name}</p>
                 </div>
               </div>

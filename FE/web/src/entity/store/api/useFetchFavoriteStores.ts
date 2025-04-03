@@ -13,7 +13,8 @@ export const useFetchFavoriteStores = () => {
     queryKey: ['favoriteStores'],
     queryFn: async () => {
       const response = await axiosInstance.get(`${API_URL.favoriteStores}?lat=${lat}&lng=${lng}`);
-      return response.data;
+      console.log(response);
+      return response.data.content;
     },
   });
 

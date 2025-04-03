@@ -11,21 +11,14 @@ import CustomMenuImageSelector from './CustomMenuImageSelector';
 import Link from 'next/link';
 import { User, Store, Plus, Minus, Gift } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { TMenu } from '@/entity/store/model/menu';
 
 export const GiftForm = () => {
   const router = useRouter();
   const [isContactListShow, setIsContactListShow] = useState(false);
   const [isFavoriteMarketShow, setIsFavoriteMarketShow] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [menuList, setMenuList] = useState<
-    {
-      id: number;
-      menu_name: string;
-      menu_desc: string;
-      menu_price: string;
-      menu_image: string;
-    }[]
-  >([]);
+  const [menuList, setMenuList] = useState<TMenu[]>([]);
   const [customMenuList, setCustomMenuList] = useState<
     {
       id: number;
@@ -39,17 +32,9 @@ export const GiftForm = () => {
     name: '누구에게 보낼까요?',
     phoneNumber: '',
   });
-  const [menuQuantities, setMenuQuantities] = useState<Record<number, number>>(
-    {}
-  );
-  const [customMenuImages, setCustomMenuImages] = useState<
-    { src: string; alt: string }[]
-  >([]);
+  const [menuQuantities, setMenuQuantities] = useState<Record<number, number>>({});
+  const [customMenuImages, setCustomMenuImages] = useState<{ src: string; alt: string }[]>([]);
   const [paymentData, setPaymentData] = useState<string | null>(null);
-
-  useEffect(() => {
-    console.log('Current menuList:', menuList);
-  }, [menuList]);
 
   const handleContactBtn = () => {
     handleMessageToRn();
@@ -121,9 +106,7 @@ export const GiftForm = () => {
             <User className='h-5 w-5 text-gray-500' />
             <span
               className={
-                selectedContact.name === '누구에게 보낼까요?'
-                  ? 'text-gray-500'
-                  : 'text-gray-900'
+                selectedContact.name === '누구에게 보낼까요?' ? 'text-gray-500' : 'text-gray-900'
               }
             >
               {selectedContact.name}
@@ -158,9 +141,7 @@ export const GiftForm = () => {
       {/* 메뉴 목록 */}
       {(menuList?.length > 0 || customMenuList?.length > 0) && (
         <div className='space-y-4'>
-          <Label className='text-sm font-medium text-gray-700'>
-            선택한 메뉴
-          </Label>
+          <Label className='text-sm font-medium text-gray-700'>선택한 메뉴</Label>
           <div className='space-y-4'>
             {[...(menuList || []), ...(customMenuList || [])].map((menu) => (
               <div
@@ -170,30 +151,18 @@ export const GiftForm = () => {
                 <div className='flex items-center gap-4'>
                   <div className='relative w-16 h-16 rounded-lg overflow-hidden'>
                     <Image
-                      src={
-                        'menu_image' in menu
-                          ? menu.menu_image
-                          : menu.custom_menu_image
-                      }
-                      alt={
-                        'menu_name' in menu
-                          ? menu.menu_name
-                          : menu.custom_menu_name
-                      }
+                      src={'menu_image' in menu ? menu.menu_image : menu.custom_menu_image}
+                      alt={'menu_name' in menu ? menu.menu_name : menu.custom_menu_name}
                       fill
                       className='object-cover'
                     />
                   </div>
                   <div>
                     <h3 className='font-medium text-gray-900'>
-                      {'menu_name' in menu
-                        ? menu.menu_name
-                        : menu.custom_menu_name}
+                      {'menu_name' in menu ? menu.menu_name : menu.custom_menu_name}
                     </h3>
                     <p className='text-sm text-gray-500'>
-                      {'menu_price' in menu
-                        ? menu.menu_price
-                        : menu.custom_menu_price}
+                      {'menu_price' in menu ? menu.menu_price : menu.custom_menu_price}
                     </p>
                   </div>
                 </div>
