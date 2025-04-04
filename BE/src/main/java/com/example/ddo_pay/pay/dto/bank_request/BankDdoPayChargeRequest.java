@@ -15,9 +15,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class BankDdoPayChargeRequest {
     @JsonProperty("userAccountNum")
-    private String userAccountNum;
+    private String userAccountNum; // 사용자 계좌(또페이 충전) or 법인 계좌(기프티콘 결제)
     @JsonProperty("corporationAccountNum")
-    private String corporationAccountNum;
+    private String corporationAccountNum; // 법인 계좌(또페이 충전) or 가게 계좌(기프티콘 결제)
 
     private int amount;
 
