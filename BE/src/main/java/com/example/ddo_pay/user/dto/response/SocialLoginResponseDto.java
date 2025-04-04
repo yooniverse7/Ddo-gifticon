@@ -11,4 +11,6 @@ public class SocialLoginResponseDto {
 
     @JsonProperty("refreshToken")
     private String refreshToken;
+
+    private String name;
 }

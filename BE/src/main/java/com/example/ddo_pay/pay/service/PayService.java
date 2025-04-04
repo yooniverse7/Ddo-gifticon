@@ -2,13 +2,11 @@ package com.example.ddo_pay.pay.service;
 
 
 import com.example.ddo_pay.pay.dto.bank_request.PosRequest;
-import com.example.ddo_pay.pay.dto.request.AccountVerifyRequest;
-import com.example.ddo_pay.pay.dto.request.ChargeDdoPayRequest;
-import com.example.ddo_pay.pay.dto.request.RegisterAccountRequest;
-import com.example.ddo_pay.pay.dto.request.RegisterPasswordRequest;
+import com.example.ddo_pay.pay.dto.request.*;
 
 import com.example.ddo_pay.pay.dto.response.GetAccountResponse;
 import com.example.ddo_pay.pay.dto.response.GetBalanceResponse;
+import com.example.ddo_pay.pay.dto.response.GetHistoryListResponse;
 import com.example.ddo_pay.pay.dto.response.GetPointResponse;
 import org.springframework.stereotype.Service;
 
@@ -51,4 +49,7 @@ public interface PayService {
 
     // 기프티콘 사용 요청 password 확인
     Boolean verifyGiftPassword(Long userId, String inputPassword);
+
+    // 결제 내역 조회
+    List<GetHistoryListResponse> selectHistoryList(Long userId, SelectHistoryRequest request);
 }

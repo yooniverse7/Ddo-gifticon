@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.example.ddo_pay.common.config.S3.S3Service;
 import com.example.ddo_pay.common.response.Response;
 import com.example.ddo_pay.common.response.ResponseCode;
 import com.example.ddo_pay.restaurant.dto.request.*;
@@ -39,18 +40,23 @@ public class RestaurantController {
 	private final RestaurantService restaurantService; // Service 주입
 	private final RedisTemplate<String, String> redisTemplate;
 	private final NaverCrawlingService naverCrawlingService;
+	private final S3Service s3Service;
 
 
 	/**
 	 * 맛집 등록 (POST /api/restaurants)
+	 *      * - restaurantCreateRequestDto: JSON 데이터 (식당 정보 및 메뉴 정보)
+	 *      * - image: 식당의 메인 이미지 파일 (선택)
+	 *      * - custom_menu_image: custom_menu 배열에 해당하는 파일들 (순서대로 매핑)
 	 */
 	@PostMapping(consumes = "multipart/form-data")
 	public ResponseEntity<?> create(
 		@RequestPart("restaurantCreateRequestDto") RestaurantCreateRequestDto requestDto,
-		@RequestPart(value = "image", required = false) MultipartFile imageFile
+		@RequestPart(value = "image", required = false) MultipartFile mainImageFile,
+		@RequestPart(value = "custom_menu_image", required = false) List<MultipartFile> customMenuImages
 	) {
 		// 실제 DB 연동
-		restaurantService.createRestaurant(requestDto);
+		restaurantService.createRestaurant(requestDto, mainImageFile, customMenuImages);
 
 		return ResponseEntity
 			.status(SUCCESS_CREATE_RESTAURANT.getHttpStatus())  // 204, 혹은 201 등

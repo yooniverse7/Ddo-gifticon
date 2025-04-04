@@ -12,6 +12,7 @@ function KakaoCallbackContent() {
   const { setTokens } = useAuthStore();
 
   useEffect(() => {
+    console.log('code', code);
     const handleLogin = async () => {
       if (!code) {
         router.push('/login');
@@ -20,6 +21,7 @@ function KakaoCallbackContent() {
 
       try {
         const data = await fetchKakaoLogin(code);
+        console.log('data', data);
         if (data.accessToken) {
           console.log('data.accessToken', data.accessToken);
           setTokens(data.accessToken);

@@ -1,9 +1,11 @@
 package com.example.ddo_pay.restaurant.service.impl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.ddo_pay.common.config.S3.S3Service;
 import com.example.ddo_pay.restaurant.dto.response.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +28,7 @@ import com.example.ddo_pay.restaurant.repository.UserRestaurantRepository;
 import com.example.ddo_pay.restaurant.service.RestaurantService;
 import com.example.ddo_pay.user.entity.User;
 import com.example.ddo_pay.user.repo.UserRepo;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +43,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 	private final MenuRepository menuRepository;
 	private final CustomMenuRepository customMenuRepository;
 	private final UserRepo userRepo; // 예: 사용자 식별을 위한 repository
+	private final S3Service s3Service; // S3Service 주입
 
 	/**
 	 * 맛집 등록 로직
@@ -143,6 +147,47 @@ public class RestaurantServiceImpl implements RestaurantService {
 		log.info("맛집 등록 완료. restaurantId={}, userId={}",
 			restaurant.getId(), user.getId());
 	}
+
+
+	/**
+	 * 파일을 함께 받는 식당 등록 로직 (컨트롤러에서 호출)
+	 */
+	@Override
+	@Transactional
+	public void createRestaurant(RestaurantCreateRequestDto requestDto, MultipartFile mainImageFile, List<MultipartFile> customMenuImages) {
+		// 1. 메인 이미지 파일이 있으면 S3에 업로드 후 URL 설정
+		if (mainImageFile != null && !mainImageFile.isEmpty()) {
+			try {
+				String mainImageUrl = s3Service.uploadFile(mainImageFile);
+				requestDto.setMainImageUrl(mainImageUrl);
+			} catch (IOException e) {
+				throw new RuntimeException("메인 이미지 업로드 실패", e);
+			}
+		}
+
+		// 2. custom_menu에 포함된 이미지 파일 처리
+		List<CustomMenuRequestDto> customMenus = requestDto.getCustomMenu();
+		if (customMenus != null && !customMenus.isEmpty() && customMenuImages != null) {
+			// JSON 배열 순서와 파일 순서가 일치한다고 가정
+			for (int i = 0; i < customMenus.size(); i++) {
+				if (i < customMenuImages.size()) {
+					MultipartFile file = customMenuImages.get(i);
+					if (file != null && !file.isEmpty()) {
+						try {
+							String customImageUrl = s3Service.uploadFile(file);
+							customMenus.get(i).setCustomMenuImage(customImageUrl);
+						} catch (IOException e) {
+							throw new RuntimeException("커스텀 메뉴 이미지 업로드 실패", e);
+						}
+					}
+				}
+			}
+		}
+
+		// 3. 파일 처리 완료 후, 기존 식당 등록 로직 호출 (DB 저장)
+		createRestaurant(requestDto);
+	}
+
 
 
 	/**

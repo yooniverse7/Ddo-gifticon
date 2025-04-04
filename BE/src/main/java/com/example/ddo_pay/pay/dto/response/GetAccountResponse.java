@@ -2,8 +2,6 @@ package com.example.ddo_pay.pay.dto.response;
 
 import com.example.ddo_pay.pay.entity.Account;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

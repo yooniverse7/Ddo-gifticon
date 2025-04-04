@@ -21,6 +21,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,45 +53,64 @@ public class NaverCrawlingServiceImpl implements NaverCrawlingService {
 	 */
 	@Override
 	public List<RestaurantCrawlingStoreDto> getCrawlingInfo(RestaurantCrawlingRequestDto requestDto) {
-		// 1) 요청 데이터 결합: placeName과 addressName
-		String combinedQuery = requestDto.getPlaceName() + " " + requestDto.getAddressName();
+		// 1) placeName으로 먼저 전체 검색을 수행합니다.
+		String placeNameQuery = requestDto.getPlaceName();
+		List<Map<String, Object>> searchResults = callAllSearchList(placeNameQuery);
 
-		// 2) allSearch API 호출 및 파싱
-		Map<String, Object> allSearchData = callAllSearch(combinedQuery);
-		String placeId = (String) allSearchData.get("place_id");
-		Double resLat = (Double) allSearchData.get("res_lat");
-		Double resLng = (Double) allSearchData.get("res_lng");
+		// 검색 결과가 없으면 빈 리스트를 반환합니다.
+		if (searchResults == null || searchResults.isEmpty()) {
+			return Collections.emptyList();
+		}
 
-		log.info("[allSearch] place_id={}, res_lat={}, res_lng={}", placeId, resLat, resLng);
+		// 2) addressName으로 필터링: 검색 결과가 여러 건일 경우 addressName이 포함된 결과를 선택합니다.
+		Map<String, Object> chosenResult = null;
+		if (searchResults.size() > 1) {
+			for (Map<String, Object> result : searchResults) {
+				String address = (String) result.get("res_address");
+				if (address != null && address.contains(requestDto.getAddressName())) {
+					chosenResult = result;
+					break;
+				}
+			}
+		}
+		// 필터링 조건에 맞는 결과가 없으면 첫 번째 결과를 사용합니다.
+		if (chosenResult == null) {
+			chosenResult = searchResults.get(0);
+		}
 
-		// 3) DTO 구성 (웹 스크래핑 부분을 제거하고 API 응답으로 대체)
+		// 3) 선택된 결과를 기반으로 DTO 구성
 		RestaurantCrawlingStoreDto dto = new RestaurantCrawlingStoreDto();
-		// HTML 태그 제거 후, place_name에 설정
-		String rawName = (String) allSearchData.get("res_name");
+		String rawName = (String) chosenResult.get("res_name");
 		String placeName = rawName != null ? rawName.replaceAll("<.*?>", "") : "";
 		dto.setPlaceName(placeName);
-		dto.setMainImageUrl((String) allSearchData.get("res_image"));
-		dto.setAddressName((String) allSearchData.get("res_address"));
-		dto.setPlaceId(placeId);
-		// 별점: 문자열을 BigDecimal로 변환 (없으면 0)
-		String starRatingStr = (String) allSearchData.get("star_rating");
+		dto.setMainImageUrl((String) chosenResult.get("res_image"));
+		dto.setAddressName((String) chosenResult.get("res_address"));
+		dto.setPlaceId((String) chosenResult.get("place_id"));
+
+		// 별점 문자열을 BigDecimal로 변환 (예외 발생 시 0으로 처리)
+		String starRatingStr = (String) chosenResult.get("star_rating");
 		try {
 			dto.setStarRating(starRatingStr != null ? new BigDecimal(starRatingStr) : BigDecimal.ZERO);
 		} catch (Exception e) {
 			dto.setStarRating(BigDecimal.ZERO);
 		}
+
 		// 위치 정보 설정
+		Double resLat = (Double) chosenResult.get("res_lat");
+		Double resLng = (Double) chosenResult.get("res_lng");
 		if (resLat != null && resLng != null) {
 			ResponsePositionDto pos = new ResponsePositionDto();
 			pos.setLat(resLat);
 			pos.setLng(resLng);
 			dto.setPosition(pos);
 		}
-		// 메뉴 파싱: menuInfo 문자열을 "|" 구분자로 나누어 메뉴 목록 생성
-		String menuStr = (String) allSearchData.get("menu_str");
+
+		// 메뉴 정보 파싱
+		String menuStr = (String) chosenResult.get("menu_str");
 		dto.setMenus(parseMenus(menuStr));
 
-		// 4) GraphQL API 호출 (추가 정보 확인용 - 결과는 로그로 출력)
+		// 4) GraphQL API 호출 (추가 정보 조회 - 로그 출력)
+		String placeId = (String) chosenResult.get("place_id");
 		if (placeId != null) {
 			JsonNode gqlNode = callGraphqlForDetail(placeId);
 			log.info("GraphQL node: {}", gqlNode.toPrettyString());
@@ -101,52 +121,45 @@ public class NaverCrawlingServiceImpl implements NaverCrawlingService {
 		return results;
 	}
 
+
 	@Override
 	public List<RestaurantCrawlingStoreDto> getOrLoadCrawlingResult(RestaurantCrawlingRequestDto req) {
-		String combinedQuery = req.getPlaceName() + " " + req.getAddressName();
-		Map<String, Object> allSearch = callAllSearch(combinedQuery);
-		String placeId = (String) allSearch.get("place_id");
-
-		if (placeId != null && !placeId.isBlank()) {
-			String redisKey = "crawling:" + placeId;
-			String cachedJson = redisTemplate.opsForValue().get(redisKey);
-			if (cachedJson != null) {
-				try {
-					return objectMapper.readValue(cachedJson, new TypeReference<List<RestaurantCrawlingStoreDto>>() {});
-				} catch (Exception e) {
-					log.warn("캐시 역직렬화 실패 → 새 크롤링 진행", e);
-				}
-			}
-		}
-
+		// 1. 먼저 크롤링 정보를 가져옵니다.
 		List<RestaurantCrawlingStoreDto> result = this.getCrawlingInfo(req);
-		if (placeId != null && !placeId.isBlank() && !result.isEmpty()) {
-			String redisKey = "crawling:" + placeId;
-			try {
-				String toCache = objectMapper.writeValueAsString(result);
-				redisTemplate.opsForValue().set(redisKey, toCache, Duration.ofHours(4));
-			} catch (Exception e) {
-				log.warn("캐시 직렬화 실패", e);
+
+		if (!result.isEmpty()) {
+			// 2. 첫 번째 결과에서 placeId를 추출합니다.
+			String placeId = result.get(0).getPlaceId();
+			if (placeId != null && !placeId.isBlank()) {
+				String redisKey = "crawling:" + placeId;
+				// 3. 캐시 조회: Redis에 저장된 결과가 있으면 반환합니다.
+				String cachedJson = redisTemplate.opsForValue().get(redisKey);
+				if (cachedJson != null) {
+					try {
+						return objectMapper.readValue(cachedJson, new TypeReference<List<RestaurantCrawlingStoreDto>>() {});
+					} catch (Exception e) {
+						log.warn("캐시 역직렬화 실패 → 새 크롤링 진행", e);
+					}
+				}
+				// 4. 캐시에 결과 저장
+				try {
+					String toCache = objectMapper.writeValueAsString(result);
+					redisTemplate.opsForValue().set(redisKey, toCache, Duration.ofHours(4));
+				} catch (Exception e) {
+					log.warn("캐시 직렬화 실패", e);
+				}
 			}
 		}
 		return result;
 	}
 
+
 	// ====== AllSearch API 호출 및 파싱 ======
-	private Map<String, Object> callAllSearch(String query) {
-		Map<String, Object> result = new HashMap<>();
-		// 결과 초기값 설정 (null)
-		result.put("placeId", null);
-		result.put("res_lat", null);
-		result.put("res_lng", null);
-		result.put("res_name", null);
-		result.put("res_address", null);
-		result.put("res_image", null);
-		result.put("star_rating", null);
-		result.put("menu_str", null);
+	private List<Map<String, Object>> callAllSearchList(String query) {
+		List<Map<String, Object>> results = new ArrayList<>();
 
 		try {
-			// URL 생성 (검색어, type, 좌표, boundary 등)
+			// 1) URL 생성
 			HttpUrl url = HttpUrl.parse("https://map.naver.com/p/api/search/allSearch")
 				.newBuilder()
 				.addQueryParameter("query", query)
@@ -155,59 +168,72 @@ public class NaverCrawlingServiceImpl implements NaverCrawlingService {
 				.addQueryParameter("boundary", "")
 				.build();
 
-			// 한글 등 특수문자가 Referer에 포함되지 않도록 URL 인코딩
+			// 2) Request 헤더 구성
 			String encodedQuery = URLEncoder.encode(query, StandardCharsets.UTF_8);
-
-			// Request 헤더 구성: Python 코드에서 사용한 헤더를 참고
 			Request request = new Request.Builder()
 				.url(url)
 				.header("Accept", "application/json, text/plain, */*")
 				.header("Accept-Language", "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7")
 				.header("Origin", "https://map.naver.com")
 				.header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36")
-				// 실제 브라우저에서 사용하는 쿠키 값으로 교체 필요 (예시로 일부 값만 사용)
 				.header("Cookie", "NNB=R3LR2TRSDV5WO; NID_AUT=your_actual_cookie_value;")
-				// Referer: 검색어를 포함한 URL (필요에 따라 구체화)
 				.header("Referer", "https://map.naver.com/p/search/" + encodedQuery + "?c=15.00,0,0,0,dh&isCorrectAnswer=true")
 				.build();
 
+			// 3) 요청 & 응답 파싱
 			try (Response response = httpClient.newCall(request).execute()) {
 				if (!response.isSuccessful()) {
 					log.warn("allSearch 호출 실패: {}", response);
-					return result;
+					return results; // 빈 리스트 반환
 				}
+
 				String bodyStr = response.body().string();
 				JsonNode root = objectMapper.readTree(bodyStr);
 
-				// 위치 정보 추출 (boundary 배열)
+				// 4) boundary(위도/경도) 추출
+				double lat = 0.0;
+				double lng = 0.0;
 				JsonNode boundary = root.path("result").path("place").path("boundary");
 				if (boundary.isArray() && boundary.size() >= 2) {
-					double lng = boundary.get(0).asDouble();
-					double lat = boundary.get(1).asDouble();
-					result.put("res_lat", lat);
-					result.put("res_lng", lng);
+					lng = boundary.get(0).asDouble();
+					lat = boundary.get(1).asDouble();
 				}
 
-				// 매장 기본 정보: 첫 번째 매장 항목
+				// 5) 매장 리스트 추출
 				JsonNode listArr = root.path("result").path("place").path("list");
-				if (listArr.isArray() && listArr.size() > 0) {
-					JsonNode first = listArr.get(0);
-					result.put("place_id", first.path("id").asText(null));
-					result.put("res_name", first.path("display").asText(null));
-					result.put("res_address", first.path("address").asText(null));
-					JsonNode thumUrls = first.path("thumUrls");
-					if (thumUrls.isArray() && thumUrls.size() > 0) {
-						result.put("res_image", thumUrls.get(0).asText(null));
+				if (listArr.isArray()) {
+					for (JsonNode item : listArr) {
+						Map<String, Object> map = new HashMap<>();
+						map.put("place_id", item.path("id").asText(null));
+						map.put("res_name", item.path("display").asText(null));
+						map.put("res_address", item.path("address").asText(null));
+
+						// 대표 이미지
+						JsonNode thumUrls = item.path("thumUrls");
+						if (thumUrls.isArray() && thumUrls.size() > 0) {
+							map.put("res_image", thumUrls.get(0).asText(null));
+						} else {
+							map.put("res_image", null);
+						}
+
+						map.put("star_rating", item.path("avgRating").asText(null));
+						map.put("menu_str", item.path("menuInfo").asText(null));
+
+						// boundary에서 추출한 위도, 경도
+						map.put("res_lat", lat);
+						map.put("res_lng", lng);
+
+						results.add(map);
 					}
-					result.put("star_rating", first.path("avgRating").asText(null));
-					result.put("menu_str", first.path("menuInfo").asText(null));
 				}
 			}
 		} catch (Exception e) {
-			log.error("callAllSearch error: ", e);
+			log.error("callAllSearchList error: ", e);
 		}
-		return result;
+
+		return results;
 	}
+
 
 	private Map<String, Object> parsePlaceInfo(JsonNode data) {
 		Map<String, Object> result = new HashMap<>();

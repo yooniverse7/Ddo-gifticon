@@ -126,6 +126,7 @@ public class KakaoAuthService {
 		SocialLoginResponseDto responseDto = new SocialLoginResponseDto();
 		responseDto.setAccessToken(jwtAccessToken);
 		responseDto.setRefreshToken(jwtRefreshToken);
+		responseDto.setName(user.getName());
 		return responseDto;
 	}
 

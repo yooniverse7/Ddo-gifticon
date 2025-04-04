@@ -89,7 +89,7 @@ export default function Places({
             <CarouselContent>
               {markers.length > 0 ? (
                 markers.map((marker) => (
-                  <CarouselItem key={marker.id} className="basis-[90%] p-4">
+                  <CarouselItem key={`${marker.id}${marker.id}`} className="basis-[90%] p-4">
                     <Card>
                       <CardContent className="p-4 pb-3 flex items-start">
                         <div className="flex-1 pr-4">
@@ -106,18 +106,18 @@ export default function Places({
                             상세 페이지
                           </Link>
                         </div>
-                        <Link href={URL.store_register} className="ml-auto">
+                        <Link
+                          href={`${URL.store_register}?data=${encodeUrl(
+                            JSON.stringify({
+                              place_name: marker.place_name,
+                              address_name: marker.address_name,
+                            }),
+                          )}`}
+                          className="ml-auto"
+                        >
                           <Button
                             onClick={(e) => {
                               e.stopPropagation();
-                              console.log(
-                                encodeUrl(
-                                  JSON.stringify({
-                                    place_name: marker.place_name,
-                                    address_name: marker.address_name,
-                                  }),
-                                ),
-                              );
                             }}
                             className="whitespace-nowrap"
                           >

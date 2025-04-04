@@ -10,6 +10,8 @@ import com.example.ddo_pay.restaurant.entity.UserRestaurant;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public interface RestaurantService {
 
 	/**
@@ -17,6 +19,8 @@ public interface RestaurantService {
 	 *  POST /api/restaurants
 	 */
 	void createRestaurant(RestaurantCreateRequestDto requestDto);
+	// 새로 추가: 파일도 함께 처리하는 식당 등록 메서드
+	void createRestaurant(RestaurantCreateRequestDto requestDto, MultipartFile mainImageFile, List<MultipartFile> customMenuImages);
 
 	/**
 	 * (2) 맛집 제거
