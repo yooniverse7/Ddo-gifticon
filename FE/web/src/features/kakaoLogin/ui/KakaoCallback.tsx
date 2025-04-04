@@ -21,6 +21,7 @@ export default function KakaoCallback() {
       try {
         const data = await fetchKakaoLogin(code);
         if (data.accessToken) {
+          console.log('data.accessToken', data.accessToken);
           setTokens(data.accessToken);
           router.push('/');
         } else {
@@ -38,9 +39,7 @@ export default function KakaoCallback() {
   return (
     <div className='min-h-screen flex items-center justify-center bg-gray-50'>
       <div className='text-center'>
-        <h2 className='text-xl font-semibold text-gray-900 mb-2'>
-          로그인 처리 중...
-        </h2>
+        <h2 className='text-xl font-semibold text-gray-900 mb-2'>로그인 처리 중...</h2>
         <p className='text-gray-600'>잠시만 기다려주세요.</p>
       </div>
     </div>

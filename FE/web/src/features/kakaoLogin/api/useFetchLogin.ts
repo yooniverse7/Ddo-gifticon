@@ -9,7 +9,7 @@ export async function fetchKakaoLogin(code: string) {
     {
       headers: {
         'Content-Type': 'application/json',
-        'XX-Auth': 'acc-tkn',
+        'xx-auth': 'acc-tkn',
       },
       withCredentials: true,
     }

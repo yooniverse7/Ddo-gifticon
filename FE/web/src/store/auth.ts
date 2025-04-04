@@ -1,6 +1,5 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { setAuthToken } from '@/shared/api/axiosInstance';
 
 interface AuthState {
   accessToken: string | null;
@@ -24,7 +23,8 @@ export const useAuthStore = create(
 
       setTokens: (accessToken, refreshToken) => {
         set({ accessToken, isAuthenticated: !!accessToken });
-        setAuthToken(accessToken);
+        // 쿠키에 토큰 저장
+        document.cookie = `accessToken=${accessToken}; path=/; max-age=86400`; // 24시간
       },
 
       setUserInfo: (info) => {
@@ -33,7 +33,6 @@ export const useAuthStore = create(
 
       logout: () => {
         set({ accessToken: null, isAuthenticated: false, userInfo: null });
-        setAuthToken(null);
         // 서버에 로그아웃 요청 보내기
         fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });
       },
