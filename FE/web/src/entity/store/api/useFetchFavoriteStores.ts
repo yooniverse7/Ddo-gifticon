@@ -1,7 +1,7 @@
 import { axiosInstance } from '@/shared/api/axiosInstance';
 import { API_URL } from '@/shared/constants/url';
 import { useQuery } from '@tanstack/react-query';
-import { TFavoriteStores } from '../model/stores';
+import { TMarketResponse } from '../model/menu';
 import { useMapStore } from '@/store/useMapStore';
 
 export const useFetchFavoriteStores = () => {
@@ -9,10 +9,11 @@ export const useFetchFavoriteStores = () => {
   const lat = map?.getCenter().getLat() ?? 0;
   const lng = map?.getCenter().getLng() ?? 0;
 
-  const { data: favoriteStores = [] } = useQuery<TFavoriteStores[]>({
+  const { data: favoriteStores = [] } = useQuery<TMarketResponse[]>({
     queryKey: ['favoriteStores'],
     queryFn: async () => {
       const response = await axiosInstance.get(`${API_URL.favoriteStores}?lat=${lat}&lng=${lng}`);
+      console.log(response.data);
       return response.data.content;
     },
   });
