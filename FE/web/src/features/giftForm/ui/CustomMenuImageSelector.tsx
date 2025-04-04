@@ -18,9 +18,7 @@ interface CustomMenuImageSelectorProps {
   onImagesChange: (images: ImageItem[]) => void;
 }
 
-const CustomMenuImageSelector = ({
-  onImagesChange,
-}: CustomMenuImageSelectorProps) => {
+const CustomMenuImageSelector = ({ onImagesChange }: CustomMenuImageSelectorProps) => {
   const [images, setImages] = useState<ImageItem[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -34,8 +32,7 @@ const CustomMenuImageSelector = ({
           reject(new Error('이미지 파일을 읽을 수 없습니다.'));
         }
       };
-      reader.onerror = () =>
-        reject(new Error('파일 읽기 오류가 발생했습니다.'));
+      reader.onerror = () => reject(new Error('파일 읽기 오류가 발생했습니다.'));
       reader.readAsDataURL(file);
     });
   }, []);
@@ -49,11 +46,10 @@ const CustomMenuImageSelector = ({
       if (!target?.files?.length) return;
 
       try {
-        const newImages = await Promise.all(
-          Array.from(target.files).map(handleFileRead)
-        );
+        const newImages = await Promise.all(Array.from(target.files).map(handleFileRead));
         setImages((prevImages) => {
           const updatedImages = [...prevImages, ...newImages];
+          console.log('업로드된 이미지 URL:', updatedImages);
           onImagesChange(updatedImages);
           return updatedImages;
         });
@@ -74,9 +70,7 @@ const CustomMenuImageSelector = ({
 
   return (
     <div className='space-y-4'>
-      <h3 className='text-lg font-semibold'>
-        나만의 메뉴 이미지를 선택해주세요
-      </h3>
+      <h3 className='text-lg font-semibold'>나만의 메뉴 이미지를 선택해주세요</h3>
       <Carousel className='w-full max-w-xs'>
         <CarouselContent>
           {images.length === 0 ? (
@@ -87,9 +81,7 @@ const CustomMenuImageSelector = ({
                   className='cursor-pointer hover:opacity-90 transition-opacity'
                 >
                   <CardContent className='flex aspect-square items-center justify-center p-6'>
-                    <span className='text-3xl font-semibold text-center'>
-                      사진을 넣어주세요!
-                    </span>
+                    <span className='text-3xl font-semibold text-center'>사진을 넣어주세요!</span>
                   </CardContent>
                 </Card>
               </div>
@@ -124,13 +116,7 @@ const CustomMenuImageSelector = ({
         <CarouselPrevious />
         <CarouselNext />
       </Carousel>
-      <input
-        type='file'
-        accept='image/*'
-        ref={fileInputRef}
-        className='hidden'
-        multiple
-      />
+      <input type='file' accept='image/*' ref={fileInputRef} className='hidden' multiple />
     </div>
   );
 };

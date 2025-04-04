@@ -1,23 +1,86 @@
 'use client';
 
-import { useHandleContacts } from '../api/HandleContacts';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
-import { User, Search, X } from 'lucide-react';
+import { X, User, Search } from 'lucide-react';
+import { useHandleContacts } from '../api/HandleContacts';
+
+interface Contact {
+  firstName?: string;
+  phoneNumbers?: { value: string }[];
+}
 
 interface ContactListProps {
   setSelectedContact: React.Dispatch<
-    React.SetStateAction<{ name: string; phoneNumber: string }>
+    React.SetStateAction<{
+      name: string;
+      phoneNumber: string;
+    }>
   >;
   setIsContactListShow: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ContactList = ({
-  setSelectedContact,
-  setIsContactListShow,
-}: ContactListProps) => {
-  const { contacts = [] } = useHandleContacts();
+export const ContactList = ({ setSelectedContact, setIsContactListShow }: ContactListProps) => {
+  const [contacts, setContacts] = useState<Contact[]>([]);
   const [query, setQuery] = useState<string>('');
+  const { contacts: nativeContacts, isLoading } = useHandleContacts();
+
+  useEffect(() => {
+    // 웹 환경에서는 localStorage에서 더미 데이터를 가져옴
+    if (typeof window !== 'undefined' && !window.ReactNativeWebView) {
+      const dummyContacts = localStorage.getItem('dummyContacts');
+      if (dummyContacts) {
+        try {
+          const parsedContacts = JSON.parse(dummyContacts);
+          setContacts(
+            parsedContacts.map((contact: any) => ({
+              firstName: contact.name,
+              phoneNumbers: [{ value: contact.phoneNumber }],
+            }))
+          );
+        } catch (error) {
+          console.error('더미 데이터 파싱 에러:', error);
+        }
+      } else {
+        // 더미 데이터가 없는 경우 기본 더미 데이터 설정
+        const defaultDummyContacts = [
+          { name: '김철수', phoneNumber: '010-1234-5678' },
+          { name: '이영희', phoneNumber: '010-8765-4321' },
+          { name: '박민수', phoneNumber: '010-5555-6666' },
+        ];
+        localStorage.setItem('dummyContacts', JSON.stringify(defaultDummyContacts));
+        setContacts(
+          defaultDummyContacts.map((contact) => ({
+            firstName: contact.name,
+            phoneNumbers: [{ value: contact.phoneNumber }],
+          }))
+        );
+      }
+      return;
+    }
+
+    // React Native 환경에서는 메시지 이벤트 리스너 설정
+    const handleMessage = (event: MessageEvent) => {
+      try {
+        const data = JSON.parse(event.data);
+        if (data.type === 'CONTACTS_RESPONSE') {
+          setContacts(data.contacts);
+        }
+      } catch (error) {
+        console.error('메시지 파싱 에러:', error);
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
+
+  // React Native 환경에서 contacts 상태 업데이트
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.ReactNativeWebView && nativeContacts) {
+      setContacts(nativeContacts);
+    }
+  }, [nativeContacts]);
 
   const sortedContacts = [...contacts].sort((a, b) => {
     const nameA = a.firstName ? a.firstName : '';
@@ -81,9 +144,7 @@ const ContactList = ({
       {/* 연락처 목록 */}
       <div className='space-y-4 max-h-[400px] overflow-y-auto'>
         {filteredContacts.length === 0 ? (
-          <div className='text-center text-gray-500 py-4'>
-            연락처가 없습니다.
-          </div>
+          <div className='text-center text-gray-500 py-4'>연락처가 없습니다.</div>
         ) : (
           filteredContacts.map((contact) => (
             <Button
@@ -91,22 +152,15 @@ const ContactList = ({
               variant='ghost'
               className='w-full justify-start p-4 hover:bg-gray-50'
               onClick={() =>
-                handleContact(
-                  contact.firstName || '',
-                  contact.phoneNumbers?.[0]?.value || ''
-                )
+                handleContact(contact.firstName || '', contact.phoneNumbers?.[0]?.value || '')
               }
             >
               <div className='flex items-center gap-3'>
                 <div className='w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center'>
-                  <span className='text-primary font-medium'>
-                    {contact.firstName?.[0] || '?'}
-                  </span>
+                  <span className='text-primary font-medium'>{contact.firstName?.[0] || '?'}</span>
                 </div>
                 <div className='text-left'>
-                  <p className='font-medium text-gray-900'>
-                    {contact.firstName || '이름 없음'}
-                  </p>
+                  <p className='font-medium text-gray-900'>{contact.firstName || '이름 없음'}</p>
                   <p className='text-sm text-gray-500'>
                     {contact.phoneNumbers?.[0]?.value || '전화번호 없음'}
                   </p>
@@ -119,5 +173,3 @@ const ContactList = ({
     </div>
   );
 };
-
-export default ContactList;
