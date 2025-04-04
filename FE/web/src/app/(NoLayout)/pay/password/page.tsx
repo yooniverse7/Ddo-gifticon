@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useState, Suspense } from 'react';
+import React, { useState, Suspense, use } from 'react';
 import { X, Lock } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import { useFetchCharge } from '@/features/paymentCheck/api/useFetchCharge';
 
-function PinDemoContent() {
+function PayPassword() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [input, setInput] = useState<string>('');
@@ -34,6 +35,9 @@ function PinDemoContent() {
         `/pay/completed?from=giftForm&amount=${amount}&recipient=${recipient}&storeName=${storeName}`
       );
     } else if (from === 'moneyCharge') {
+      // TODO: 충전 API 요청
+      const { data } = useFetchCharge();
+      console.log(data);
       router.push(`/pay/completed?from=moneyCharge&amount=${amount}`);
     }
   };
@@ -130,7 +134,7 @@ export default function PinDemo() {
         </div>
       }
     >
-      <PinDemoContent />
+      <PayPassword />
     </Suspense>
   );
 }

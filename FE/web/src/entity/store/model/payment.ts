@@ -1,6 +1,12 @@
 export type TPayment = {
-  id: number;
-  payment_date: string;
-  payment_price: number;
-  payment_title: string;
+  status: {
+    code: number;
+    message: string;
+  };
+  content: {
+    title: string;
+    time: string;
+    in_out_amount: number;
+    type: string;
+  }[];
 };
