@@ -14,10 +14,10 @@ export function middleware(request: NextRequest) {
   response.headers.set('X-Frame-Options', 'DENY');
   response.headers.set('X-Content-Type-Options', 'nosniff');
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
-  response.headers.set(
-    'Content-Security-Policy',
-    "default-src 'self'; connect-src 'self' https://j12e106.p.ssafy.io https://kauth.kakao.com; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline';"
-  );
+  // response.headers.set(
+  //   'Content-Security-Policy',
+  //   "default-src 'self'; connect-src 'self' https://j12e106.p.ssafy.io https://kauth.kakao.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://dapi.kakao.com; style-src 'self' 'unsafe-inline';"
+  // );
 
   // 로그인하지 않은 상태에서 보호된 페이지 접근 시도
   if (!isAuthenticated && !isLoginPage && !isCallbackPage) {
