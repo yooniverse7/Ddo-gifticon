@@ -70,7 +70,7 @@ public enum ResponseCode {
     INSUFFICIENT_BALANCE(4001, HttpStatus.BAD_REQUEST, "잔액이 부족합니다."),
     DIFFRENT_PASSWORD(1500, HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다"),
     INTERNAL_SERVER_ERROR(1999, HttpStatus.INTERNAL_SERVER_ERROR, "서버 오류가 발생했습니다."),
-
+    INVALID_GIFT_PASSWORD(3000, HttpStatus.BAD_REQUEST, "기프티콘 비밀번호가 일치하지 않습니다."),
 
     // 기프티콘
     SUCCESS_CREATE_GIFTICON(201, HttpStatus.CREATED, "기프티콘이 성공적으로 생성되었습니다."),
@@ -81,7 +81,8 @@ public enum ResponseCode {
     NO_EXIST_GIFTICON(400, HttpStatus.BAD_REQUEST, "등록된 기프티콘이 아닙니다."),
     NO_EXIST_GIFTBOX(400, HttpStatus.BAD_REQUEST, "받은 기프티콘이 아닙니다."),
     EXPIRED_GIFTICON(400, HttpStatus.BAD_REQUEST, "기프티콘의 유효기간이 만료되었습니다."),
-    NOT_REFUNDABLE_GIFTICON(400, HttpStatus.BAD_REQUEST, "환불할 수 없는 기프티콘 입니다.");
+    NOT_REFUNDABLE_GIFTICON(400, HttpStatus.BAD_REQUEST, "환불할 수 없는 기프티콘 입니다."),
+    GIFT_NOT_USABLE(400, HttpStatus.BAD_REQUEST, "기프티콘 사용이 불가능합니다.");
     private int code;
     private HttpStatus httpStatus;
     private String message;

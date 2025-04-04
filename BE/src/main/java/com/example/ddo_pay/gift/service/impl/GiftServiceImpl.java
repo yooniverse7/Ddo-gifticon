@@ -1,7 +1,9 @@
 package com.example.ddo_pay.gift.service.impl;
 
+import com.example.ddo_pay.common.dto.TokenData;
 import com.example.ddo_pay.common.exception.CustomException;
 import com.example.ddo_pay.common.response.ResponseCode;
+import com.example.ddo_pay.common.util.RedisHandler;
 import com.example.ddo_pay.gift.dto.GiftCheckResponseDto;
 import com.example.ddo_pay.gift.dto.GiftRefundRequestDto;
 import com.example.ddo_pay.gift.dto.GiftSelectResponseDto;
@@ -22,14 +24,22 @@ import com.example.ddo_pay.user.entity.User;
 import com.example.ddo_pay.user.service.impl.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.time.Duration;
+import java.util.UUID;
+
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
@@ -42,6 +52,7 @@ public class GiftServiceImpl implements GiftService {
     private final PayService payService;
 
     private static final Logger log = Logger.getLogger(GiftServiceImpl.class.getName());
+    private final RedisHandler redisHandler;
 
     /* 맛집 기반으로 기프티콘을 생성할 수 있다. 현재 생성할 때, 같이 이뤄져야 할 결제 로직 빠져있다. */
     @Override
@@ -150,18 +161,30 @@ public class GiftServiceImpl implements GiftService {
     }
 
     @Override
-    public GiftCheckResponseDto usedCheck(GiftCheckRequestDto dto) {
+    public GiftCheckResponseDto usedCheck(Long userId, GiftCheckRequestDto dto) {
         // 1. 기프티콘 조회
         Gift gift = giftRepository.findById(dto.getGiftId())
                 .orElseThrow(() -> new CustomException(ResponseCode.NO_EXIST_GIFTICON));
 
+        log.info("요청바디: " + dto);
+
         // 2. 기프티콘 유효기간 및 사용 가능 여부 확인
         boolean isUsable = isGiftUsable(gift, dto);
+        if (!isUsable) {
+            throw new CustomException(ResponseCode.GIFT_NOT_USABLE); // 기프티콘 사용 불가 시 CustomException 발생
+        }
 
-        // 3. 응답 DTO 생성
-        return GiftCheckResponseDto
-                .builder()
-                .available(isUsable).build();
+        // 3. 비밀번호 확인 로직
+        if (!payService.verifyGiftPassword(userId, dto.getGiftUsePassword())) {
+            throw new CustomException(ResponseCode.INVALID_GIFT_PASSWORD); // 비밀번호 검증 실패 시 CustomException 발생
+        }
+
+        // 4. UUID 토큰 생성 및 Redis에 저장 (5분 만료)
+        String token = generateUUIDToken(gift, userId);
+
+        return GiftCheckResponseDto.builder()
+                .token(token)
+                .build();
     }
 
     // 기프티콘 만료 확인 메서드
@@ -227,6 +250,21 @@ public class GiftServiceImpl implements GiftService {
 
         // 5. 페이 환불
         payService.depositDdoPay(userId, gift.getAmount());
+    }
+
+    // 토큰 생성
+    private String generateUUIDToken(Gift gift, Long userId) {
+        // UUID를 이용해 토큰 생성
+        String token = UUID.randomUUID().toString();
+
+        String key = "token:" + token;
+        // 문자열 형태로 Redis에 저장할 값 구성
+        String value = "giftId:" + gift.getId() + ",userId:" + userId + ",amount:" + gift.getAmount();
+
+        redisHandler.executeOperation(() ->
+                redisHandler.getValueOperations().set(key, value, Duration.ofMinutes(5)));
+
+        return token;
     }
 
 

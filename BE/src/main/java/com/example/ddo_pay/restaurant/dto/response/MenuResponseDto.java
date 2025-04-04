@@ -7,6 +7,7 @@ import lombok.Data;
  */
 @Data
 public class MenuResponseDto {
+	private Long menuId;
 	private String menuName;
 	private String menuPrice;
 	private String menuImage;

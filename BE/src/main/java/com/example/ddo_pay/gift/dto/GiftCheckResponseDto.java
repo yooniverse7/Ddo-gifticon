@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 @Builder
 public class GiftCheckResponseDto {
-    private Boolean available;
+    private String token;
 }

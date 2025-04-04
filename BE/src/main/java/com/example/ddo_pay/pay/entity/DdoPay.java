@@ -63,9 +63,11 @@ public class DdoPay {
         return this.balance >= amount;
     }
 
+    // 기프티콘 결제 비밀번호 확인
     public boolean checkPassword(String password) {
         return this.payPassword.equals(password);
     }
+
 
 
 

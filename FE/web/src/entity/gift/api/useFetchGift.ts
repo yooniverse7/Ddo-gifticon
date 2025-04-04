@@ -8,7 +8,7 @@ export const useFetchGift = () => {
     queryKey: ['gifts'],
     queryFn: async () => {
       const response = await axiosInstance.get(API_URL.gift);
-      return response.data;
+      return response.data.content;
     },
   });
 

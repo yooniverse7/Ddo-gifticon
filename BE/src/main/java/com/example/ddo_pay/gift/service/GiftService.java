@@ -26,7 +26,7 @@ public interface GiftService {
     GiftDetailResponseDto selectDetail(int giftId);
 
     // 해당 기프티콘의 사용여부 확인하기
-    GiftCheckResponseDto usedCheck(GiftCheckRequestDto dto);
+    GiftCheckResponseDto usedCheck(Long userId, GiftCheckRequestDto dto);
 
     void refund(GiftRefundRequestDto dto, Long userId);
 }

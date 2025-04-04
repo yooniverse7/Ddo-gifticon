@@ -11,6 +11,7 @@ import com.example.ddo_pay.gift.dto.select.GiftDetailResponseDto;
 import com.example.ddo_pay.gift.dto.update.GiftUpdateRequestDto;
 import com.example.ddo_pay.gift.service.GiftService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +20,7 @@ import java.util.List;
 import static com.example.ddo_pay.common.response.ResponseCode.*;
 
 
+@Slf4j
 @RestController
 @RequestMapping("/api/gift")
 @RequiredArgsConstructor
@@ -62,7 +64,9 @@ public class GiftController {
     // 특정 기프티콘의 사용 가능 여부를 알 수 있다.
     @PostMapping("/check")
     public ResponseEntity<?> usedCheck(@RequestBody GiftCheckRequestDto dto) {
-        GiftCheckResponseDto respDto = giftService.usedCheck(dto);
+        Long userId = SecurityUtil.getUserId();
+        log.info("요청바디{}", dto);
+        GiftCheckResponseDto respDto = giftService.usedCheck(userId, dto);
         return new ResponseEntity<>(Response.create(SUCCESS_CHECK_GIFTICON, respDto), SUCCESS_CHECK_GIFTICON.getHttpStatus());
     }
 

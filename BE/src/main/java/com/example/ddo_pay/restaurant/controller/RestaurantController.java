@@ -25,6 +25,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 실제 DB 연동: Service 호출을 통해 비즈니스 로직 수행
@@ -43,8 +44,11 @@ public class RestaurantController {
 	/**
 	 * 맛집 등록 (POST /api/restaurants)
 	 */
-	@PostMapping
-	public ResponseEntity<?> create(@RequestBody RestaurantCreateRequestDto requestDto) {
+	@PostMapping(consumes = "multipart/form-data")
+	public ResponseEntity<?> create(
+		@RequestPart("restaurantCreateRequestDto") RestaurantCreateRequestDto requestDto,
+		@RequestPart(value = "image", required = false) MultipartFile imageFile
+	) {
 		// 실제 DB 연동
 		restaurantService.createRestaurant(requestDto);
 
