@@ -4,7 +4,6 @@ import React, { useState, Suspense } from 'react';
 import { X, Lock } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { useFetchCharge } from '@/features/paymentCheck/api/useFetchCharge';
 import { axiosInstance } from '@/shared/api/axiosInstance';
 import { API_URL } from '@/shared/constants/url';
 import { TCharge } from '@/entity/store/model/charge';
