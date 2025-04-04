@@ -5,6 +5,9 @@ import { X, Lock } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { useFetchCharge } from '@/features/paymentCheck/api/useFetchCharge';
+import { axiosInstance } from '@/shared/api/axiosInstance';
+import { API_URL } from '@/shared/constants/url';
+import { TCharge } from '@/entity/store/model/charge';
 
 function PayPassword() {
   const router = useRouter();
@@ -29,16 +32,26 @@ function PayPassword() {
     setInput('');
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (from === 'giftForm') {
       router.push(
         `/pay/completed?from=giftForm&amount=${amount}&recipient=${recipient}&storeName=${storeName}`
       );
     } else if (from === 'moneyCharge') {
-      // TODO: 충전 API 요청
-      const { data } = useFetchCharge();
-      console.log(data);
-      router.push(`/pay/completed?from=moneyCharge&amount=${amount}`);
+      if (input.length < 6) {
+        return;
+      }
+      // 여기서 input과 amount를 넣어서 충전 API를 요청하려고 하는데
+      // useFetchCharge 훅을 사용하려고 하는데 훅을 사용하면 안되고
+      // 바로 요청을 보내야 한다.
+      const response = await axiosInstance.post<TCharge>(`${API_URL.charge}`, {
+        amount: amount,
+        password: input,
+      });
+      console.log(response.data);
+      if (response.data.status.code === 200) {
+        router.push(`/pay/completed?from=moneyCharge&amount=${amount}`);
+      }
     }
   };
 
