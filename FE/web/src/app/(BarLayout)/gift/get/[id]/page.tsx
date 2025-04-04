@@ -4,8 +4,9 @@ import GivenGiftDetail from '@/features/gitfBox/ui/GivenGiftDetail';
 import { useSearchParams } from 'next/navigation';
 import { X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { Suspense } from 'react';
 
-export default function DetailPage() {
+function DetailPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const title = searchParams.get('title');
@@ -44,5 +45,22 @@ export default function DetailPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function DetailPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className='min-h-screen bg-gray-50 flex items-center justify-center'>
+          <div className='text-center'>
+            <h2 className='text-xl font-semibold text-gray-900 mb-2'>로딩 중...</h2>
+            <p className='text-gray-600'>잠시만 기다려주세요.</p>
+          </div>
+        </div>
+      }
+    >
+      <DetailPageContent />
+    </Suspense>
   );
 }
