@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { useSendRegisterStore } from '@/entity/store/api/useSendRegisterStore';
 import { CustomMenuForm } from '@/features/menuForm/ui/CustomMenuForm';
 import { FadeUpContainer } from '@/widgets/fadeUpContainer';
 import { X } from 'lucide-react';
@@ -73,8 +74,51 @@ export default function page() {
   const router = useRouter();
   const [customMenu, setCustomMenu] = useState<Menu[]>([]);
 
+  const { mutateSendRegisterStore } = useSendRegisterStore();
+  // const { crawledData: a } = useFetchCrawledStore({
+  //   place_name: '하단끝집',
+  //   address_name: '부산 사하구 하단동 500-4',
+  // });
+
   const addCustomMenu = (name: string, price: number) => {
     setCustomMenu((prev) => [...prev, { menu_name: name, menu_price: price }]);
+  };
+
+  const submitStore = () => {
+    const formData = new FormData();
+
+    // 기존 메뉴 정보
+    const menus = crawledData.menus.map((menu) => ({
+      menu_name: menu.menu_name,
+      menu_price: parseInt(menu.menu_price.replace(/[^0-9]/g, '')),
+      menu_image: menu.menu_image,
+    }));
+
+    // 커스텀 메뉴 정보
+    const customMenus = customMenu.map((menu) => ({
+      user_id: 1,
+      custom_menu_name: menu.menu_name,
+      custom_menu_price: menu.menu_price,
+      custom_menu_image: null, // 파일 업로드 기능 추가 필요
+    }));
+    const json = {
+      user_id: 1,
+      place_name: crawledData.place_name,
+      main_image_url: crawledData.main_image_url,
+      address_name: crawledData.address_name,
+      position: crawledData.position,
+      user_intro: '직접 끓인 사골 국물이 일품!',
+      star_rating: '4.5',
+      visited_count: '0',
+      menus,
+      customMenus,
+    };
+
+    formData.append(
+      'restaurantCreateRequestDto',
+      new Blob([JSON.stringify(json)], { type: 'application/json' }),
+    );
+    mutateSendRegisterStore(formData);
   };
 
   return (
@@ -124,7 +168,9 @@ export default function page() {
       </div>
       <h2 className="font-semibold text-lg mb-2">나만의 메뉴 추가하기</h2>
       <CustomMenuForm addCustomMenu={addCustomMenu} />
-      <Button className="fixed bottom-0 w-full h-20 ">등록하기</Button>
+      <Button className="fixed bottom-0 w-full h-20" onClick={submitStore}>
+        등록하기
+      </Button>
     </FadeUpContainer>
   );
 }

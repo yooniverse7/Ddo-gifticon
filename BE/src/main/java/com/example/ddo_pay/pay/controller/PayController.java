@@ -3,6 +3,7 @@ package com.example.ddo_pay.pay.controller;
 import com.example.ddo_pay.common.response.Response;
 import com.example.ddo_pay.common.response.ResponseCode;
 import com.example.ddo_pay.common.util.SecurityUtil;
+import com.example.ddo_pay.pay.dto.bank_request.PosRequest;
 import com.example.ddo_pay.pay.dto.request.AccountVerifyRequest;
 import com.example.ddo_pay.pay.dto.request.ChargeDdoPayRequest;
 import com.example.ddo_pay.pay.dto.request.RegisterAccountRequest;
@@ -12,12 +13,13 @@ import com.example.ddo_pay.pay.dto.response.GetBalanceResponse;
 import com.example.ddo_pay.pay.dto.response.GetPointResponse;
 import com.example.ddo_pay.pay.service.PayService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+@Slf4j
 @RestController
 @RequestMapping("/api/pay")
 @RequiredArgsConstructor
@@ -97,9 +99,16 @@ public class PayController {
 
     // POS에서 토큰, 결제 금액, 가게 계좌 받기
     @PostMapping("/pos")
-    public ResponseEntity<?> posPayment() {
-        return null;
+    public ResponseEntity<?> posPayment(@RequestBody PosRequest request) {
+        log.info("POS 결제 요청 수신 - 토큰: {}, 금액: {}, 가맹점 계좌: {}",
+                request.getPaymentToken(),
+                request.getPaymentAmount(),
+                request.getStoreAccount());
+        return ResponseEntity.ok("요청 수신 완료");
     }
+
+
+
 
 
 

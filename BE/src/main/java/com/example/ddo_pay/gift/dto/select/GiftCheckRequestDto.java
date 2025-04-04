@@ -7,6 +7,7 @@ public class GiftCheckRequestDto {
     private String latitude;
     private String longitude;
     private int giftId;
+    private String giftUsePassword;
 
-    private int userId;
+    private Long userId;
 }

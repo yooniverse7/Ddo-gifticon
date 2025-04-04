@@ -14,6 +14,7 @@ import { useMarkersStore } from '@/store/useMarkerStore';
 import { CATEGORY_MAP, TCategory } from '../model/category';
 import MyGifts from './MyGifts';
 import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
 
 export const KakaoMap = () => {
   useKakaoLoader({
@@ -21,10 +22,20 @@ export const KakaoMap = () => {
     libraries: ['services', 'clusterer', 'drawing'],
   });
 
+  const params = useSearchParams();
+  const lat = params.get('lat');
+  const lng = params.get('lng');
+  const initCategory = params.get('category');
   const { map, setMap } = useMapStore();
   const { markers, setMarkers } = useMarkersStore();
-  const [category, setCategory] = useState<TCategory>(null);
-  const [center, setCenter] = useState<Coordinates>({ lat: 35.095326, lng: 128.855668 });
+  const [category, setCategory] = useState<TCategory>(
+    initCategory ? (initCategory as TCategory) : null,
+  );
+  const [center, setCenter] = useState<Coordinates>({
+    lat: lat ? Number(lat) : 35.095326,
+    lng: lng ? Number(lng) : 128.855668,
+  });
+  const [placesVisible, setPlacesVisible] = useState(true);
 
   const handleCategory = (value: TCategory) => {
     //FIXME - 추후 토글이나 다른 방식으로 변경경
@@ -95,6 +106,11 @@ export const KakaoMap = () => {
 
   const [isOpen, setIsOpen] = useState(false);
 
+  const handleMapClick = () => {
+    // 맵 클릭 시 Places 컴포넌트 숨기기
+    setPlacesVisible(false);
+  };
+
   return (
     <div className="relative w-full h-full">
       <Map
@@ -103,6 +119,7 @@ export const KakaoMap = () => {
         level={3}
         onCreate={setMap}
         onCenterChanged={handleCenterChanged}
+        onDrag={handleMapClick}
       >
         <Collapsible
           open={isOpen}
@@ -147,7 +164,14 @@ export const KakaoMap = () => {
             </Button>
           </CollapsibleContent>
         </Collapsible>
-        {markers.length > 0 && <Places markers={markers} changeCenter={changeCenter} />}
+        {markers.length > 0 && (
+          <Places
+            markers={markers}
+            changeCenter={changeCenter}
+            isVisible={placesVisible}
+            setIsVisible={setPlacesVisible}
+          />
+        )}
         {category === CATEGORY_MAP.MY_STORE && <MyStores changeCenter={changeCenter} />}
         {category === CATEGORY_MAP.GIFT && <MyGifts changeCenter={changeCenter} />}
       </Map>

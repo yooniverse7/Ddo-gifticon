@@ -271,6 +271,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 		List<MenuResponseDto> menuDtos = new ArrayList<>();
 		for (Menu m : restaurant.getMenuList()) {
 			MenuResponseDto mDto = new MenuResponseDto();
+			mDto.setMenuId(m.getId());
 			mDto.setMenuName(m.getMenuName());
 			mDto.setMenuPrice(String.valueOf(m.getMenuPrice()));
 			mDto.setMenuImage(m.getMenuImage());

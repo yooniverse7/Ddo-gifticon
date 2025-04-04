@@ -30,6 +30,8 @@ pipeline {
                     withCredentials([file(credentialsId: 'application-yml', variable: 'APP_YML')]) {
                         dir('BE'){
                             sh 'cp $APP_YML ./src/main/resources/application.yml'
+                            sh 'echo "[DEBUG] application.yml 적용됨:"'
+                            sh 'cat ./src/main/resources/application.yml | grep ddl-auto'
                         }
                     }
                 }
@@ -39,9 +41,10 @@ pipeline {
         stage('Build') {
             steps {
                 dir('BE') {
-                    echo "[DEBUG] Build 단계 진입"
-                    sh "chmod +x ./gradlew"
-                    sh "./gradlew clean build -x test"
+                    sh 'echo "[DEBUG] 빌드 전 application.yml 확인:"'
+                    sh 'cat ./src/main/resources/application.yml | grep ddl-auto'
+                    sh 'chmod +x ./gradlew' // ✅ 요거 추가!!
+                    sh './gradlew clean build -x test'
                 }
             }
         }
@@ -88,11 +91,10 @@ pipeline {
                                 --name ${CONTAINER_NAME} \\
                                 -p 8082:8080 \\
                                 --network s12p21e106-network \\
-                                -v /home/ubuntu/Project/S12P21E106/BE/config:/config \\
                                 -v /etc/localtime:/etc/localtime:ro \\
                                 -v /etc/timezone:/etc/timezone:ro \\
                                 -e TZ=Asia/Seoul \\
-                                -e SPRING_CONFIG_LOCATION=classpath:/,file:/config/application.yml \\
+                                -e SPRING_PROFILES_ACTIVE=default \\
                                 -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \\
                                 -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \\
                                 ${IMAGE_NAME}:${TAG}
