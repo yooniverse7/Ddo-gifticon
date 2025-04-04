@@ -6,43 +6,33 @@ import { useState } from 'react';
 import { Store, Search, X } from 'lucide-react';
 import Image from 'next/image';
 import { useFetchFavoriteStores } from '@/entity/store/api/useFetchFavoriteStores';
-import { useFetchMenu } from '../api/useFetchMenu';
-import { TMenu } from '@/entity/store/model/menu';
+import { TMenu, TCustomMenu, TMarketResponse } from '@/entity/store/model/menu';
 
 interface FavoriteMarketListProps {
   setMenuList: React.Dispatch<React.SetStateAction<TMenu[]>>;
-  setCustomMenuList: React.Dispatch<
-    React.SetStateAction<
-      {
-        id: number;
-        custom_menu_name: string;
-        custom_menu_price: string;
-        custom_menu_image: string;
-      }[]
-    >
-  >;
+  setCustomMenuList: React.Dispatch<React.SetStateAction<TCustomMenu[]>>;
   setIsFavoriteMarketShow: React.Dispatch<React.SetStateAction<boolean>>;
-  setMarketName: React.Dispatch<React.SetStateAction<string>>;
+  setMarket: React.Dispatch<React.SetStateAction<TMarketResponse | null>>;
+  setSelectedMarketId: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
 const FavoriteMarketList = ({
   setMenuList,
   setCustomMenuList,
   setIsFavoriteMarketShow,
-  setMarketName,
+  setMarket,
+  setSelectedMarketId,
 }: FavoriteMarketListProps) => {
   const { favoriteStores } = useFetchFavoriteStores();
+  console.log(favoriteStores);
   const [query, setQuery] = useState<string>('');
-  const [selectedMarketId, setSelectedMarketId] = useState<number | null>(null);
-  const { data: menus } = selectedMarketId ? useFetchMenu(selectedMarketId) : { data: null };
 
   const filteredMarkets = favoriteStores?.filter((market) => market.place_name.includes(query));
 
-  const handleMarketSelect = (market: any) => {
+  const handleMarketSelect = (market: TMarketResponse) => {
     setSelectedMarketId(market.id);
-    setMenuList(Array.isArray(menus) ? menus : []);
     setCustomMenuList([]);
-    setMarketName(market.place_name);
+    setMarket(market);
     setIsFavoriteMarketShow((toggle) => !toggle);
   };
 
@@ -77,7 +67,7 @@ const FavoriteMarketList = ({
 
         {/* 매장 목록 */}
         <div className='flex-1 overflow-y-auto space-y-4'>
-          {filteredMarkets.map((market) => (
+          {filteredMarkets?.map((market) => (
             <Button
               key={market.id}
               variant='ghost'
@@ -86,8 +76,12 @@ const FavoriteMarketList = ({
             >
               <div className='flex items-center gap-3'>
                 <div className='relative w-16 h-16 rounded-lg overflow-hidden'>
-                  // Fixme, 이미지 주소 수정필요
-                  <Image src='' alt={market.place_name} fill className='object-cover' />
+                  <Image
+                    src={market.main_image_url}
+                    alt={market.place_name}
+                    fill
+                    className='object-cover'
+                  />
                 </div>
                 <div className='text-left'>
                   <p className='font-medium text-gray-900'>{market.place_name}</p>
