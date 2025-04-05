@@ -10,6 +10,7 @@ export const usePaymentList = () => {
       const response = await axiosInstance.get<TPayment>(
         `${API_URL.pay_list}?history_type=BALANCE`
       );
+      console.log(response.data);
       return response.data;
     },
   });

@@ -4,6 +4,7 @@ export type TPayment = {
     message: string;
   };
   content: {
+    id: number;
     title: string;
     time: string;
     in_out_amount: number;

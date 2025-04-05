@@ -41,7 +41,7 @@ export const PaymentList = () => {
         {Array.isArray(filteredList) && filteredList.length > 0 ? (
           filteredList.map((payment) => (
             <div
-              key={`${payment.time}-${payment.title}`}
+              key={payment.id}
               className='py-3 flex justify-between items-center'
             >
               <div>
