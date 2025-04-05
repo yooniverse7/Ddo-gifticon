@@ -1,9 +1,10 @@
-import { WebViewMessageEvent } from 'react-native-webview';
+import {WebViewMessageEvent} from 'react-native-webview';
 import ContactService from './GetContacts';
-
+import {requestAllPermissionsAndSetCookie} from '../../../shared/utils/CheckPermission';
 export const handleWebViewMessage = async (
   event: WebViewMessageEvent,
-  postMessage: (message: string) => void
+  postMessage: (message: string) => void,
+  reload: () => void,
 ) => {
   try {
     const data = JSON.parse(event.nativeEvent.data);
@@ -16,7 +17,7 @@ export const handleWebViewMessage = async (
             type: 'CONTACTS_RESPONSE',
             success: true,
             contacts,
-          })
+          }),
         );
       } catch (error) {
         if (error instanceof Error) {
@@ -25,9 +26,32 @@ export const handleWebViewMessage = async (
               type: 'CONTACTS_ERROR',
               success: false,
               message: error.message,
-            })
+            }),
           );
         }
+      }
+    } else if (data.type === 'OPEN_PERMISSION_REQUEST') {
+      try {
+        const granted = await requestAllPermissionsAndSetCookie();
+        if (granted) {
+          setTimeout(() => {
+            console.log('WebView reload 실행');
+            reload();
+          }, 100);
+        }
+        postMessage(
+          JSON.stringify({
+            type: 'OPEN_PERMISSION_REQUEST',
+            success: true,
+          }),
+        );
+      } catch (error) {
+        postMessage(
+          JSON.stringify({
+            type: 'OPEN_PERMISSION_REQUEST',
+            success: false,
+          }),
+        );
       }
     }
   } catch (e) {

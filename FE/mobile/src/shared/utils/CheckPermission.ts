@@ -9,6 +9,7 @@ import {
   checkNotifications,
   requestNotifications,
 } from 'react-native-permissions';
+import Cookies from '@react-native-cookies/cookies';
 
 // 설정으로 이동하는 Alert 표시 함수
 const showSettingsAlert = (permissionType: string): void => {
@@ -321,6 +322,45 @@ export const checkNotificationPermission = async (): Promise<boolean> => {
     }
   } catch (error: unknown) {
     console.error('알림 권한 확인 중 오류 발생:', error);
+    return false;
+  }
+};
+
+export const requestAllPermissionsAndSetCookie = async (): Promise<boolean> => {
+  try {
+    const cameraAudioGranted = await checkCameraAndAudioPermissions();
+    const contactsGranted = await checkContactsPermission();
+    const storageGranted = await checkStoragePermission();
+    const locationGranted = await checkLocationPermission();
+    const notificationGranted = await checkNotificationPermission();
+    if (
+      cameraAudioGranted &&
+      contactsGranted &&
+      storageGranted &&
+      locationGranted &&
+      notificationGranted
+    ) {
+      console.log(
+        '모든 권한이 허용되었습니다. accessPermission 쿠키를 설정합니다.',
+      );
+      await Cookies.set('http://localhost:3000', {
+        name: 'accessPermission',
+        value: 'true',
+        // domain: 'localhost',
+        path: '/',
+        expires: new Date(Date.now() + 864e5).toISOString(), // 1일 후 만료
+      });
+      const cookies = await Cookies.get('http://localhost:3000');
+      console.log('Cookies:', cookies);
+      return true;
+    } else {
+      console.log(
+        '일부 권한이 거부되어 accessPermission 쿠키를 설정하지 않습니다.',
+      );
+      return false;
+    }
+  } catch (error) {
+    console.error('모든 권한 확인 중 오류 발생:', error);
     return false;
   }
 };
