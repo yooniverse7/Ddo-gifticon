@@ -8,13 +8,15 @@ import com.example.ddo_pay.gift.dto.select.GiftCheckRequestDto;
 import com.example.ddo_pay.gift.dto.select.GiftDetailResponseDto;
 import com.example.ddo_pay.gift.dto.update.GiftUpdateRequestDto;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
 public interface GiftService {
     // 기프티콘 발행하기
-    void create(GiftCreateRequestDto dto, Long userId);
+    void create(GiftCreateRequestDto dto, Long userId, MultipartFile image) throws IOException;
 
     // 기프티콘 양도하기
     void assignment(GiftUpdateRequestDto dto, Long userId);

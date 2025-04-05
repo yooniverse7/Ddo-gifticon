@@ -20,6 +20,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/bank")
+@CrossOrigin(origins = "http://localhost:5173")
 public class BankController {
 
     private final BankService bankService;
