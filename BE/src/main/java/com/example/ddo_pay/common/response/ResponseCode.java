@@ -12,8 +12,6 @@ public enum ResponseCode {
     // User 도메인
     // 소셜 로그인
 
-
-
     SUCCESS_SOCIAL_LOGIN(200, HttpStatus.OK, "인가 코드를 통해 액세스 토큰 요청이 성공했습니다."),
     SUCCESS_LOGIN(successCode(), HttpStatus.OK, "로그인이 성공적으로 완료되었습니다."),
 
@@ -83,7 +81,12 @@ public enum ResponseCode {
     NO_EXIST_GIFTBOX(400, HttpStatus.BAD_REQUEST, "받은 기프티콘이 아닙니다."),
     EXPIRED_GIFTICON(400, HttpStatus.BAD_REQUEST, "기프티콘의 유효기간이 만료되었습니다."),
     NOT_REFUNDABLE_GIFTICON(400, HttpStatus.BAD_REQUEST, "환불할 수 없는 기프티콘 입니다."),
-    GIFT_NOT_USABLE(400, HttpStatus.BAD_REQUEST, "기프티콘 사용이 불가능합니다.");
+    GIFT_NOT_USABLE(400, HttpStatus.BAD_REQUEST, "기프티콘 사용이 불가능합니다."),
+
+
+    INVALID_JSON(400, HttpStatus.BAD_REQUEST, "요청 JSON이 유효하지 않습니다."),
+    FILE_UPLOAD_FAIL(400, HttpStatus.BAD_REQUEST, "파일 업로드를 실패했습니다.");
+
     private int code;
     private HttpStatus httpStatus;
     private String message;

@@ -3,10 +3,15 @@ package com.example.ddo_pay.common.exception;
 import com.example.ddo_pay.common.response.ErrorResponse;
 import com.example.ddo_pay.common.response.Response;
 import com.example.ddo_pay.common.response.ResponseCode;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.io.IOException;
+import java.util.Map;
 
 @Slf4j
 @RestControllerAdvice
@@ -41,6 +46,16 @@ public class GlobalExceptionHandler {
                 .body(Response.create(code, errorResponse));
     }
 
+    @ExceptionHandler(IOException.class)
+    public ResponseEntity<?> handleIOException(IOException ex) {
+        log.error("❗ IOException 발생", ex);
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Map.of(
+                        "code", "FILE_UPLOAD_FAIL",
+                        "message", "파일 업로드 중 문제가 발생했습니다."
+                ));
+    }
     /**
      * 기타 예외들 처리
      */

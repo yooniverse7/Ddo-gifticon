@@ -1,6 +1,8 @@
 package com.example.ddo_pay.gift.controller;
 
+import com.example.ddo_pay.common.exception.CustomException;
 import com.example.ddo_pay.common.response.Response;
+import com.example.ddo_pay.common.response.ResponseCode;
 import com.example.ddo_pay.common.util.SecurityUtil;
 import com.example.ddo_pay.gift.dto.GiftCheckResponseDto;
 import com.example.ddo_pay.gift.dto.GiftRefundRequestDto;
@@ -10,6 +12,7 @@ import com.example.ddo_pay.gift.dto.select.GiftCheckRequestDto;
 import com.example.ddo_pay.gift.dto.select.GiftDetailResponseDto;
 import com.example.ddo_pay.gift.dto.update.GiftUpdateRequestDto;
 import com.example.ddo_pay.gift.service.GiftService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,15 +36,23 @@ public class GiftController {
     private final GiftService giftService;
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestPart("image") MultipartFile image, @RequestPart("request") String dto) throws IOException {
+    public ResponseEntity<?> create(@RequestPart("image") MultipartFile image, @RequestPart("request") String dto) {
 
         Long userId = SecurityUtil.getUserId();
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        GiftCreateRequestDto requestDto = objectMapper.readValue(dto, GiftCreateRequestDto.class);
-        giftService.create(requestDto, userId, image);
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            GiftCreateRequestDto requestDto = objectMapper.readValue(dto, GiftCreateRequestDto.class);
 
-        return new ResponseEntity<>(Response.create(SUCCESS_CREATE_GIFTICON, null), SUCCESS_CREATE_GIFTICON.getHttpStatus());
+            giftService.create(requestDto, userId, image);
+
+            return new ResponseEntity<>(Response.create(SUCCESS_CREATE_GIFTICON, null), SUCCESS_CREATE_GIFTICON.getHttpStatus());
+
+        } catch (JsonProcessingException e) {
+            throw new CustomException(ResponseCode.INVALID_JSON);
+        } catch (IOException e) {
+            throw new CustomException(ResponseCode.FILE_UPLOAD_FAIL);
+        }
     }
 
     @PutMapping
