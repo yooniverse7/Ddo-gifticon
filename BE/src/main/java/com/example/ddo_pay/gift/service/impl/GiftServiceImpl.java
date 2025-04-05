@@ -92,10 +92,9 @@ public class GiftServiceImpl implements GiftService {
         giftRepository.save(gift);
 //        log.info(gift.toString());
         // 2. 저장된 기프티콘에 대해 받은 기프티콘 목록에 추가하기
-        GiftBox giftBox = new GiftBox(user);
+        GiftBox giftBox = new GiftBox(user, gift);
 
         gift.changeGiftBox(giftBox);
-        giftBox.changeGift(gift);
         giftBoxRepository.save(giftBox);
 
         // 3. 맛집 메뉴들의 총액을 계산 후, 결제자의 또페이 잔고에서 출금한다.
