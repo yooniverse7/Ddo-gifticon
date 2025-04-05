@@ -127,7 +127,7 @@ export const GiftForm = () => {
 
       // JSON 데이터 추가
       const requestData = {
-        gift_title: giftTitle,
+        title: giftTitle,
         amount: totalPrice,
         message: giftMessage,
         phone_num: selectedContact.phoneNumber,
