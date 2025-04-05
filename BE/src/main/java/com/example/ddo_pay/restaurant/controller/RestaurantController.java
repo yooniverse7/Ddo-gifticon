@@ -173,8 +173,23 @@ public class RestaurantController {
 		// 1) Base64 decode
 		String decodedJson = new String(Base64.getDecoder().decode(data), StandardCharsets.UTF_8);
 
-		// 2) JSON → DTO
-		RestaurantCrawlingRequestDto requestDto = parseJsonToDto(decodedJson);
+		// 2) JSON 배열 파싱 및 DTO 생성
+		ObjectMapper mapper = new ObjectMapper();
+		List<String> dataList;
+		try {
+			dataList = mapper.readValue(decodedJson, new TypeReference<List<String>>() {});
+		} catch (JsonProcessingException e) {
+			return ResponseEntity.badRequest().body("JSON 파싱 에러: " + e.getMessage());
+		}
+
+		// 배열 길이 체크 (최소 2개의 요소 필요)
+		if (dataList.size() < 2) {
+			return ResponseEntity.badRequest().body("요청 데이터 배열의 길이가 부족합니다.");
+		}
+
+		RestaurantCrawlingRequestDto requestDto = new RestaurantCrawlingRequestDto();
+		requestDto.setPlaceName(dataList.get(0));
+		requestDto.setAddressName(dataList.get(1));
 
 		// 3) 크롤링 수행
 		List<RestaurantCrawlingStoreDto> result = naverCrawlingService.getOrLoadCrawlingResult(requestDto);

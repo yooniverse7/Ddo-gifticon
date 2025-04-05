@@ -1,6 +1,5 @@
 'use client';
 
-import { TPayment } from '@/entity/store/model/payment';
 import { useState } from 'react';
 import { PaymentIntersection } from './PaymentIntersection';
 import { usePaymentList } from '../api/usePaymentList';

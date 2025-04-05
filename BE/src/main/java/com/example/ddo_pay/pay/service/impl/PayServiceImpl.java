@@ -358,6 +358,7 @@ public class PayServiceImpl implements PayService {
         List<History> histories = historyRepository.findByDdoPay_UserIdAndType(userId, assetType);
         List<GetHistoryListResponse> responseList = histories.stream().map(history -> {
             GetHistoryListResponse response = new GetHistoryListResponse();
+            response.setId(history.getId());
             response.setTitle(history.getTitle());
             response.setTime(history.getTime());
             response.setInOutAmount(history.getInOutAmount());

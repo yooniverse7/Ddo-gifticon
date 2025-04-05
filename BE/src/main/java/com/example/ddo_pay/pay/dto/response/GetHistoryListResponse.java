@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class GetHistoryListResponse {
-
+    private Long id;
     private String title; // 결제 내역 제목
     private LocalDateTime time; // 결제 시간
     private int inOutAmount; // 입출금 내역

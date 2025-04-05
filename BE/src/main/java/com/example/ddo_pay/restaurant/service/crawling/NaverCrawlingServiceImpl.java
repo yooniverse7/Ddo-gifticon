@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 @Service
 @Slf4j
@@ -57,6 +58,10 @@ public class NaverCrawlingServiceImpl implements NaverCrawlingService {
 		String placeNameQuery = requestDto.getPlaceName();
 		List<Map<String, Object>> searchResults = callAllSearchList(placeNameQuery);
 
+
+		// 검색 결과를 콘솔에 출력
+		log.info("callAllSearchList 결과: {}", searchResults);
+
 		// 검색 결과가 없으면 빈 리스트를 반환합니다.
 		if (searchResults == null || searchResults.isEmpty()) {
 			return Collections.emptyList();
@@ -77,6 +82,7 @@ public class NaverCrawlingServiceImpl implements NaverCrawlingService {
 		if (chosenResult == null) {
 			chosenResult = searchResults.get(0);
 		}
+
 
 		// 3) 선택된 결과를 기반으로 DTO 구성
 		RestaurantCrawlingStoreDto dto = new RestaurantCrawlingStoreDto();
@@ -113,7 +119,10 @@ public class NaverCrawlingServiceImpl implements NaverCrawlingService {
 		String placeId = (String) chosenResult.get("place_id");
 		if (placeId != null) {
 			JsonNode gqlNode = callGraphqlForDetail(placeId);
-			log.info("GraphQL node: {}", gqlNode.toPrettyString());
+			log.info("GraphQL PlaceID: {}", gqlNode.toPrettyString());
+			BigDecimal gqlAvgRating = extractAvgRatingFromGraphql(gqlNode);
+			log.info("GraphQL avgRating: {}", gqlAvgRating.toString());
+			dto.setStarRating(gqlAvgRating);
 		}
 
 		List<RestaurantCrawlingStoreDto> results = new ArrayList<>();
@@ -307,7 +316,7 @@ public class NaverCrawlingServiceImpl implements NaverCrawlingService {
 				.url(url)
 				.post(reqBody)
 				// GraphQL 요청에도 브라우저와 동일한 User-Agent 사용
-				.header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36")
+				.header("User-Agent", getFakeUserAgent())
 				// Referer도 브라우저에서 사용하는 형식으로 설정
 				.header("Referer", "https://pcmap.place.naver.com/restaurant/" + placeId + "/home?from=map&locale=ko")
 				.header("Content-Type", "application/json")
@@ -326,6 +335,51 @@ public class NaverCrawlingServiceImpl implements NaverCrawlingService {
 			return objectMapper.createArrayNode();
 		}
 	}
+
+	// 가짜 User-Agent를 반환하는 메서드 예시
+	private String getFakeUserAgent() {
+		String[] userAgents = new String[] {
+			"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.5195.102 Safari/537.36",
+			"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36",
+			"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Safari/605.1.15",
+			"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Safari/537.36"
+		};
+		int index = new Random().nextInt(userAgents.length);
+		return userAgents[index];
+	}
+
+	private BigDecimal extractAvgRatingFromGraphql(JsonNode gqlResponse) {
+		log.debug("GraphQL 응답 전체: {}", gqlResponse.toPrettyString());
+		if (gqlResponse != null && gqlResponse.isArray()) {
+			for (JsonNode node : gqlResponse) {
+				log.debug("현재 노드: {}", node.toPrettyString());
+				// visitorReviewStats 내 review.avgRating 확인
+				if (node.has("visitorReviewStats")) {
+					JsonNode visitorStats = node.get("visitorReviewStats");
+					log.debug("visitorReviewStats 노드: {}", visitorStats.toPrettyString());
+					JsonNode reviewNode = visitorStats.path("review");
+					log.debug("review 노드: {}", reviewNode.toPrettyString());
+					JsonNode avgRatingNode = reviewNode.path("avgRating");
+					log.debug("avgRating 노드 (review 내부): {}", avgRatingNode);
+					if (!avgRatingNode.isMissingNode() && avgRatingNode.isNumber()) {
+						BigDecimal rating = BigDecimal.valueOf(avgRatingNode.asDouble());
+						log.debug("추출된 avgRating (review 내부): {}", rating);
+						return rating;
+					}
+				}
+				// visitorReviewStats 경로가 없는 경우, 최상위 avgRating 확인
+				JsonNode avgRatingNode = node.path("avgRating");
+				log.debug("최상위 avgRating 노드: {}", avgRatingNode);
+				if (!avgRatingNode.isMissingNode() && avgRatingNode.isNumber()) {
+					BigDecimal rating = BigDecimal.valueOf(avgRatingNode.asDouble());
+					log.debug("추출된 최상위 avgRating: {}", rating);
+					return rating;
+				}
+			}
+		}
+		return BigDecimal.ZERO;
+	}
+
 
 	// ====== 메뉴 문자열 파싱 ======
 	private List<RestaurantCrawlingMenuDto> parseMenus(String menuStr) {
