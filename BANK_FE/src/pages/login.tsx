@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import './login.css';
 import ssafyLogo from '../assets/image/ssafy.png';
@@ -13,9 +13,15 @@ function LoginPage() {
       const response = await axios.post("https://j12e106.p.ssafy.io/bank/login", {
         email: email,
       });
-      console.log("로그인 응답:", response.data);
-      // 로그인 성공 후 원하는 페이지로 이동
-      navigate('/balance');
+
+      if (response.data.code === "200") {
+        const { userId } = response.data.data;
+        console.log("로그인 응답:", response.data);
+        localStorage.setItem("userId", userId);
+        // 이후 필요한 로직 실행 (예: 페이지 이동 등)
+        navigate('/balance');
+      }
+
     } catch (error) {
       console.error("로그인 요청 실패:", error);
       // 실패 시 에러 메시지 처리
