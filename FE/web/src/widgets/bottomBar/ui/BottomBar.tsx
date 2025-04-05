@@ -9,7 +9,7 @@ export const BottomBar: React.FC = () => {
   const pathname = usePathname();
 
   return (
-    <div className="absolute bottom-0 flex justify-evenly items-center w-full h-20 z-50 bg-white border-t-2">
+    <div className='fixed bottom-0 left-0 flex justify-evenly items-center w-full h-20 z-50 bg-white border-t-2'>
       <Link href={'/'}>
         <Map size={32} className={`${pathname === '/' && 'text-amber-300'}`} />
       </Link>
@@ -21,7 +21,9 @@ export const BottomBar: React.FC = () => {
       </Link>
       <Link
         href={URL.gift_create}
-        className={`${pathname.startsWith(URL.gift_create) && 'text-amber-300'}`}
+        className={`${
+          pathname.startsWith(URL.gift_create) && 'text-amber-300'
+        }`}
       >
         <PlusCircle size={32} />
       </Link>
