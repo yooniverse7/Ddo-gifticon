@@ -1,5 +1,6 @@
 package com.example.ddo_pay.gift.service.impl;
 
+import com.example.ddo_pay.common.config.S3.S3Service;
 import com.example.ddo_pay.common.dto.TokenData;
 import com.example.ddo_pay.common.exception.CustomException;
 import com.example.ddo_pay.common.response.ResponseCode;
@@ -26,7 +27,9 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.util.UUID;
 
@@ -50,13 +53,14 @@ public class GiftServiceImpl implements GiftService {
     private final UserRepository userRepository;
     private final RestaurantRepository restaurantRepository;
     private final PayService payService;
+    private final S3Service s3Service;
 
     private static final Logger log = Logger.getLogger(GiftServiceImpl.class.getName());
     private final RedisHandler redisHandler;
 
     /* 맛집 기반으로 기프티콘을 생성할 수 있다. 현재 생성할 때, 같이 이뤄져야 할 결제 로직 빠져있다. */
     @Override
-    public void create(GiftCreateRequestDto dto, Long userId) {
+    public void create(GiftCreateRequestDto dto, Long userId, MultipartFile image) throws IOException {
 
         // 1. 맛집의 메뉴들의 정보와 사용자 커스텀 정보를 받아서 DB에 저장한다.
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ResponseCode.NO_EXIST_USER));
@@ -66,18 +70,23 @@ public class GiftServiceImpl implements GiftService {
 
         log.info("메뉴 조합 : " + dto.getMenuName());
 
+        // S3 이미지 업로드
+        String imageUrl = s3Service.uploadFile(image);
+
         Gift gift = Gift.builder()
                 .title(dto.getTitle())
                 .amount(dto.getAmount())
                 .message(dto.getMessage())
-                .image(dto.getImage())
                 .phoneNum(dto.getPhoneNum())
                 .menuCombination(dto.getMenuName())
                 .user(user)
+                .image(imageUrl)
                 .restaurant(restaurant)
                 .usedStatus(USED.BEFORE_USE)
                 .expirationDate(LocalDateTime.now().plusMonths(3))
                 .build();
+
+
 
         // 기프티콘 저장
         giftRepository.save(gift);
