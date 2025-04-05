@@ -90,14 +90,13 @@ public class GiftServiceImpl implements GiftService {
 
         // 기프티콘 저장
         giftRepository.save(gift);
-        log.info(gift.toString());
+//        log.info(gift.toString());
         // 2. 저장된 기프티콘에 대해 받은 기프티콘 목록에 추가하기
-        GiftBox giftBox = new GiftBox(user, gift);
-        giftBoxRepository.save(giftBox);
+        GiftBox giftBox = new GiftBox(user);
 
         gift.changeGiftBox(giftBox);
-        giftRepository.save(gift);
-
+        giftBox.changeGift(gift);
+        giftBoxRepository.save(giftBox);
 
         // 3. 맛집 메뉴들의 총액을 계산 후, 결제자의 또페이 잔고에서 출금한다.
         log.info("메뉴 총 금액 : " + dto.getAmount());
@@ -123,7 +122,11 @@ public class GiftServiceImpl implements GiftService {
         // newUser가 있다면 GiftBox 엔티티 생성 후 저장
         Optional<User> optionalNewUser = userRepository.findByPhoneNum(dto.getPhoneNum());
         if(optionalNewUser.isPresent()) {
-            GiftBox newGiftBox = new GiftBox(optionalNewUser.get(), gift);
+            User newUser = optionalNewUser.get();
+            GiftBox newGiftBox = new GiftBox(newUser, gift);
+
+            gift.changeGiftBox(newGiftBox);
+            newGiftBox.changeGift(gift);
             giftBoxRepository.save(newGiftBox);
         }
     }
@@ -149,7 +152,12 @@ public class GiftServiceImpl implements GiftService {
         // 3. iter giftbox entitiy
         List<GiftSelectResponseDto> dtoList = new ArrayList<>();
         for (GiftBox giftBox : giftBoxList) {
+
             Gift gift = giftBox.getGift();
+            if(gift == null) {
+                log.info(String.valueOf(giftBox.getId()));
+                throw new CustomException(ResponseCode.NO_EXIST_GIFTICON);
+            }
             // 4. 만료 기간, 현재시간 비교
             if(!isGiftOver(gift)) { // 만료일이 지난 경우
                 // 5. 상태 변경

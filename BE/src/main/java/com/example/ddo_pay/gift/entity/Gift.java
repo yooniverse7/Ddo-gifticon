@@ -36,8 +36,7 @@ public class Gift {
     @JoinColumn(name = "user_id")
     private User user; // 사용자와 다 대 1
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "giftbox_id")
+    @OneToOne(mappedBy = "gift")
     private GiftBox giftBox; // 받은 기프티콘과 1 대 1
 
     @ManyToOne(fetch = FetchType.LAZY)

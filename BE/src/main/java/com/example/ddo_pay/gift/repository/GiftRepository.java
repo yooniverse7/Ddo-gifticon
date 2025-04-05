@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface GiftRepository extends JpaRepository<Gift, Integer> {
     List<Gift> findByUser(User user);
     Optional<Gift> findById(Long giftId);
+    Optional<Gift> findByGiftBoxId(Long giftBoxId);
 }
