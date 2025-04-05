@@ -1,0 +1,53 @@
+/* 리스트 컨테이너 */
+.account-list-container {
+    background-color: #fff;
+    flex: 1;
+    padding: 16px;
+    /* 필요하면 스크롤 처리를 위해 overflow 설정 가능
+       e.g. max-height: calc(100vh - 200px); overflow-y: auto; */
+  }
+  
+  /* '총 13건' 같은 요약 부분 */
+  .account-summary {
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 1rem;
+  }
+  
+  /* 개별 항목 */
+  .account-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 1rem;
+  }
+  
+  /* 날짜, 시간 */
+  .item-date {
+    width: 70px;
+    color: #999;
+    font-size: 0.9rem;
+  }
+  
+  /* 설명 */
+  .item-desc {
+    flex: 1;
+    margin: 0 8px;
+  }
+  
+  /* 금액 */
+  .item-amount {
+    width: 80px;
+    text-align: right;
+  }
+  
+  /* 입금일 경우 */
+  .plus {
+    color: green;
+  }
+  
+  /* 출금일 경우 */
+  .minus {
+    color: red;
+  }
