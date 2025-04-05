@@ -1,6 +1,5 @@
 'use client';
 
-import { usePaymentList } from '../api/usePaymentList';
 import { PaymentList } from './PaymentList';
 
 export const PaymentBox = () => {

@@ -14,14 +14,14 @@ const GivenGiftList = () => {
     'usable'
   );
 
-  const { gifts } = useFetchGift();
+  const { data: gifts } = useFetchGift();
 
   const usableList: TGift[] = [];
   const afterUseList: TGift[] = [];
   const expiredList: TGift[] = [];
 
-  gifts.forEach((gift) => {
-    switch (gift.content.used_status) {
+  gifts?.content.forEach((gift) => {
+    switch (gift.used_status) {
       case 'BEFORE_USE':
         usableList.push(gift);
         break;
