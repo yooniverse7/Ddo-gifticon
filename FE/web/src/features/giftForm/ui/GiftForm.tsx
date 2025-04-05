@@ -31,8 +31,12 @@ export const GiftForm = () => {
     name: '누구에게 보낼까요?',
     phoneNumber: '',
   });
-  const [menuQuantities, setMenuQuantities] = useState<Record<number, number>>({});
-  const [customMenuImages, setCustomMenuImages] = useState<{ src: string; alt: string }[]>([]);
+  const [menuQuantities, setMenuQuantities] = useState<Record<number, number>>(
+    {}
+  );
+  const [customMenuImages, setCustomMenuImages] = useState<
+    { src: string; alt: string }[]
+  >([]);
   const [giftTitle, setGiftTitle] = useState('');
   const [giftMessage, setGiftMessage] = useState('');
 
@@ -146,11 +150,7 @@ export const GiftForm = () => {
         }
       }
 
-      const response = await axiosInstance.post('/api/gift', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const response = await axiosInstance.post('/api/gift', formData);
 
       console.log('응답 데이터:', response.data);
 
@@ -158,7 +158,9 @@ export const GiftForm = () => {
         router.push(
           `/pay/password?from=giftForm&amount=${totalPrice}&recipient=${
             selectedContact.name
-          }&storeName=${market?.place_name || '선택된 가게 없음'}&giftId=${response.data.giftId}`
+          }&storeName=${market?.place_name || '선택된 가게 없음'}&giftId=${
+            response.data.giftId
+          }`
         );
       }
     } catch (error) {
@@ -184,7 +186,9 @@ export const GiftForm = () => {
             <User className='h-5 w-5 text-gray-500' />
             <span
               className={
-                selectedContact.name === '누구에게 보낼까요?' ? 'text-gray-500' : 'text-gray-900'
+                selectedContact.name === '누구에게 보낼까요?'
+                  ? 'text-gray-500'
+                  : 'text-gray-900'
               }
             >
               {selectedContact.name}
@@ -211,7 +215,9 @@ export const GiftForm = () => {
         >
           <div className='flex items-center gap-2'>
             <Store className='h-5 w-5 text-gray-500' />
-            <span className='text-gray-900'>{market?.place_name || '또갈집 찾기'}</span>
+            <span className='text-gray-900'>
+              {market?.place_name || '또갈집 찾기'}
+            </span>
           </div>
           <span className='text-sm text-gray-500'>선택하기</span>
         </Button>
@@ -229,18 +235,30 @@ export const GiftForm = () => {
               <div className='flex items-center gap-4'>
                 <div className='relative w-16 h-16 rounded-lg overflow-hidden'>
                   <Image
-                    src={'menu_image' in menu ? menu.menu_image : menu.custom_menu_image}
-                    alt={'menu_name' in menu ? menu.menu_name : menu.custom_menu_name}
+                    src={
+                      'menu_image' in menu
+                        ? menu.menu_image
+                        : menu.custom_menu_image
+                    }
+                    alt={
+                      'menu_name' in menu
+                        ? menu.menu_name
+                        : menu.custom_menu_name
+                    }
                     fill
                     className='object-cover'
                   />
                 </div>
                 <div>
                   <h3 className='font-medium text-gray-900'>
-                    {'menu_name' in menu ? menu.menu_name : menu.custom_menu_name}
+                    {'menu_name' in menu
+                      ? menu.menu_name
+                      : menu.custom_menu_name}
                   </h3>
                   <p className='text-sm text-gray-500'>
-                    {'menu_price' in menu ? menu.menu_price : menu.custom_menu_price}
+                    {'menu_price' in menu
+                      ? menu.menu_price
+                      : menu.custom_menu_price}
                   </p>
                 </div>
               </div>
@@ -250,21 +268,27 @@ export const GiftForm = () => {
                   size='icon'
                   className='h-8 w-8'
                   onClick={() =>
-                    decreaseQuantity('menu_id' in menu ? menu.menu_id : menu.custom_menu_id)
+                    decreaseQuantity(
+                      'menu_id' in menu ? menu.menu_id : menu.custom_menu_id
+                    )
                   }
                   type='button'
                 >
                   <Minus className='h-4 w-4' />
                 </Button>
                 <span className='w-8 text-center font-medium'>
-                  {menuQuantities['menu_id' in menu ? menu.menu_id : menu.custom_menu_id] || 0}
+                  {menuQuantities[
+                    'menu_id' in menu ? menu.menu_id : menu.custom_menu_id
+                  ] || 0}
                 </span>
                 <Button
                   variant='outline'
                   size='icon'
                   className='h-8 w-8'
                   onClick={() =>
-                    increaseQuantity('menu_id' in menu ? menu.menu_id : menu.custom_menu_id)
+                    increaseQuantity(
+                      'menu_id' in menu ? menu.menu_id : menu.custom_menu_id
+                    )
                   }
                   type='button'
                 >
