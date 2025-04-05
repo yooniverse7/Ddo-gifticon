@@ -1,0 +1,31 @@
+/* 전체 컨테이너: 375px 고정폭, 가운데 정렬 */
+.account-container {
+    width: 375px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background-color: #f5f5f5; /* 필요에 따라 변경 */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* 상단 파란색 영역 */
+  .account-header {
+    background-color: #0095ff; /* 상단 바 색상 */
+    color: #fff;
+    text-align: center;
+    padding: 30px 0;
+  }
+  
+  /* 잔액 금액 */
+  .balance-amount {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  /* 계좌 번호 (또는 기타 정보) */
+  .balance-number {
+    font-size: 1rem;
+    opacity: 0.9; /* 살짝 투명도 주고 싶으면 */
+  }
+  
