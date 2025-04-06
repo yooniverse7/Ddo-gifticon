@@ -69,6 +69,8 @@ public class DdoPay {
     }
 
 
-
+    public void addPoint(int addPoint) {
+        this.point += addPoint;
+    }
 
 }

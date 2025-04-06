@@ -348,10 +348,12 @@ public class PayServiceImpl implements PayService {
         // 계좌 이체 요청(feignclient) -> 깊티 상태 변경(Service) -> 성공 응답(SSE)
         if(request.getResult()) {
             log.info("일치된 로직 실행");
+
+            int amount = (int) (request.getPaymentAmount() * 0.01);
             BankDdoPayChargeRequest bankRequest = BankDdoPayChargeRequest.builder()
                     .userAccountNum("9990627419918613") // 법인 계좌
                     .corporationAccountNum(request.getStoreAccount()) // 가게 계좌
-                    .amount(request.getPaymentAmount())
+                    .amount(request.getPaymentAmount() - amount)
                     .build();
 
             log.info("(또페이 -> 가게) 계좌 이체할 금액 : " + bankRequest.getAmount());
@@ -361,6 +363,14 @@ public class PayServiceImpl implements PayService {
             // 계좌 이체 성공 확인
             if (response.getStatusCode().is2xxSuccessful()) {
                 log.info("계좌 이체 성공 확인");
+                Gift gift = giftRepository.findById(request.getGiftId()).orElseThrow(() -> new CustomException(ResponseCode.NO_EXIST_GIFTICON));
+
+                // 결제 금액의 0.5%를 기프티콘 발행자에게 포인트로 적립
+                DdoPay ddoPay = gift.getUser().getDdoPay();
+                ddoPay.addPoint(amount / 2);
+                ddoPayRepository.save(ddoPay);
+                log.info("포인트 적립 완료");
+
                 String paymentToken = request.getPaymentToken();
                 String key = "token:" + paymentToken;
                 String redisValue = (String) redisTemplate.opsForValue().get(key);
@@ -381,8 +391,8 @@ public class PayServiceImpl implements PayService {
                 }
                 log.info("userId = {}, giftId={}", userId, giftId);
                 // 기프티콘 상태 변경
-                Gift gift = giftRepository.findById(giftId).orElseThrow(() -> new CustomException(ResponseCode.NO_EXIST_GIFTICON));
-                gift.changeUsedAfter(); // 기프티콘 상태 변경
+                Gift findGift = giftRepository.findById(giftId).orElseThrow(() -> new CustomException(ResponseCode.NO_EXIST_GIFTICON));
+                findGift.changeUsedAfter(); // 기프티콘 상태 변경
                 log.info("기프티콘 상태 변경 : {}", gift.getUsedStatus());
                 giftRepository.save(gift);
                 log.info("기프티콘 저장");
