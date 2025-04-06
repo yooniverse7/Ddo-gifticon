@@ -46,6 +46,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static com.example.ddo_pay.pay.entity.AssetType.BALANCE;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -256,8 +258,17 @@ public class PayServiceImpl implements PayService {
         }
 
         ddoPay.decreaseBalance(amount);
+        // 결제 내역 추가
+        History history = History.builder()
+                .title("기프티콘 생성")
+                .time(LocalDateTime.now())
+                .inOutAmount(amount)
+                .type(BALANCE)
+                .ddoPay(ddoPay)
+                .build();
+        ddoPay.getHistoryList().add(history);
         ddoPayRepository.save(ddoPay);
-
+        historyRepository.save(history);
     }
 
     // 기프티콘 취소 환불 시 90% 금액 환불
@@ -324,7 +335,7 @@ public class PayServiceImpl implements PayService {
             history.setTitle("또페이 충전");
             history.setTime(LocalDateTime.now());
             history.setInOutAmount(request.getAmount());
-            history.setType(AssetType.BALANCE);
+            history.setType(BALANCE);
             history.setDdoPay(ddoPay);
 
             ddoPay.getHistoryList().add(history);

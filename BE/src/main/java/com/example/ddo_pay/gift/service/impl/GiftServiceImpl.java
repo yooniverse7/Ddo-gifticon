@@ -67,7 +67,6 @@ public class GiftServiceImpl implements GiftService {
         Restaurant restaurant = restaurantRepository.findById((long) dto.getResId()).orElseThrow(() -> new CustomException(ResponseCode.NO_EXIST_RESTAURANT));
 
 
-
         log.info("메뉴 조합 : " + dto.getMenuName());
 
         // S3 이미지 업로드
@@ -100,7 +99,7 @@ public class GiftServiceImpl implements GiftService {
         // 3. 맛집 메뉴들의 총액을 계산 후, 결제자의 또페이 잔고에서 출금한다.
         log.info("메뉴 총 금액 : " + dto.getAmount());
 
-        // 해당 유저의 또페이 계정의 잔고에서 출금되는 로직이라고 가정.
+        // 해당 유저의 또페이 계정의 잔고에서 출금되는 로직이라고 가정. + 결제내역 추가
         payService.withdrawDdoPay(userId, dto.getAmount());
 
     }
