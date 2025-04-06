@@ -15,12 +15,12 @@ const SentGiftList = () => {
   );
 
   // FIX ME: 보낸 선물 목록을 받아오는 useFetchSentGift 훅을 만들어야 함.
-  const giftList = useFetchGift();
+  const { data: gifts } = useFetchGift();
 
   const refundableList: TGift[] = [];
   const nonRefundableList: TGift[] = [];
 
-  giftList.gifts.forEach((gift) => {
+  gifts?.content.forEach((gift) => {
     if (gift.used_status === 'CANCLE') {
       refundableList.push(gift);
     } else {
@@ -29,9 +29,9 @@ const SentGiftList = () => {
   });
 
   useEffect(() => {
-    setGiftNumber(giftList.gifts.length);
+    setGiftNumber(gifts?.content.length ?? 0);
     setCurrentList(refundableList);
-  }, [giftList.gifts.length]);
+  }, [gifts?.content.length]);
 
   const handleListChange = (
     newList: TGift[],
