@@ -157,7 +157,7 @@ public class GiftServiceImpl implements GiftService {
                 throw new CustomException(ResponseCode.NO_EXIST_GIFTICON);
             }
             // 4. 만료 기간, 현재시간 비교
-            if(!isGiftOver(gift)) { // 만료일이 지난 경우
+            if(isGiftOver(gift)) { // 만료일이 지난 경우
                 // 5. 상태 변경
                 gift.changeUsedExpired();
                 // 6. DB 저장
