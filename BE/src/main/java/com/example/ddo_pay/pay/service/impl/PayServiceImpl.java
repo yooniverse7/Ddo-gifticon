@@ -249,6 +249,7 @@ public class PayServiceImpl implements PayService {
 
 
     // 기프티콘 생성 시 또페이 잔액 조회 후 출금(잔액 변경)
+    @Transactional
     @Override
     public void withdrawDdoPay(Long userId, int amount) {
         DdoPay ddoPay = ddoPayRepository.findByUserId(userId).orElseThrow(() -> new CustomException(ResponseCode.NO_EXIST_DDOPAY));
@@ -262,7 +263,7 @@ public class PayServiceImpl implements PayService {
         History history = History.builder()
                 .title("기프티콘 생성")
                 .time(LocalDateTime.now())
-                .inOutAmount(amount)
+                .inOutAmount(amount*-1)
                 .type(BALANCE)
                 .ddoPay(ddoPay)
                 .build();
@@ -272,17 +273,29 @@ public class PayServiceImpl implements PayService {
     }
 
     // 기프티콘 취소 환불 시 90% 금액 환불
+    @Transactional
     @Override
     public void depositDdoPay(Long userId, int amount) {
         DdoPay ddoPay = ddoPayRepository.findByUserId(userId).orElseThrow(()
                 -> new CustomException(ResponseCode.NO_EXIST_DDOPAY));
 
         ddoPay.increaseBalance(amount);
-        ddoPayRepository.save(ddoPay);
 
+        // 결제 내역 추가
+        History history = History.builder()
+                .title("기프티콘 환불")
+                .time(LocalDateTime.now())
+                .inOutAmount(amount)
+                .type(BALANCE)
+                .ddoPay(ddoPay)
+                .build();
+        ddoPay.getHistoryList().add(history);
+        ddoPayRepository.save(ddoPay);
+        historyRepository.save(history);
     }
 
     // 또페이 충전
+    @Transactional
     @Override
     public void transferDdoPay(Long userId, ChargeDdoPayRequest request) {
         DdoPay ddoPay = ddoPayRepository.findById(userId)
@@ -350,6 +363,7 @@ public class PayServiceImpl implements PayService {
 
     // 같다면, 다음 로직 실행(계좌 이체 요청(feignclient) -> 깊티 상태 변경(Service) -> 성공 응답(SSE))
     // 다르면, 프론트로 실패 응답(SSE) + pos로 실패 응답(REST)
+    @Transactional
     @Override
     public void posPayment(TokenEqualResponseDto request) throws JsonProcessingException {
         log.info("TokenEqualResponseDto: {}, 금액: {}, 가맹점 계좌: {}",

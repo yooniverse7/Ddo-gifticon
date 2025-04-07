@@ -87,6 +87,7 @@ public class GiftController {
         return new ResponseEntity<>(Response.create(SUCCESS_CHECK_GIFTICON, respDto), SUCCESS_CHECK_GIFTICON.getHttpStatus());
     }
 
+    // 기프티콘 환불
     @PostMapping("/refund")
     public ResponseEntity<?> refund(@RequestBody GiftRefundRequestDto dto) {
         Long userId = SecurityUtil.getUserId();
