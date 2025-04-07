@@ -14,7 +14,7 @@ interface PlacesProps {
 
 export default function MyGifts({ changeCenter }: PlacesProps) {
   const [info, setInfo] = useState<TGift | null>(null);
-  const { gifts } = useFetchGift();
+  const { data: gifts } = useFetchGift();
 
   const [isVisible, setIsVisible] = useState(true);
   const handleMarker = (marker: TGift) => {
@@ -25,7 +25,7 @@ export default function MyGifts({ changeCenter }: PlacesProps) {
 
   return (
     <>
-      {gifts.map((gift) => (
+      {gifts?.content.map((gift) => (
         <CustomOverlayMap key={gift.id + 'marker'} position={gift.position}>
           <MapMarker
             onClick={() => handleMarker(gift)}
@@ -51,25 +51,25 @@ export default function MyGifts({ changeCenter }: PlacesProps) {
         <FadeUpContainer
           className={`absolute bottom-0 flex flex-col w-full h-80 p-2 z-10 rounded-lg bg-white overflow-y-auto will-change-transform`}
         >
-          <div className="flex justify-center">
+          <div className='flex justify-center'>
             <button onClick={() => setIsVisible(false)}>
               <ChevronsDown />
             </button>
           </div>
-          {gifts.map((gift) => (
+          {gifts?.content.map((gift) => (
             <div
-              className="flex justify-between items-center px-2 border-[0.6px] border-black"
+              className='flex justify-between items-center px-2 border-[0.6px] border-black'
               key={gift.id}
               onClick={() => {
                 changeCenter(gift.position);
                 setInfo(gift);
               }}
             >
-              <div className="flex flex-col">
-                <h2 className="font-semibold text-lg w-48 truncate">
+              <div className='flex flex-col'>
+                <h2 className='font-semibold text-lg w-48 truncate'>
                   선물준이: {gift.send_user_name}
                 </h2>
-                <p className="text-sm ">선물제목: {gift.title}</p>
+                <p className='text-sm '>선물제목: {gift.title}</p>
                 <p>유효기간: {gift.expiration_date}</p>
               </div>
               {/* <div>
@@ -79,8 +79,8 @@ export default function MyGifts({ changeCenter }: PlacesProps) {
           ))}
         </FadeUpContainer>
       ) : (
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-10 ">
-          <button className="cursor-pointer" onClick={() => setIsVisible(true)}>
+        <div className='absolute bottom-0 left-1/2 -translate-x-1/2 z-10 '>
+          <button className='cursor-pointer' onClick={() => setIsVisible(true)}>
             <ChevronsUp />
           </button>
         </div>
