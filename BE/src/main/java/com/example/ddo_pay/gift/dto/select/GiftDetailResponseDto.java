@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Data
 public class GiftDetailResponseDto {
 
-    private String giftTitle;
+    private String title;
     private int amount;
     private String phoneNum;
     private String message;
@@ -25,7 +25,7 @@ public class GiftDetailResponseDto {
 
     public static GiftDetailResponseDto from(Gift gift) {
         GiftDetailResponseDto dto = new GiftDetailResponseDto();
-        dto.giftTitle = gift.getTitle();
+        dto.title = gift.getTitle();
         dto.amount = gift.getAmount();
         dto.phoneNum = gift.getPhoneNum();
         dto.message = gift.getMessage();

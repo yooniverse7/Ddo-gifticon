@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class GiftSelectResponseDto {
     private Long id;
+    private String title;
     private String sendUserName;
     private LocalDateTime expirationDate;
     private String image;
@@ -22,6 +23,7 @@ public class GiftSelectResponseDto {
     public static GiftSelectResponseDto from(Gift gift) {
         GiftSelectResponseDto dto = new GiftSelectResponseDto();
         dto.id = gift.getId();
+        dto.title = gift.getTitle();
         dto.sendUserName = gift.getUser().getName();
         dto.expirationDate = gift.getExpirationDate();
         dto.image = gift.getImage();
