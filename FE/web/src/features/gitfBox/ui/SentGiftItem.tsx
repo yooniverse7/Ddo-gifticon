@@ -2,7 +2,7 @@ import { Card, CardFooter } from '@/components/ui/card';
 import { TSentGift } from '@/entity/gift/model/gift';
 import { Calendar, User } from 'lucide-react';
 import Image from 'next/image';
-
+import { formatServerDate } from '@/shared/utils/dataFormatters';
 export default function SentGiftItem({ list: list }: { list: TSentGift[] }) {
   return (
     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
@@ -30,13 +30,10 @@ export default function SentGiftItem({ list: list }: { list: TSentGift[] }) {
           <CardFooter className='flex items-center justify-between p-4 bg-gray-50'>
             <div className='flex items-center gap-2 text-sm text-gray-600'>
               <Calendar className='h-4 w-4' />
-              <span>~{gift.expiration_date}</span>
+              <span>~{formatServerDate(gift.expiration_date)}</span>
             </div>
             <div className='text-xs px-2 py-1 rounded-full bg-primary/10 text-primary'>
-              {gift.used_status === 'BEFORE_USE' && '사용 가능'}
-              {gift.used_status === 'AFTER_USE' && '사용 완료'}
-              {gift.used_status === 'EXPIRED' && '만료됨'}
-              {gift.used_status === 'CANCLE' && '취소 가능'}
+              {gift.used_status === 'BEFORE_USE' && <button>취소하기</button>}
             </div>
           </CardFooter>
         </Card>

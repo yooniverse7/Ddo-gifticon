@@ -15,13 +15,13 @@ const SentGiftList = () => {
     'cancelable'
   );
 
-  const { sentGifts } = useFetchSentGift();
+  const sentGifts = useFetchSentGift();
 
   const cancelableList: TSentGift[] = [];
   const nonCancelableList: TSentGift[] = [];
 
   sentGifts?.forEach((gift) => {
-    if (gift.used_status === 'CANCLE') {
+    if (gift.used_status === 'BEFORE_USE') {
       cancelableList.push(gift);
     } else {
       nonCancelableList.push(gift);

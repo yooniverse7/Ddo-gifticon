@@ -12,5 +12,5 @@ export default function useFetchSentGift() {
       return response.data.content;
     },
   });
-  return { sentGifts };
+  return sentGifts;
 }

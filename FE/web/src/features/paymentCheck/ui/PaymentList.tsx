@@ -5,7 +5,7 @@ import { PaymentIntersection } from './PaymentIntersection';
 import { usePaymentList } from '../api/usePaymentList';
 
 export const PaymentList = () => {
-  const { paymentList } = usePaymentList();
+  const paymentList = usePaymentList();
   const [listShowState, setListShowState] = useState<'all' | 'in' | 'out'>(
     'all'
   );
@@ -30,7 +30,6 @@ export const PaymentList = () => {
             (a, b) => new Date(b.time).getTime() - new Date(a.time).getTime()
           )
       : [];
-
   return (
     <div className='flex flex-col gap-4'>
       <PaymentIntersection

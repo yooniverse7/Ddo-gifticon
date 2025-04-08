@@ -3,6 +3,7 @@ import { TGift } from '@/entity/gift/model/gift';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Calendar, User } from 'lucide-react';
+import { formatServerDate } from '@/shared/utils/dataFormatters';
 
 const GivenGifiItem = ({ list }: { list: TGift[] }) => {
   return (
@@ -43,7 +44,7 @@ const GivenGifiItem = ({ list }: { list: TGift[] }) => {
             <CardFooter className='flex items-center justify-between p-4 bg-gray-50'>
               <div className='flex items-center gap-2 text-sm text-gray-600'>
                 <Calendar className='h-4 w-4' />
-                <span>~{gift.expiration_date}</span>
+                <span>~ {formatServerDate(gift.expiration_date)}</span>
               </div>
               <div className='text-xs px-2 py-1 rounded-full bg-primary/10 text-primary'>
                 {gift.used_status === 'BEFORE_USE' && '사용 가능'}
