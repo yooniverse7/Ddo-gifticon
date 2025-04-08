@@ -14,6 +14,7 @@ export default function SentGiftItem({ list: list }: { list: TSentGift[] }) {
         .post(API_URL.refund, { giftId })
         .then((response) => {
           console.log('취소 성공:', response.data);
+          window.location.reload();
         })
         .catch((error) => {
           console.error('취소 실패:', error.response?.data || error.message);
@@ -53,8 +54,13 @@ export default function SentGiftItem({ list: list }: { list: TSentGift[] }) {
               <span>~{formatServerDate(gift.expiration_date)}</span>
             </div>
             {gift.used_status === 'BEFORE_USE' && (
-              <div className='text-xs px-2 py-1 rounded-full bg-primary/10 text-primary'>
-                <button onClick={() => handleRefund(gift.id)}>취소하기</button>
+              <div className='text-xs px-2 py-1 rounded-full text-primary'>
+                <button
+                  onClick={() => handleRefund(gift.id)}
+                  className='px-4 py-2 rounded bg-red-500 text-white hover:bg-red-600'
+                >
+                  취소하기
+                </button>
               </div>
             )}
           </CardFooter>
