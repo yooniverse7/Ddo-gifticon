@@ -370,103 +370,96 @@ public class PayServiceImpl implements PayService {
                 request.getPaymentToken(),
                 request.getPaymentAmount(),
                 request.getStoreAccount());
-        // 계좌 이체 요청(feignclient) -> 깊티 상태 변경(Service) -> 성공 응답(SSE)
-        if(request.getResult()) {
-            log.info("일치된 로직 실행");
 
-            int amount = (int) (request.getPaymentAmount() * 0.01);
-            BankDdoPayChargeRequest bankRequest = BankDdoPayChargeRequest.builder()
-                    .userAccountNum("9990627419918613") // 법인 계좌
-                    .corporationAccountNum(request.getStoreAccount()) // 가게 계좌
-                    .amount(request.getPaymentAmount() - amount)
-                    .build();
-
-            log.info("(또페이 -> 가게) 계좌 이체할 금액 : " + bankRequest.getAmount());
-            // 계좌 이체 요청
-            ResponseEntity<BankChargeResponseDto> response = bankClient.chargeDdoPay(bankRequest);
-
-            // 계좌 이체 성공 확인
-            if (response.getStatusCode().is2xxSuccessful()) {
-                log.info("계좌 이체 성공 확인");
-                Gift gift = giftRepository.findById(request.getGiftId()).orElseThrow(() -> new CustomException(ResponseCode.NO_EXIST_GIFTICON));
-                log.info("user name: " + gift.getUser().getName());
-                // 결제 금액의 0.5%를 기프티콘 발행자에게 포인트로 적립
-                DdoPay ddoPay = ddoPayRepository.findByUser(gift.getUser()).orElseThrow(() -> new CustomException(ResponseCode.NO_EXIST_DDOPAY));
-                ddoPay.addPoint(amount / 2);
-                ddoPayRepository.save(ddoPay);
-                log.info("포인트 적립 완료");
-
-                String paymentToken = request.getPaymentToken();
-                String key = "token:" + paymentToken;
-                String redisValue = (String) redisTemplate.opsForValue().get(key);
-
-                Long giftId = null;
-                Long userId = null;
-
-                if (redisValue != null) {
-                    String[] parts = redisValue.split(",");
-                    for (String part : parts) {
-                        if (part.startsWith("giftId:")) {
-                            giftId = Long.valueOf(part.split(":")[1]);
-                        }
-                        if (part.startsWith("userId:")) {
-                            userId = Long.valueOf(part.split(":")[1]);
-                        }
-                    }
-                }
-                log.info("userId = {}, giftId={}", userId, giftId);
-                // 기프티콘 상태 변경
-                Gift findGift = giftRepository.findById(giftId).orElseThrow(() -> new CustomException(ResponseCode.NO_EXIST_GIFTICON));
-                findGift.changeUsedAfter(); // 기프티콘 상태 변경
-                log.info("기프티콘 상태 변경 : {}", gift.getUsedStatus());
-                giftRepository.save(gift);
-                log.info("기프티콘 저장");
-                // SSE로 성공 응답 보내기
-                if (userId != null) {
-                    Map<String, Object> eventData = new HashMap<>();
-                    eventData.put("status", "SUCCESS");
-                    eventData.put("message", "결제가 성공적으로 처리되었습니다.");
-                    eventData.put("giftId", giftId);
-                    eventData.put("amount", bankRequest.getAmount());
-
-                    String jsonData = new ObjectMapper().writeValueAsString(eventData);
-                    sseService.sendToUser(userId, jsonData);
-                    log.info("sse 응답 완료");
-                }
-
-                // Redis에서 사용된 토큰 정보 삭제
-                redisTemplate.delete(key);
-            } else {
-                // 계좌 이체 실패 시 SSE로 실패 응답
-                if (request.getUserId() != null) {
-                    Map<String, Object> eventData = new HashMap<>();
-                    eventData.put("status", "FAIL");
-                    eventData.put("message", "결제 처리 중 은행 오류가 발생했습니다.");
-
-                    String jsonData = new ObjectMapper().writeValueAsString(eventData);
-                    sseService.sendToUser(request.getUserId(), jsonData);
-                }
-
-                // POS로 실패 응답 반환 (컨트롤러에서 처리해야 함)
-                throw new CustomException(ResponseCode.BANK_TRANSACTION_FAILED);
-            }
-        } else {
-            // 토큰 검증 실패 시
-
-            // 프론트로 실패 응답(SSE)
+        if (!request.getResult()) {
             if (request.getUserId() != null) {
                 Map<String, Object> eventData = new HashMap<>();
                 eventData.put("status", "FAIL");
                 eventData.put("message", "유효하지 않은 결제 토큰입니다.");
-
                 String jsonData = new ObjectMapper().writeValueAsString(eventData);
-                sseService.sendToUser(request.getUserId(), jsonData);
+                sseService.sendToUser(request.getUserId(), "token-validation-fail", jsonData);
             }
-
-            // pos로 실패 응답(컨트롤러에서 처리)
             throw new CustomException(ResponseCode.INVALID_PAYMENT_TOKEN);
         }
+
+        log.info("일치된 로직 실행");
+        final double FEE_RATE = 0.01;
+        final double REWARD_RATE = 0.005;
+
+        int fee = (int) (request.getPaymentAmount() * FEE_RATE);
+        int paymentAmount = request.getPaymentAmount() - fee;
+
+        BankDdoPayChargeRequest bankRequest = BankDdoPayChargeRequest.builder()
+                .userAccountNum("9990627419918613")
+                .corporationAccountNum(request.getStoreAccount())
+                .amount(paymentAmount)
+                .build();
+
+        log.info("계좌 이체할 금액 : {}", paymentAmount);
+        ResponseEntity<BankChargeResponseDto> response = bankClient.chargeDdoPay(bankRequest);
+
+        if (!response.getStatusCode().is2xxSuccessful()) {
+            handleBankFailure(request.getUserId());
+            throw new CustomException(ResponseCode.BANK_TRANSACTION_FAILED);
+        }
+
+        BankChargeResponseDto responseBody = response.getBody();
+        if (responseBody == null || responseBody.getHeader() == null) {
+            throw new CustomException(ResponseCode.INTERNAL_SERVER_ERROR, "bank", "은행 응답 바디 없음");
+        }
+
+        Gift gift = giftRepository.findById(request.getGiftId())
+                .orElseThrow(() -> new CustomException(ResponseCode.NO_EXIST_GIFTICON));
+        DdoPay ddoPay = ddoPayRepository.findByUser(gift.getUser())
+                .orElseThrow(() -> new CustomException(ResponseCode.NO_EXIST_DDOPAY));
+        ddoPay.addPoint((int) (request.getPaymentAmount() * REWARD_RATE));
+        ddoPayRepository.save(ddoPay);
+
+        String key = "token:" + request.getPaymentToken();
+        String redisValue = (String) redisTemplate.opsForValue().get(key);
+        if (redisValue == null) {
+            throw new CustomException(ResponseCode.REDIS_NOT_FOUND, "결제 토큰 없음", "key: " + key);
+        }
+
+        Long giftId = null;
+        Long userId = null;
+        for (String part : redisValue.split(",")) {
+            String[] split = part.split(":");
+            if (split.length != 2) continue;
+            if (part.startsWith("giftId:")) giftId = Long.valueOf(split[1]);
+            else if (part.startsWith("userId:")) userId = Long.valueOf(split[1]);
+        }
+
+        log.info("userId = {}, giftId={}", userId, giftId);
+        gift.changeUsedAfter();
+        giftRepository.save(gift);
+        log.info("기프티콘 상태 변경 및 저장 완료");
+
+        if (userId != null) {
+            Map<String, Object> eventData = new HashMap<>();
+            eventData.put("status", "SUCCESS");
+            eventData.put("message", "결제가 성공적으로 처리되었습니다.");
+            eventData.put("giftId", giftId);
+            eventData.put("amount", paymentAmount);
+            String jsonData = new ObjectMapper().writeValueAsString(eventData);
+            sseService.sendToUser(userId, "payment-success", jsonData);
+            log.info("SSE 응답 전송 완료");
+        }
+
+        redisTemplate.delete(key);
     }
+
+    private void handleBankFailure(Long userId) throws JsonProcessingException {
+        if (userId != null) {
+            Map<String, Object> eventData = new HashMap<>();
+            eventData.put("status", "FAIL");
+            eventData.put("message", "결제 처리 중 은행 오류가 발생했습니다.");
+            String jsonData = new ObjectMapper().writeValueAsString(eventData);
+            sseService.sendToUser(userId, "payment-fail", jsonData);
+            log.info("SSE 실패 응답 전송");
+        }
+    }
+
 
     // 기프티콘 결제 시 비밀번호 조회
     @Override
@@ -511,6 +504,12 @@ public class PayServiceImpl implements PayService {
         String paymentToken = request.getPaymentToken();
         String key = "token:" + paymentToken;
         String redisValue = (String) redisTemplate.opsForValue().get(key);
+
+        // ✅ null 체크 추가
+        if (redisValue == null) {
+            throw new CustomException(ResponseCode.REDIS_NOT_FOUND, "결제 토큰 데이터 없음", "key: " + key);
+        }
+
         log.info("레디스에 결제 데이터 있는지 확인 : {}", redisValue);
         // Redis에서 필요한 정보 추출
         Long giftId = null;

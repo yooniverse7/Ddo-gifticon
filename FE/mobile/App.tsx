@@ -20,10 +20,10 @@ function App() {
   const onMessage = useCallback((event: WebViewMessageEvent) => {
     const data = JSON.parse(event.nativeEvent.data);
     if (data.type === 'PAYMENT_REQUEST') {
-      console.log(data.token);
-
-      DdopayNFC.startNfcService(data.token);
-
+      if (DdopayNFC) {
+        DdopayNFC.startNfcService(data.token);
+        console.log(data.token);
+      }
       return;
     }
     handleWebViewMessage(

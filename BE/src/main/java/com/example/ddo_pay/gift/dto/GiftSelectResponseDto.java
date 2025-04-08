@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 public class GiftSelectResponseDto {
     private Long id;
     private String title;
+    private int amount;
     private String sendUserName;
     private LocalDateTime expirationDate;
     private String image;
@@ -24,6 +25,7 @@ public class GiftSelectResponseDto {
         GiftSelectResponseDto dto = new GiftSelectResponseDto();
         dto.id = gift.getId();
         dto.title = gift.getTitle();
+        dto.amount = gift.getAmount();
         dto.sendUserName = gift.getUser().getName();
         dto.expirationDate = gift.getExpirationDate();
         dto.image = gift.getImage();

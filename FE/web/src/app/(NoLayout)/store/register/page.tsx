@@ -68,29 +68,42 @@ export default function page() {
   };
 
   return (
-    <FadeUpContainer className="flex flex-col h-full items-center">
-      <div className="relative w-full bg-amber-50">
-        <Button variant={'ghost'} className="absolute top-4 left-4" onClick={() => router.back()}>
-          <X className="size-6" />
+    <FadeUpContainer className='flex flex-col h-full items-center'>
+      <div className='relative w-full bg-amber-50'>
+        <Button variant={'ghost'} className='absolute top-4 left-4' onClick={() => router.back()}>
+          <X className='size-6' />
         </Button>
-        <h1 className="my-4 text-2xl font-bold text-center">맛집 등록</h1>
+        <h1 className='my-4 text-2xl font-bold text-center'>맛집 등록</h1>
       </div>
+      {!crawledData && (
+        <div className='w-full animate-pulse'>
+          {/* 가게 이미지 스켈레톤 */}
+          <div className='w-full h-48 bg-gray-200 rounded-lg mb-4' />
+
+          {/* 가게 정보 스켈레톤 */}
+          <div className='space-y-3 p-4'>
+            <div className='h-6 bg-gray-200 rounded w-3/4' />
+            <div className='h-4 bg-gray-200 rounded w-1/2' />
+            <div className='h-4 bg-gray-200 rounded w-2/3' />
+          </div>
+        </div>
+      )}
       <CrawledStore crawledData={crawledData} />
-      <h2 className="font-semibold text-lg mb-2">나만의 메뉴</h2>
-      <div className="flex flex-col w-full max-h-96 px-8 overflow-y-auto">
+      <h2 className='font-semibold text-lg mb-2'>나만의 메뉴</h2>
+      <div className='flex flex-col w-full max-h-96 px-8 overflow-y-auto'>
         <ul>
           {customMenu.map((menu) => (
             <li key={menu.menu_name}>
-              <h3 className="font-bold text-xl">{menu.menu_name}</h3>
+              <h3 className='font-bold text-xl'>{menu.menu_name}</h3>
               <p>{menu.menu_price}원</p>
-              <Separator className="my-2" />
+              <Separator className='my-2' />
             </li>
           ))}
         </ul>
       </div>
-      <h2 className="font-semibold text-lg mb-2">나만의 메뉴 추가하기</h2>
+      <h2 className='font-semibold text-lg mb-2'>나만의 메뉴 추가하기</h2>
       <CustomMenuForm addCustomMenu={addCustomMenu} />
-      <Button className="fixed bottom-0 w-full h-20" onClick={submitStore}>
+      <Button className='fixed bottom-0 w-full h-20' onClick={submitStore}>
         등록하기
       </Button>
     </FadeUpContainer>

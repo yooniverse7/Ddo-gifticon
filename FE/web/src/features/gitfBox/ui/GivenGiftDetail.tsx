@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { Gift, User, Tag } from 'lucide-react';
 import { useSendValidateGift } from '@/entity/gift/api/useSendValidateGift';
 import useFetchGiftDetail from '../api/useFetchGiftDetail';
+import { EventSourcePolyfill } from 'event-source-polyfill';
+import { BASE_URL } from '@/shared/constants/url';
 
 const GivenGiftDetail = (props: {
   sendRequest?: () => void;
@@ -22,9 +24,33 @@ const GivenGiftDetail = (props: {
   const { giftDetail } = useFetchGiftDetail(giftId);
 
   const sendRequest = async () => {
-    if (giftDetail?.restaurant_id !== undefined) {
-      sendValidateGift(giftDetail.restaurant_id.toString());
-    }
+    sendValidateGift(props.giftId || 0);
+
+    const eventSource = new EventSourcePolyfill(
+      `${BASE_URL}/api/sse/subscribe`,
+      {
+        headers: {
+          'xx-auth': 'acc-tkn',
+        },
+      }
+    );
+
+    eventSource.addEventListener('connect', (event: any) => {
+      // const data = JSON.parse(event.data);
+      console.log('🟢 SSE 연결 완료 메시지:', event.data);
+    });
+
+    eventSource.addEventListener('payment-success', (event: any) => {
+      const data = JSON.parse(event.data);
+      console.log('🟢 결제 성공 메시지:', data);
+      eventSource.close();
+      closeModal();
+    });
+
+    eventSource.onerror = (error: Event) => {
+      console.error('SSE Error:', error);
+      eventSource.close();
+    };
   };
 
   const openModal = () => {

@@ -87,7 +87,7 @@ public class GiftController {
     @GetMapping("/send")
     public ResponseEntity<?> selectSendGiftList() {
         Long userId = SecurityUtil.getUserId();
-        List<SendGiftSelectResponseDto> dtos = giftService.selectMySendList(userId); //
+        List<SendGiftSelectResponseDto> dtos = giftService.selectMySendList(userId);
 
         return new ResponseEntity<>(Response.create(SUCCESS_SEND_LIST_GIFTICON, dtos), SUCCESS_SEND_LIST_GIFTICON.getHttpStatus());
     }

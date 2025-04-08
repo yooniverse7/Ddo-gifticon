@@ -59,8 +59,8 @@ public class AuthController {
 			.build();
 
 		// 응답 헤더에 쿠키 추가
-		response.addHeader(HttpHeaders.SET_COOKIE, accessCookie.toString());
-		response.addHeader(HttpHeaders.SET_COOKIE, refreshCookie.toString());
+		// response.addHeader(HttpHeaders.SET_COOKIE, accessCookie.toString());
+		// response.addHeader(HttpHeaders.SET_COOKIE, refreshCookie.toString());
 
 		return ResponseEntity.ok(responseDto);
 	}

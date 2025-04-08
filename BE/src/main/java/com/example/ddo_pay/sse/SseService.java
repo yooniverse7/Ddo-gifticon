@@ -61,11 +61,11 @@ public class SseService {
         }, HEARTBEAT_INTERVAL, HEARTBEAT_INTERVAL, TimeUnit.MILLISECONDS);
     }
 
-    public void sendToUser(Long userId, String message) {
+    public void sendToUser(Long userId, String eventName, String message) {
         SseEmitter emitter = emitters.get(userId);
         if(emitter != null) {
             try {
-                emitter.send(SseEmitter.event().name("payment-success").data(message));
+                emitter.send(SseEmitter.event().name(eventName).data(message));
             } catch(IOException e) {
                 emitters.remove(userId);
                 throw new RuntimeException("SSE 전송 실패", e);
