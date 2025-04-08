@@ -2,22 +2,17 @@ import { axiosInstance } from '@/shared/api/axiosInstance';
 import { API_URL } from '@/shared/constants/url';
 import { useQuery } from '@tanstack/react-query';
 
-interface MoneyResponse {
-  status: {
-    code: number;
-    message: string;
-  };
-  content: {
-    pay_balance: number;
-  };
+interface balanceResponse {
+  pay_balance: number;
 }
 
-export function useFetchMyMoney() {
-  return useQuery<MoneyResponse>({
-    queryKey: ['myMoney'],
+export const useFetchBalance = () => {
+  const { data: balance } = useQuery<balanceResponse>({
+    queryKey: ['balance'],
     queryFn: async () => {
-      const response = await axiosInstance.get<MoneyResponse>(API_URL.pay_balance);
-      return response.data;
+      const response = await axiosInstance.get(API_URL.pay_balance);
+      return response.data.content;
     },
   });
-}
+  return { balance };
+};
