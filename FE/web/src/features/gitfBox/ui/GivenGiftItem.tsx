@@ -15,6 +15,7 @@ const GivenGifiItem = ({ list }: { list: TGift[] }) => {
             query: {
               id: gift.id,
               used_status: gift.used_status,
+              send_user_name: gift.send_user_name,
             },
           }}
           className='block transition-transform hover:scale-[1.02]'

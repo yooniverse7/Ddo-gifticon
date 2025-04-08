@@ -8,6 +8,7 @@ import { Suspense } from 'react';
 function DetailPageContent() {
   const giftId = useSearchParams().get('id');
   const usedStatus = useSearchParams().get('used_status');
+  const sendUserName = useSearchParams().get('send_user_name');
   const router = useRouter();
 
   return (
@@ -32,6 +33,7 @@ function DetailPageContent() {
           <GivenGiftDetail
             giftId={Number(giftId)}
             usedStatus={usedStatus ?? undefined}
+            sendUserName={sendUserName ?? undefined}
           />
         </div>
       </div>

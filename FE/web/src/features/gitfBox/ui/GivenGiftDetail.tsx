@@ -11,11 +11,13 @@ const GivenGiftDetail = (props: {
   sendRequest?: () => void;
   giftId?: number;
   usedStatus?: string;
+  sendUserName?: string;
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { sendValidateGift } = useSendValidateGift();
   const giftId = props.giftId || 0;
   const usedStatus = props.usedStatus || '';
+  const sendUserName = props.sendUserName;
 
   const { giftDetail } = useFetchGiftDetail(giftId);
 
@@ -53,7 +55,7 @@ const GivenGiftDetail = (props: {
           <User className='h-5 w-5' />
           <span className='text-lg'>
             {/* FixME: BE로부터 누가 보낸건지 받아와서 수정해야 합니다. */}
-            {giftDetail?.message || '알 수 없는 사용자'}님의 선물입니다.
+            {sendUserName || '알 수 없는 사용자'}님의 선물입니다.
           </span>
         </div>
 

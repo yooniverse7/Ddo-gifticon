@@ -12,6 +12,7 @@ export const API_URL = {
   favoriteStores: '/api/restaurants',
   gift: '/api/gift',
   giftDetail: '/api/gift/detail',
+  sentGifts: '/api/gift/send',
   pay_password: '/api/pay/password',
   pay_balance: '/api/pay/balance',
   pay_list: '/api/pay/history',
