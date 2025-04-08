@@ -14,9 +14,7 @@ const GivenGifiItem = ({ list }: { list: TGift[] }) => {
             pathname: `/gift/get/${gift.id}`,
             query: {
               id: gift.id,
-              title: gift.title,
-              image: gift.image,
-              send_user_name: gift.send_user_name,
+              used_status: gift.used_status,
             },
           }}
           className='block transition-transform hover:scale-[1.02]'
@@ -32,7 +30,9 @@ const GivenGifiItem = ({ list }: { list: TGift[] }) => {
               />
               <div className='absolute inset-0 bg-gradient-to-t from-black/60 to-transparent' />
               <div className='absolute bottom-4 left-4 right-4 text-white'>
-                <h3 className='text-lg font-semibold line-clamp-2'>{gift.title}</h3>
+                <h3 className='text-lg font-semibold line-clamp-2'>
+                  {gift.title}
+                </h3>
                 <div className='flex items-center gap-2 mt-2 text-sm'>
                   <User className='h-4 w-4' />
                   <span className='line-clamp-1'>{gift.send_user_name}</span>
