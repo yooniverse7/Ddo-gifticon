@@ -5,11 +5,3 @@ export type TPayment = {
   in_out_amount: number;
   type: string;
 };
-
-export type TPaymentResponse = {
-  status: {
-    code: number;
-    message: string;
-  };
-  content: TPayment[];
-};
