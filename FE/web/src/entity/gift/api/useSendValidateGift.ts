@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 
 export const useSendValidateGift = () => {
   const { mutate: sendValidateGift } = useMutation({
-    mutationFn: async (giftId: string) => {
+    mutationFn: async (giftId: number) => {
       const response = await axiosInstance.post('/api/gift/check', {
         id: giftId,
         password: '123456',
@@ -13,7 +13,7 @@ export const useSendValidateGift = () => {
         JSON.stringify({
           type: 'PAYMENT_REQUEST',
           token: response.data.content.token,
-        }),
+        })
       );
 
       return response;
