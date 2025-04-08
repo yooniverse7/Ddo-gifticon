@@ -3,11 +3,31 @@ import { TSentGift } from '@/entity/gift/model/gift';
 import { Calendar, User } from 'lucide-react';
 import Image from 'next/image';
 import { formatServerDate } from '@/shared/utils/dataFormatters';
+import { axiosInstance } from '@/shared/api/axiosInstance';
+import { API_URL } from '@/shared/constants/url';
 export default function SentGiftItem({ list: list }: { list: TSentGift[] }) {
+  const handleRefund = (giftId: number) => {
+    // 확인 창 띄우기
+    if (window.confirm('정말 취소하겠습니까?')) {
+      // 사용자가 "OK"를 눌렀을 경우에만 요청 실행
+      axiosInstance
+        .post(API_URL.refund, { giftId })
+        .then((response) => {
+          console.log('취소 성공:', response.data);
+        })
+        .catch((error) => {
+          console.error('취소 실패:', error.response?.data || error.message);
+        });
+    }
+  };
+
   return (
     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
       {list.map((gift) => (
-        <Card className='overflow-hidden border-0 shadow-sm hover:shadow-md transition-shadow'>
+        <Card
+          key={gift.id}
+          className='overflow-hidden border-0 shadow-sm hover:shadow-md transition-shadow'
+        >
           <div className='relative aspect-square'>
             <Image
               src={gift.image}
@@ -32,9 +52,11 @@ export default function SentGiftItem({ list: list }: { list: TSentGift[] }) {
               <Calendar className='h-4 w-4' />
               <span>~{formatServerDate(gift.expiration_date)}</span>
             </div>
-            <div className='text-xs px-2 py-1 rounded-full bg-primary/10 text-primary'>
-              {gift.used_status === 'BEFORE_USE' && <button>취소하기</button>}
-            </div>
+            {gift.used_status === 'BEFORE_USE' && (
+              <div className='text-xs px-2 py-1 rounded-full bg-primary/10 text-primary'>
+                <button onClick={() => handleRefund(gift.id)}>취소하기</button>
+              </div>
+            )}
           </CardFooter>
         </Card>
       ))}

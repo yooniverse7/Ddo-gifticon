@@ -17,4 +17,5 @@ export const API_URL = {
   pay_balance: '/api/pay/balance',
   pay_list: '/api/pay/history',
   charge: '/api/pay/charge',
+  refund: '/api/gift/refund',
 };

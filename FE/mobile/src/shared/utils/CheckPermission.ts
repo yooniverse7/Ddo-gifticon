@@ -343,14 +343,14 @@ export const requestAllPermissionsAndSetCookie = async (): Promise<boolean> => {
       console.log(
         '모든 권한이 허용되었습니다. accessPermission 쿠키를 설정합니다.',
       );
-      await Cookies.set('http://localhost:3000', {
+      await Cookies.set('https://j12e106.p.ssafy.io', {
         name: 'accessPermission',
         value: 'true',
         // domain: 'localhost',
         path: '/',
         expires: new Date(Date.now() + 864e5).toISOString(), // 1일 후 만료
       });
-      const cookies = await Cookies.get('http://localhost:3000');
+      const cookies = await Cookies.get('https://j12e106.p.ssafy.io');
       console.log('Cookies:', cookies);
       return true;
     } else {
