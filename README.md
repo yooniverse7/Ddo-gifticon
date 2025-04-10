@@ -172,21 +172,24 @@
 
 <table style="text-align: center;" width="100%">
   <tr>
-    <th style="text-align: center;" width="25%">게임 페이지</th>
-    <th style="text-align: center;" width="25%">게임 규칙 모달</th>
-    <th style="text-align: center;" width="25%">방 생성 화면</th>
-    <th style="text-align: center;" width="25%">대기 화면</th>
+    <th style="text-align: center;" width="25%">맛집 지도 화면</th>
+    <th style="text-align: center;" width="25%">맛집 등록 화면</th>
+    <th style="text-align: center;" width="25%">나만의 메뉴</th>
+    <th style="text-align: center;" width="25%">또갈집 지도 화면</th>
+    <th style="text-align: center;" width="25%">또갈집 확인 화면</th>
   </tr>
   <tr>
-    <td style="text-align: center;" width="25%"><img height="400" alt="게임 페이지" src="https://github.com/user-attachments/assets/8af00ba2-c4ec-4a5b-9f36-fde5c23ed197" ></td>
-    <td style="text-align: center;" width="25%"><img height="400" alt="게임 규칙 모달" src="https://github.com/user-attachments/assets/52873a17-b56b-4507-ab2b-d140b0892b11"></td>
-    <td style="text-align: center;" width="25%"><img height="400" alt="방 생성 화면" src="https://github.com/user-attachments/assets/327c55db-2d70-4d2c-84b0-d1bd22e631c6"></td>
-    <td style="text-align: center;" width="25%"><img height="400" alt="대기 화면" src="https://github.com/user-attachments/assets/f84c778e-2fce-4e6c-8114-19972b2a65bb"></td>
+    <td style="text-align: center;" width="25%"><img height="400" alt="맛집 지도 화면" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddostore-map.jpg" ></td>
+    <td style="text-align: center;" width="25%"><img height="400" alt="맛집 등록 화면" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/dstore-register.jpg"></td>
+    <td style="text-align: center;" width="25%"><img height="400" alt="나만의 메뉴" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddostore-add-menu.jpg"></td>
+    <td style="text-align: center;" width="25%"><img height="400" alt="또갈집 지도 화면" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddostore-map.jpg"></td>
+<td style="text-align: center;" width="25%"><img height="400" alt="또갈집 확인 화면" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddostore-check.jpg"></td>
   </tr>
   <tr>
     <td style="text-align: center;" width="25%"> ? 버튼을 누르면 게임 Rule 모달창이 켜지고, </br> ! 버튼을 누르면 보스 정보 모달창이 켜집니다.</td>
     <td style="text-align: center;" width="25%">게임 Rule 모달창에서 자세한 게임 방법을 볼 수 있습니다.</td>
     <td style="text-align: center;" width="25%">방 만들기 버튼 터치 시, 난이도와 인원을 선택할 수 있습니다. </br> 방 생성 버튼을 터치하면 대기 화면으로 넘어갑니다.</td>
+    <td style="text-align: center;" width="25%">생성된 초대코드는 복사 버튼을 통해 복사할 수 있습니다. </br> 현재 인원을 확인할 수 있습니다.</td>
     <td style="text-align: center;" width="25%">생성된 초대코드는 복사 버튼을 통해 복사할 수 있습니다. </br> 현재 인원을 확인할 수 있습니다.</td>
   </tr>
 </table>

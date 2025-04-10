@@ -272,7 +272,7 @@ public class PayServiceImpl implements PayService {
         historyRepository.save(history);
     }
 
-    // 기프티콘 취소 환불 시 90% 금액 환불
+    // 기프티콘 취소 환불 시 전체 금액 환불
     @Transactional
     @Override
     public void depositDdoPay(Long userId, int amount) {
