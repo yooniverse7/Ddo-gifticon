@@ -7,7 +7,6 @@ export function middleware(request: NextRequest) {
   const accessPermission = request.cookies.get('accessPermission'); // 새로 추가한 접근 권한 쿠키
   const isPermissionPage = request.nextUrl.pathname === '/permission';
   const isLoginPage = request.nextUrl.pathname === '/login';
-  const isCallbackPage = request.nextUrl.pathname === '/callback';
   const currentPath = request.nextUrl.pathname;
   // 응답 생성
   const response = NextResponse.next();
@@ -16,10 +15,10 @@ export function middleware(request: NextRequest) {
   response.headers.set('X-Frame-Options', 'DENY');
   response.headers.set('X-Content-Type-Options', 'nosniff');
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
-  // response.headers.set(
-  //   'Content-Security-Policy',
-  //   "default-src 'self'; connect-src 'self' https://j12e106.p.ssafy.io https://kauth.kakao.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://dapi.kakao.com; style-src 'self' 'unsafe-inline';"
-  // );
+  response.headers.set(
+    'Content-Security-Policy',
+    "default-src 'self'; connect-src 'self' https://j12e106.p.ssafy.io https://kauth.kakao.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://dapi.kakao.com; style-src 'self' 'unsafe-inline';"
+  );
 
   // 1. 접근 권한이 없는 경우: /permission 페이지로 강제 이동 (단, 이미 /permission이면 통과)
   if (!accessPermission && currentPath !== '/permission') {

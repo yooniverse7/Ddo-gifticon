@@ -531,12 +531,12 @@ public class PayServiceImpl implements PayService {
         log.info("pos에서 결제한 금액 : {}", request.getPaymentAmount());
         log.info("레디스의 기프티콘 금액 : {}", expectedAmount);
 
-        // 금액 검증
-        boolean amountMatches = (expectedAmount != null && expectedAmount.equals(request.getPaymentAmount()));
-        log.info("토큰 금액과 결제 금액이 동일한지 확인 : {}", amountMatches);
+        // 금액 검증. 이거 금액 달라도 보내지게 변경
+       // boolean amountMatches = (expectedAmount != null && expectedAmount.equals(request.getPaymentAmount()));
+       // log.info("토큰 금액과 결제 금액이 동일한지 확인 : {}", amountMatches);
 
         return TokenEqualResponseDto.builder()
-                .result(amountMatches)
+                .result(true)
                 .paymentToken(paymentToken)
                 .paymentAmount(expectedAmount)
                 .storeAccount(request.getStoreAccount())

@@ -1,41 +1,41 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import GivenGifiItem from './GivenGiftItem';
-import { useFetchGift } from '@/entity/gift/api/useFetchGift';
-import { TGift } from '@/entity/gift/model/gift';
+
+import { TSentGift } from '@/entity/gift/model/gift';
 import { Button } from '@/components/ui/button';
 import { Send, RefreshCw, CheckCircle2 } from 'lucide-react';
+import useFetchSentGift from '../api/useFetchSentGift';
+import SentGiftItem from './SentGiftItem';
 
 const SentGiftList = () => {
   const [giftNumber, setGiftNumber] = useState(0);
-  const [currentList, setCurrentList] = useState<TGift[]>([]);
-  const [activeTab, setActiveTab] = useState<'refundable' | 'nonRefundable'>(
-    'refundable'
+  const [currentList, setCurrentList] = useState<TSentGift[]>([]);
+  const [activeTab, setActiveTab] = useState<'cancelable' | 'nonCancelable'>(
+    'cancelable'
   );
 
-  // FIX ME: 보낸 선물 목록을 받아오는 useFetchSentGift 훅을 만들어야 함.
-  const { gifts } = useFetchGift();
+  const sentGifts = useFetchSentGift();
 
-  const refundableList: TGift[] = [];
-  const nonRefundableList: TGift[] = [];
+  const cancelableList: TSentGift[] = [];
+  const nonCancelableList: TSentGift[] = [];
 
-  gifts?.forEach((gift) => {
-    if (gift.used_status === 'CANCLE') {
-      refundableList.push(gift);
+  sentGifts?.forEach((gift) => {
+    if (gift.used_status === 'BEFORE_USE') {
+      cancelableList.push(gift);
     } else {
-      nonRefundableList.push(gift);
+      nonCancelableList.push(gift);
     }
   });
 
   useEffect(() => {
-    setGiftNumber(gifts?.length ?? 0);
-    setCurrentList(refundableList);
-  }, [gifts?.length]);
+    setGiftNumber(sentGifts?.length ?? 0);
+    setCurrentList(cancelableList);
+  }, [sentGifts?.length]);
 
   const handleListChange = (
-    newList: TGift[],
-    tab: 'refundable' | 'nonRefundable'
+    newList: TSentGift[],
+    tab: 'cancelable' | 'nonCancelable'
   ) => {
     setCurrentList(newList);
     setActiveTab(tab);
@@ -55,25 +55,25 @@ const SentGiftList = () => {
       {/* 필터 버튼 */}
       <div className='flex justify-center gap-2'>
         <Button
-          variant={activeTab === 'refundable' ? 'default' : 'outline'}
+          variant={activeTab === 'cancelable' ? 'default' : 'outline'}
           className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
-            activeTab === 'refundable'
+            activeTab === 'cancelable'
               ? 'bg-primary text-white shadow-sm'
               : 'bg-white text-gray-700 hover:bg-gray-50'
           }`}
-          onClick={() => handleListChange(refundableList, 'refundable')}
+          onClick={() => handleListChange(cancelableList, 'cancelable')}
         >
           <RefreshCw className='h-4 w-4' />
           취소 가능
         </Button>
         <Button
-          variant={activeTab === 'nonRefundable' ? 'default' : 'outline'}
+          variant={activeTab === 'nonCancelable' ? 'default' : 'outline'}
           className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
-            activeTab === 'nonRefundable'
+            activeTab === 'nonCancelable'
               ? 'bg-primary text-white shadow-sm'
               : 'bg-white text-gray-700 hover:bg-gray-50'
           }`}
-          onClick={() => handleListChange(nonRefundableList, 'nonRefundable')}
+          onClick={() => handleListChange(nonCancelableList, 'nonCancelable')}
         >
           <CheckCircle2 className='h-4 w-4' />
           취소 불가
@@ -82,11 +82,11 @@ const SentGiftList = () => {
 
       {/* 선물 목록 */}
       {currentList.length > 0 ? (
-        <GivenGifiItem list={currentList} />
+        <SentGiftItem list={currentList} />
       ) : (
         <div className='text-center py-8 text-gray-500'>
-          {activeTab === 'refundable' && '취소 가능한 선물이 없습니다.'}
-          {activeTab === 'nonRefundable' && '취소 불가능한 선물이 없습니다.'}
+          {activeTab === 'cancelable' && '취소 가능한 선물이 없습니다.'}
+          {activeTab === 'nonCancelable' && '취소 불가능한 선물이 없습니다.'}
         </div>
       )}
     </div>

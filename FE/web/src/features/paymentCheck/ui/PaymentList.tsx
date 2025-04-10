@@ -5,32 +5,31 @@ import { PaymentIntersection } from './PaymentIntersection';
 import { usePaymentList } from '../api/usePaymentList';
 
 export const PaymentList = () => {
-  const { data: paymentList, isLoading, error } = usePaymentList();
+  const paymentList = usePaymentList();
   const [listShowState, setListShowState] = useState<'all' | 'in' | 'out'>(
     'all'
   );
 
-  if (isLoading) return <div>로딩 중...</div>;
-  if (error) return <div>에러가 발생했습니다.</div>;
   if (!paymentList) return <div>데이터가 없습니다.</div>;
 
   const filteredList =
-    listShowState === 'all'
-      ? paymentList.content.sort(
+    Array.isArray(paymentList) && listShowState === 'all'
+      ? [...paymentList].sort(
           (a, b) => new Date(b.time).getTime() - new Date(a.time).getTime()
         )
-      : listShowState === 'in'
-      ? paymentList.content
+      : Array.isArray(paymentList) && listShowState === 'in'
+      ? paymentList
           .filter((payment) => payment.in_out_amount > 0)
           .sort(
             (a, b) => new Date(b.time).getTime() - new Date(a.time).getTime()
           )
-      : paymentList.content
+      : Array.isArray(paymentList)
+      ? paymentList
           .filter((payment) => payment.in_out_amount < 0)
           .sort(
             (a, b) => new Date(b.time).getTime() - new Date(a.time).getTime()
-          );
-
+          )
+      : [];
   return (
     <div className='flex flex-col gap-4'>
       <PaymentIntersection

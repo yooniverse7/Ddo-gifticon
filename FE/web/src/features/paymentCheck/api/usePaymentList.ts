@@ -1,17 +1,17 @@
 import { axiosInstance } from '@/shared/api/axiosInstance';
 import { useQuery } from '@tanstack/react-query';
-import { TPaymentResponse } from '@/entity/store/model/payment';
+import { TPayment } from '@/entity/store/model/payment';
 import { API_URL } from '@/shared/constants/url';
 
 export const usePaymentList = () => {
-  return useQuery<TPaymentResponse>({
+  const { data: paymentList } = useQuery<TPayment>({
     queryKey: ['paymentList'],
     queryFn: async () => {
-      const response = await axiosInstance.get<TPaymentResponse>(
+      const response = await axiosInstance.get(
         `${API_URL.pay_list}?history_type=BALANCE`
       );
-      console.log(response.data);
-      return response.data;
+      return response.data.content;
     },
   });
+  return paymentList;
 };

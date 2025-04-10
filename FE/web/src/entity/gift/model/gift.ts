@@ -19,3 +19,19 @@ export type TGiftResponse = {
   };
   content: TGift[];
 };
+
+export type TSentGift = {
+  id: number;
+  title: string;
+  image: string;
+  amount: string;
+  menu_name: string;
+  phone_num: string;
+  expiration_date: string;
+  used_status: UsedStatus;
+  res_id: number;
+  position: {
+    lat: number;
+    lng: number;
+  };
+};

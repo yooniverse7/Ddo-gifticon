@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 @Data
 public class GiftDetailResponseDto {
 
+    private Long id;
+    private String sendUserName;
     private String title;
     private int amount;
     private String phoneNum;
@@ -25,6 +27,8 @@ public class GiftDetailResponseDto {
 
     public static GiftDetailResponseDto from(Gift gift) {
         GiftDetailResponseDto dto = new GiftDetailResponseDto();
+        dto.id = gift.getId();
+        dto.sendUserName= gift.getUser().getName();
         dto.title = gift.getTitle();
         dto.amount = gift.getAmount();
         dto.phoneNum = gift.getPhoneNum();

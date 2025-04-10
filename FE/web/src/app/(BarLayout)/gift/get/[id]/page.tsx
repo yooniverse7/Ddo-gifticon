@@ -1,24 +1,16 @@
 'use client';
 import { Button } from '@/components/ui/button';
+import useFetchGiftDetail from '@/features/gitfBox/api/useFetchGiftDetail';
+import { TGiftDetail } from '@/features/gitfBox/model/giftDetail';
 import GivenGiftDetail from '@/features/gitfBox/ui/GivenGiftDetail';
-import { useSearchParams } from 'next/navigation';
 import { X } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 
 function DetailPageContent() {
+  const giftId = useSearchParams().get('id');
+  const { giftDetail } = useFetchGiftDetail(Number(giftId));
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const id = searchParams.get('id');
-  const title = searchParams.get('title');
-  const image = searchParams.get('image');
-  const sendUserName = searchParams.get('send_user_name');
-  const props = {
-    id: id ?? '',
-    title: title ?? '',
-    image: image ?? '',
-    sendUserName: sendUserName ?? '',
-  };
 
   return (
     <div className='min-h-screen bg-gray-50'>
@@ -39,12 +31,7 @@ function DetailPageContent() {
 
         {/* 선물 상세 정보 */}
         <div className='bg-white rounded-2xl shadow-sm p-6'>
-          <GivenGiftDetail
-            id={props.id}
-            title={props.title}
-            image={props.image}
-            sendUserName={props.sendUserName}
-          />
+          <GivenGiftDetail giftDetail={giftDetail ?? ({} as TGiftDetail)} />
         </div>
       </div>
     </div>
@@ -57,7 +44,9 @@ export default function DetailPage() {
       fallback={
         <div className='min-h-screen bg-gray-50 flex items-center justify-center'>
           <div className='text-center'>
-            <h2 className='text-xl font-semibold text-gray-900 mb-2'>로딩 중...</h2>
+            <h2 className='text-xl font-semibold text-gray-900 mb-2'>
+              로딩 중...
+            </h2>
             <p className='text-gray-600'>잠시만 기다려주세요.</p>
           </div>
         </div>
