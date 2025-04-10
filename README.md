@@ -179,11 +179,11 @@
     <th style="text-align: center;" width="25%">또갈집 확인 화면</th>
   </tr>
   <tr>
-    <td style="text-align: center;" width="25%"><img height="400" alt="맛집 지도 화면" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddostore-map.jpg" ></td>
-    <td style="text-align: center;" width="25%"><img height="400" alt="맛집 등록 화면" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/dstore-register.jpg"></td>
-    <td style="text-align: center;" width="25%"><img height="400" alt="나만의 메뉴" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddostore-add-menu.jpg"></td>
-    <td style="text-align: center;" width="25%"><img height="400" alt="또갈집 지도 화면" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddostore-map.jpg"></td>
-<td style="text-align: center;" width="25%"><img height="400" alt="또갈집 확인 화면" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddostore-check.jpg"></td>
+    <td style="text-align: center;" width="20%"><img height="400" alt="맛집 지도 화면" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddostore-map.jpg" ></td>
+    <td style="text-align: center;" width="20%"><img height="400" alt="맛집 등록 화면" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/dstore-register.jpg"></td>
+    <td style="text-align: center;" width="20%"><img height="400" alt="나만의 메뉴" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddostore-add-menu.jpg"></td>
+    <td style="text-align: center;" width="20%"><img height="400" alt="또갈집 지도 화면" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddostore-map.jpg"></td>
+   <td style="text-align: center;" width="20%"><img height="400" alt="또갈집 확인 화면" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddostore-check.jpg"></td>
   </tr>
   <tr>
     <td style="text-align: center;" width="25%"> ? 버튼을 누르면 게임 Rule 모달창이 켜지고, </br> ! 버튼을 누르면 보스 정보 모달창이 켜집니다.</td>
