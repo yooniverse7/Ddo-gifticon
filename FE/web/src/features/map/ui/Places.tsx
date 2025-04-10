@@ -9,7 +9,11 @@ import { ChevronsDown, ChevronsUp } from 'lucide-react';
 import Markers from './Markers';
 import { FadeUpContainer } from '@/widgets/fadeUpContainer';
 import { encodeUrl } from '@/shared/utils/encodeUrl';
-import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from '@/components/ui/carousel';
 import { Card, CardContent } from '@/components/ui/card';
 import { useCarouselWithMarker } from '@/shared/hooks/useCarouselWithMarker';
 import { useMapStore } from '@/store/useMapStore';
@@ -66,7 +70,7 @@ export default function Places({
         setIsVisible(true);
       }
     },
-    [api, markers, changeCenter, setIsVisible, setSelectedItem],
+    [api, markers, changeCenter, setIsVisible, setSelectedItem]
   );
 
   // 지도 드래그 시 리스트 숨기기
@@ -123,7 +127,7 @@ export default function Places({
         useMapBounds: true,
         location: map?.getCenter(),
         sort: kakao.maps.services.SortBy.DISTANCE,
-      },
+      }
     );
   };
 
@@ -140,22 +144,36 @@ export default function Places({
           className={`absolute bottom-0 flex flex-col w-full h-60 p-2 z-10 rounded-lg bg-white overflow-y-auto will-change-transform`}
         >
           <div className='flex justify-center'>
-            <button className='cursor-pointer' onClick={() => setIsVisible(false)}>
+            <button
+              className='cursor-pointer'
+              onClick={() => setIsVisible(false)}
+            >
               <ChevronsDown />
             </button>
           </div>
-          <Carousel draggable className='w-full h-full flex items-center pl-2' setApi={setApi}>
+          <Carousel
+            draggable
+            className='w-full h-full flex items-center pl-2'
+            setApi={setApi}
+          >
             <CarouselContent>
               {markers.length > 0 ? (
                 markers.map((marker) => (
-                  <CarouselItem key={`${marker.id}${marker.id}`} className='basis-[90%] p-4'>
+                  <CarouselItem
+                    key={`${marker.id}${marker.id}`}
+                    className='basis-[90%] p-4'
+                  >
                     <Card onClick={() => handleMarker(marker)}>
                       <CardContent className='p-4 pb-3 flex items-start'>
                         <div className='flex-1 pr-4'>
-                          <h2 className='text-xl font-semibold mb-1'>{marker.place_name}</h2>
+                          <h2 className='text-xl font-normal mb-1'>
+                            {marker.place_name}
+                          </h2>
                           <div className='flex items-center gap-1 mb-1.5'>
                             <span className='mx-1 text-gray-300'>•</span>
-                            <span className='text-gray-600 text-sm'>{marker.address_name}</span>
+                            <span className='text-gray-600 text-sm'>
+                              {marker.address_name}
+                            </span>
                           </div>
                           <Link
                             target='_blank'
@@ -167,7 +185,10 @@ export default function Places({
                         </div>
                         <Link
                           href={`${URL.store_register}?data=${encodeUrl(
-                            JSON.stringify([marker.place_name, marker.address_name]),
+                            JSON.stringify([
+                              marker.place_name,
+                              marker.address_name,
+                            ])
                           )}`}
                           className='ml-auto'
                         >
@@ -198,7 +219,10 @@ export default function Places({
             이 지역 검색하기
           </div>
           <div className='absolute bottom-0 left-1/2 -translate-x-1/2 z-10 '>
-            <button className='cursor-pointer' onClick={() => setIsVisible(true)}>
+            <button
+              className='cursor-pointer'
+              onClick={() => setIsVisible(true)}
+            >
               <ChevronsUp />
             </button>
           </div>

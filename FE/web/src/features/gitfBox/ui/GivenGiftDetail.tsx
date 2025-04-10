@@ -117,7 +117,7 @@ const GivenGiftDetail = ({ giftDetail }: GivenGiftDetailProps) => {
             <div>
               <Button
                 onClick={() => openModal('NFC')}
-                className='w-full flex items-center justify-center gap-2 py-6 text-lg bg-primary hover:bg-primary/90'
+                className='w-full flex items-center justify-center gap-2 py-6 text-lg bg-primary hover:bg-primary/90 text-[#FBBC05]'
               >
                 <Tag className='h-5 w-5' />
                 NFC 태그하기

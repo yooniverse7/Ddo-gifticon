@@ -171,7 +171,7 @@ export const GiftForm = () => {
       <CustomMenuImageSelector onImagesChange={setCustomMenuImage} />
       {/* 받는 사람 선택 */}
       <div className='space-y-2'>
-        <Label className='text-sm font-medium text-gray-700'>받는 사람</Label>
+        <Label className='text-sm font-medium text-[#FBBC05]'>받는 사람</Label>
         <Button
           variant='outline'
           className='w-full flex items-center justify-between p-4 h-auto'
@@ -190,7 +190,7 @@ export const GiftForm = () => {
               {selectedContact.name}
             </span>
           </div>
-          <span className='text-sm text-gray-700'>선택하기</span>
+          <span className='text-sm text-[#FBBC05]'>선택하기</span>
         </Button>
       </div>
       {isContactListShow && (
@@ -202,7 +202,9 @@ export const GiftForm = () => {
 
       {/* 가게 선택 */}
       <div className='space-y-2'>
-        <Label className='text-sm font-medium text-gray-700'>선물할 가게</Label>
+        <Label className='text-sm font-medium text-[#FBBC05]'>
+          선물할 가게
+        </Label>
         <Button
           variant='outline'
           className='w-full flex items-center justify-between p-4 h-auto'
@@ -215,13 +217,15 @@ export const GiftForm = () => {
               {market?.place_name || '또갈집 찾기'}
             </span>
           </div>
-          <span className='text-sm text-gray-700'>선택하기</span>
+          <span className='text-sm text-[#FBBC05]'>선택하기</span>
         </Button>
       </div>
 
       {/* 메뉴 목록 */}
       <div className='space-y-4'>
-        <Label className='text-sm font-medium text-gray-700'>선택한 메뉴</Label>
+        <Label className='text-sm font-medium text-[#FBBC05]'>
+          선택한 메뉴
+        </Label>
         <div className='space-y-4'>
           {[...(menuList || []), ...(customMenuList || [])].map((menu) => (
             <div
@@ -298,7 +302,7 @@ export const GiftForm = () => {
 
       {/* 선물 이름 */}
       <div className='space-y-2'>
-        <Label className='text-sm font-medium text-gray-700'>선물 이름</Label>
+        <Label className='text-sm font-medium text-[#FBBC05]'>선물 이름</Label>
         <Input
           type='text'
           placeholder='선물 이름을 입력해주세요.'
@@ -310,7 +314,9 @@ export const GiftForm = () => {
 
       {/* 선물 메시지 */}
       <div className='space-y-2 mb-30'>
-        <Label className='text-sm font-medium text-gray-700'>선물 메세지</Label>
+        <Label className='text-sm font-medium text-[#FBBC05]'>
+          선물 메세지
+        </Label>
         <Input
           type='text'
           placeholder='선물 메세지를 입력해주세요.'

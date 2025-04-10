@@ -96,7 +96,6 @@ const CustomMenuImageSelector = ({
 
   return (
     <div className='space-y-4'>
-      <h3 className='text-lg font-normal'>나만의 메뉴 이미지를 선택해주세요</h3>
       <Card className='relative'>
         {image && (
           <button
@@ -119,7 +118,7 @@ const CustomMenuImageSelector = ({
             />
           ) : (
             <span className='text-2xl font-normal text-center'>
-              사진을 넣어주세요!
+              <span className='text-[#FBBC05]'>사진</span>을 넣어주세요!
             </span>
           )}
         </CardContent>
@@ -132,7 +131,9 @@ const CustomMenuImageSelector = ({
         className='hidden'
       />
       <div className='space-y-2'>
-        <Label className='text-sm font-medium text-gray-700'>이미지 생성</Label>
+        <Label className='text-sm font-medium text-[#FBBC05]'>
+          이미지 생성
+        </Label>
         <div className='grid grid-cols-2 gap-2'>
           {[
             { type: 'birthday', text: '생일' },

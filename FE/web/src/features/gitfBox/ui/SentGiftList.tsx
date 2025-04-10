@@ -48,7 +48,7 @@ const SentGiftList = () => {
         <h2 className='text-xl font-normal text-gray-900'>
           친구들에게 보낸 선물이
         </h2>
-        <p className='text-3xl font-normal text-primary'>{giftNumber}개</p>
+        <p className='text-3xl font-normal text-[#FBBC05]'>{giftNumber}개</p>
         <p className='text-gray-500'>있어요</p>
       </div>
 
@@ -58,7 +58,7 @@ const SentGiftList = () => {
           variant={activeTab === 'cancelable' ? 'default' : 'outline'}
           className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
             activeTab === 'cancelable'
-              ? 'bg-primary text-white shadow-sm'
+              ? 'bg-[#FBBC05] text-white shadow-sm'
               : 'bg-white text-gray-700 hover:bg-gray-50'
           }`}
           onClick={() => handleListChange(cancelableList, 'cancelable')}
@@ -70,7 +70,7 @@ const SentGiftList = () => {
           variant={activeTab === 'nonCancelable' ? 'default' : 'outline'}
           className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
             activeTab === 'nonCancelable'
-              ? 'bg-primary text-white shadow-sm'
+              ? 'bg-[#FBBC05] text-white shadow-sm'
               : 'bg-white text-gray-700 hover:bg-gray-50'
           }`}
           onClick={() => handleListChange(nonCancelableList, 'nonCancelable')}

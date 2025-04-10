@@ -42,7 +42,7 @@ export default function GiftPage() {
             variant={!isShowSendGift ? 'default' : 'outline'}
             className={`flex items-center gap-2 px-6 py-2 rounded-full transition-all ${
               !isShowSendGift
-                ? 'bg-primary text-white shadow-sm'
+                ? 'bg-[#FBBC05] text-white shadow-sm'
                 : 'bg-white text-gray-700 hover:bg-gray-50'
             }`}
             onClick={handleClickGivenBtn}
@@ -54,7 +54,7 @@ export default function GiftPage() {
             variant={isShowSendGift ? 'default' : 'outline'}
             className={`flex items-center gap-2 px-6 py-2 rounded-full transition-all ${
               isShowSendGift
-                ? 'bg-primary text-white shadow-sm'
+                ? 'bg-[#FBBC05] text-white shadow-sm'
                 : 'bg-white text-gray-700 hover:bg-gray-50'
             }`}
             onClick={handleClickSendBtn}

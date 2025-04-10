@@ -31,7 +31,9 @@ const GivenGifiItem = ({ list }: { list: TGift[] }) => {
                 />
                 <div className='absolute inset-0 bg-gradient-to-t from-black/60 to-transparent' />
                 <div className='absolute bottom-4 left-4 right-4 text-white'>
-                  <h3 className='text-lg font-semibold line-clamp-2'>{gift.title}</h3>
+                  <h3 className='text-lg font-semibold line-clamp-2'>
+                    {gift.title}
+                  </h3>
                   <div className='flex items-center gap-2 mt-2 text-sm'>
                     <User className='h-4 w-4' />
                     <span className='line-clamp-1'>{gift.send_user_name}</span>
@@ -43,7 +45,7 @@ const GivenGifiItem = ({ list }: { list: TGift[] }) => {
                   <Calendar className='h-4 w-4' />
                   <span>~ {formatServerDate(gift.expiration_date)}</span>
                 </div>
-                <div className='text-xs px-2 py-1 rounded-full bg-primary/10 text-primary'>
+                <div className='text-xs px-2 py-1 rounded-full bg-primary/10 text-[#FBBC05]'>
                   {gift.used_status === 'BEFORE_USE' && '사용 가능'}
                   {gift.used_status === 'AFTER_USE' && '사용 완료'}
                   {gift.used_status === 'EXPIRED' && '만료됨'}
