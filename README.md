@@ -47,12 +47,12 @@
 ## 👥 팀 소개
 <table style="text-align: center;" width="100%">
   <tr>
-    <th style="text-align: center;" width="16.66%"><img src="https://github.com/user-attachments/assets/f3be0d04-1132-46c5-affb-929d97fb0b58" width="150" height="150"/></th>
-    <th style="text-align: center;" width="16.66%"><img src="https://github.com/user-attachments/assets/76820bca-f807-4af5-bf93-09c9335fcbee" width="150" height="150"/></th>
-    <th style="text-align: center;" width="16.66%"><img src="https://github.com/user-attachments/assets/4b2e42fb-1005-4453-a418-02ae430bcd93" width="150" height="150"/></th>
-    <th style="text-align: center;" width="16.66%"><img src="https://github.com/user-attachments/assets/cc97f07a-ee85-40bb-b58d-3ab7e7ffd192" width="150" height="150"/></th>
-    <th style="text-align: center;" width="16.66%"><img src="https://github.com/user-attachments/assets/725106e6-730b-4714-9ae1-63ed59008d89" width="150" height="150"/></th>
-    <th style="text-align: center;" width="16.66%"><img src="https://github.com/user-attachments/assets/4ac5efaf-080e-4b20-8796-13416f9e6cd5" width="150" height="150"/></th>
+    <th style="text-align: center;" width="16.66%"><img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/cheon.png" width="150" height="150"/></th>
+    <th style="text-align: center;" width="16.66%"><img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/min.png" width="150" height="150"/></th>
+    <th style="text-align: center;" width="16.66%"><img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/jeong.png" width="150" height="150"/></th>
+    <th style="text-align: center;" width="16.66%"><img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/lee.png" width="150" height="150"/></th>
+    <th style="text-align: center;" width="16.66%"><img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/choi.png" width="150" height="150"/></th>
+    <th style="text-align: center;" width="16.66%"><img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/sin.png" width="150" height="150"/></th>
   </tr>
   <tr>
     <td style="text-align: center;" width="16.66%">천세윤<br/><a href="https://github.com/yooniverse7">@yooniverse7</a></td>
@@ -172,11 +172,11 @@
 
 <table style="text-align: center;" width="100%">
   <tr>
-    <th style="text-align: center;" width="25%">맛집 지도 화면</th>
-    <th style="text-align: center;" width="25%">맛집 등록 화면</th>
-    <th style="text-align: center;" width="25%">나만의 메뉴</th>
-    <th style="text-align: center;" width="25%">또갈집 지도 화면</th>
-    <th style="text-align: center;" width="25%">또갈집 확인 화면</th>
+    <th style="text-align: center;" width="20%">맛집 지도 화면</th>
+    <th style="text-align: center;" width="20%">맛집 등록 화면</th>
+    <th style="text-align: center;" width="20%">나만의 메뉴</th>
+    <th style="text-align: center;" width="20%">또갈집 지도 화면</th>
+    <th style="text-align: center;" width="20%">또갈집 확인 화면</th>
   </tr>
   <tr>
     <td style="text-align: center;" width="20%"><img height="400" alt="맛집 지도 화면" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddostore-map.jpg" ></td>
@@ -186,11 +186,11 @@
    <td style="text-align: center;" width="20%"><img height="400" alt="또갈집 확인 화면" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddostore-check.jpg"></td>
   </tr>
   <tr>
-    <td style="text-align: center;" width="25%"> ? 버튼을 누르면 게임 Rule 모달창이 켜지고, </br> ! 버튼을 누르면 보스 정보 모달창이 켜집니다.</td>
-    <td style="text-align: center;" width="25%">게임 Rule 모달창에서 자세한 게임 방법을 볼 수 있습니다.</td>
-    <td style="text-align: center;" width="25%">방 만들기 버튼 터치 시, 난이도와 인원을 선택할 수 있습니다. </br> 방 생성 버튼을 터치하면 대기 화면으로 넘어갑니다.</td>
-    <td style="text-align: center;" width="25%">생성된 초대코드는 복사 버튼을 통해 복사할 수 있습니다. </br> 현재 인원을 확인할 수 있습니다.</td>
-    <td style="text-align: center;" width="25%">생성된 초대코드는 복사 버튼을 통해 복사할 수 있습니다. </br> 현재 인원을 확인할 수 있습니다.</td>
+    <td style="text-align: center;" width="20%"> ? 버튼을 누르면 게임 Rule 모달창이 켜지고, </br> ! 버튼을 누르면 보스 정보 모달창이 켜집니다.</td>
+    <td style="text-align: center;" width="20%">게임 Rule 모달창에서 자세한 게임 방법을 볼 수 있습니다.</td>
+    <td style="text-align: center;" width="20%">방 만들기 버튼 터치 시, 난이도와 인원을 선택할 수 있습니다. </br> 방 생성 버튼을 터치하면 대기 화면으로 넘어갑니다.</td>
+    <td style="text-align: center;" width="20%">생성된 초대코드는 복사 버튼을 통해 복사할 수 있습니다. </br> 현재 인원을 확인할 수 있습니다.</td>
+    <td style="text-align: center;" width="20%">생성된 초대코드는 복사 버튼을 통해 복사할 수 있습니다. </br> 현재 인원을 확인할 수 있습니다.</td>
   </tr>
 </table>
 
@@ -209,47 +209,6 @@
     <td style="text-align: center;" width="33.33%">모든 인원이 들어오거나, 게임에 입장하게 되면 보이는 화면입니다. </br> 상단에는 선택한 난이도에 해당하는 보스 이미지가 움직이고 있습니다.</td>
     <td style="text-align: center;" width="33.33%">싱글 게임에서 패배한 경우 보이는 결과 모달창입니다.</td>
     <td style="text-align: center;" width="33.33%">멀티 게임에서 승리한 경우 보이는 결과 모달창입니다. </br> 러닝, 게임과 관련된 상세 정보가 보입니다. </br> 슬라이드로 넘기면 플레이어의 순위가 나타납니다.</td>
-  </tr>
-</table>
-
-</details>
-
-<details>
-<summary><strong>맛집 공유</strong></summary>
-
-<table style="text-align: center;" width="100%">
-  <tr>
-    <th style="text-align: center;" width="33.33%">워치 시작 페이지</th>
-    <th style="text-align: center;" width="33.33%">게임 실행 페이지</th>
-    <th style="text-align: center;" width="33.33%">플레이어 현황 페이지</th>
-  </tr>
-  <tr>
-    <td style="text-align: center;" width="33.33%"><img height="200" alt="워치 시작 페이지" src="https://github.com/user-attachments/assets/6f937c29-b58d-4c91-ab3a-a8cd7a5eb228" ></td>
-    <td style="text-align: center;" width="33.33%"><img height="200" alt="게임 실행 페이지" src="https://github.com/user-attachments/assets/edc34d4c-876a-4541-8cde-ac658291ca3f"></td>
-    <td style="text-align: center;" width="33.33%"><img height="200" alt="플레이어 현황 페이지" src="https://github.com/user-attachments/assets/732e4572-6b49-41ca-990f-3f3edeed2aaa"></td>
-  </tr>
-  <tr>
-    <td style="text-align: center;" width="33.33%">확인 버튼을 누르면 모바일 앱이 실행됩니다. </br> (모바일 앱에서만 게임 시작이 가능합니다.)</td>
-    <td style="text-align: center;" width="33.33%">5초 카운트다운 후 나타나는 사용자의 실시간 러닝 데이터 화면입니다.</td>
-    <td style="text-align: center;" width="33.33%">플레이어들의 실시간 달린 거리, 공격 횟수 표시 화면입니다.</td>
-  </tr>
-</table>
-
-<table style="text-align: center;" width="100%">
-  <tr>
-    <th style="text-align: center;" width="33.33%">공격 시 화면</th>
-    <th style="text-align: center;" width="33.33%">피버타임 화면</th>
-    <th style="text-align: center;" width="33.33%">게임 종료 화면</th>
-  </tr>
-  <tr>
-    <td style="text-align: center;" width="33.33%"><img height="200" alt="공격 시 화면" src="https://github.com/user-attachments/assets/df13853a-1432-46cc-bf44-997aa746f2e2"></td>
-    <td style="text-align: center;" width="33.33%"><img height="200" alt="피버타임 화면" src="https://github.com/user-attachments/assets/d0abc015-5f7e-4b65-9741-77bfb30e834e"></td>
-    <td style="text-align: center;" width="33.33%"><img height="200" alt="게임 종료 화면" src="https://github.com/user-attachments/assets/606afebc-562d-47f1-a331-8eda8549ad11"></td>
-  </tr>
-  <tr>
-    <td style="text-align: center;" width="33.33%">사용가능한 공격 아이템이 있다면 공격 버튼이 활성화됩니다. </br> (공격 시 1초간 진동으로 알림이 발생하고 참치캔이 날라갑니다.)</td>
-    <td style="text-align: center;" width="33.33%">모든 플레이어가 2회씩 공격한다면 피버 타임이 시작됩니다. </br> 피버타임은 30초동안 진행되고, 진동이 계속 발생합니다.</td>
-    <td style="text-align: center;" width="33.33%">정상적으로 게임이 종료되었을 때 나오는 화면입니다.</td>
   </tr>
 </table>
 
