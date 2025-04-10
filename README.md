@@ -458,14 +458,17 @@
 ## 📜 산출물
 <details>
   <summary><strong>기능 명세서</strong></summary>
-  <h3>🔹 소셜 로그인</h3>
-  <img src="https://github.com/user-attachments/assets/69fd8323-3b66-40ed-92b7-463df9d64c75" alt="기능명세서">
-  <h3>🔹 메인페이지</h3>
-  <img src="https://github.com/user-attachments/assets/2402e41d-cdb1-4015-b91d-37c1ad16dd11" alt="기능명세서">
-  <h3>🔹 게임 - 레이드</h3>
-  <img src="https://github.com/user-attachments/assets/39c890b1-93eb-47df-ab24-d1a36b9d9093" alt="기능명세서">
-  <h3>🔹 통계/옷장/마이페이지</h3>
-  <img src="https://github.com/user-attachments/assets/7d625d5b-5710-48c4-8d12-3865fa42022a" alt="기능명세서">
+  <h3>🔹 유저 관리</h3>
+  <img src="https://github.com/user-attachments/assets/user-domain.pgn" alt="기능명세서">
+  <h3>🔹 기프티콘 관리</h3>
+  <img src="https://github.com/user-attachments/assets/gift-domain.png" alt="기능명세서">
+  <h3>🔹 자체 페이 관리</h3>
+  <img src="https://github.com/user-attachments/assets/pay-domain.png" alt="기능명세서">
+  <h3>🔹 맛집 페이 관리</h3>
+  <img src="https://github.com/user-attachments/assets/restaurant-domain.png" alt="기능명세서">
+  <h3>🔹 은행 관리</h3>
+  <img src="https://github.com/user-attachments/assets/bank-domain.png" alt="기능명세서">
+
 </details>
 
 <details>
