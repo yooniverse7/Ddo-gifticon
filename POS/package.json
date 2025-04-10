@@ -1,0 +1,12 @@
+{
+  "name": "pos",
+  "version": "1.0.0",
+  "description": "npm install 으로 다음 라이브러리 설치\r pyscard\r requests",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
