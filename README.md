@@ -71,7 +71,7 @@
     <td style="text-align: center;" width="16.66%">백엔드 개발</td>
   </tr>
   <tr>
-    <td style="text-align: center;" width="16.66%">결제 API, NFC 기능, </td>
+    <td style="text-align: center;" width="16.66%">페이 도메인, 은행 서버 및 금융망 API, 포스 시스템</td>
     <td style="text-align: center;" width="16.66%">지도 및 NFC, QR 결제 담당</td>
     <td style="text-align: center;" width="16.66%">인프라 CI/CD 구축, 기프티콘 API, 지라 관리</td>
     <td style="text-align: center;" width="16.66%">맛집 API, 크롤링, Redis, S3, 소셜로그인, AI 서빙 (Stable diffusion)</td>
@@ -213,21 +213,6 @@
 </table>
 
 </details>
-
-
-## 🎥 시연 영상
-<table style="text-align: center;" width="100%">
-  <tr>
-    <th style="text-align: center;" width="33.33%">메인페이지 기능 영상</th>
-    <th style="text-align: center;" width="33.33%">게임페이지 기능 영상</th>
-    <th style="text-align: center;" width="33.33%">통계페이지 영상</th>
-  </tr>
-  <tr>
-    <td style="text-align: center;" width="33.33%"><img src="/uploads/45c73f0cfd85a452787a6b9adcb541f8/고화질_모바일앱_영상_메인페이지.gif" height="400"></td>
-    <td style="text-align: center;" width="33.33%"><img src="/uploads/2fedb1e20cd0e01c39ab360e01eaf02c/게임.gif" height="400"></td>
-    <td style="text-align: center;" width="33.33%"><img src="/uploads/75ba7f6a9ad2894507b6bad29cc3a38c/통계.gif" height="400"></td>
-  </tr>
-</table>
 
 
 ## 🔧 주요 기술
@@ -447,22 +432,17 @@
 </details>
 
 <details>
-  <summary><strong>api 명세서</strong></summary>
-  <h3>🔹 소셜 로그인</h3>
-  <img src="https://github.com/user-attachments/assets/d969850d-b19a-43eb-8584-b55ff20ad961" alt="api명세서">
-  <h3>🔹 마이페이지</h3>
-  <img src="https://github.com/user-attachments/assets/f13b7907-897d-4897-9c34-5f77e7c99a02" alt="api명세서">
-  <img src="https://github.com/user-attachments/assets/462646b2-b636-4348-b17f-02962f8416ad" alt="api명세서">
-  <h3>🔹 레이드</h3>
-  <img src="https://github.com/user-attachments/assets/ffc640a1-8923-4ba7-9b2c-2579e9fba8d2" alt="api명세서">
-  <h3>🔹 매칭</h3>
-  <img src="https://github.com/user-attachments/assets/19c92405-d107-47a6-922a-f96a2d2f6dc9" alt="api명세서">
-  <h3>🔹 아이템</h3>
-  <img src="https://github.com/user-attachments/assets/181923b2-ee89-410b-a57a-22302d45e495" alt="api명세서">
-  <h3>🔹 통계</h3>
-  <img src="https://github.com/user-attachments/assets/f0f7b3d5-e705-47c2-87c3-6e56f13a9f82" alt="api명세서">
-  <h3>🔹 캐릭터 정보(메인)</h3>
-  <img src="https://github.com/user-attachments/assets/8e71d3e7-c02a-4d75-8167-f1367380f401" alt="api명세서">
-  <h3>🔹 S3 이미지 업로드</h3>
-  <img src="https://github.com/user-attachments/assets/6b1416fa-5dc8-4cce-8a5b-78bf75907796" alt="api명세서">
+  <summary><strong>API 명세서</strong></summary>
+  <h3>🔹 유저 도메인</h3>
+  <img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/domain/user-domain.png" alt="api명세서">
+  <h3>🔹 기프티콘 도메인</h3>
+  <img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/domain/gifticon-domain.jpg" alt="api명세서">
+  <h3>🔹 페이 도메인</h3>
+  <img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/domain/pay-domain.jpg" alt="api명세서">
+  <h3>🔹 맛집 도메인</h3>
+  <img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/domain/restaurant-domain.jpg" alt="api명세서">
+  <h3>🔹 포스 도메인</h3>
+  <img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/domain/pos-domain.jpg" alt="api명세서">
+  <h3>🔹 은행 도메인</h3>
+  <img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/domain/bank-domain.jpg" alt="api명세서">
 </details>
