@@ -474,8 +474,8 @@
 </details>
 
 <details>
-  <summary><strong>erd</strong></summary>
-  <img src="https://github.com/user-attachments/assets/69b65709-f54c-477a-8fb3-03284b094cd3" alt="erd">
+  <summary><strong>ERD</strong></summary>
+  <img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddo-store-architecture.png" alt="erd">
 </details>
 
 <details>
