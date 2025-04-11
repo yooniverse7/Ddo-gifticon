@@ -353,7 +353,7 @@
   <h3>🔹 유저 도메인</h3>
   <img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/domain/user-domain.png" alt="api명세서">
   <h3>🔹 기프티콘 도메인</h3>
-  <img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/domain/gifticon-domain.png" alt="api명세서">
+  <img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/domain/gift-domain.png" alt="api명세서">
   <h3>🔹 페이 도메인</h3>
   <img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/domain/pay-domain.png" alt="api명세서">
   <h3>🔹 맛집 도메인</h3>
