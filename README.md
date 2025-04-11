@@ -104,14 +104,14 @@
 
 <table style="text-align: center;" width="100%">
   <tr>
-    <th style="text-align: center;" width="50%">결제 방식 선택 페이지</th>
-    <th style="text-align: center;" width="50%">NFC</th>
-    <th style="text-align: center;" width="50%">QR 코드</th>
+    <th style="text-align: center;" width="33%">결제 방식 선택 페이지</th>
+    <th style="text-align: center;" width="33%">NFC</th>
+    <th style="text-align: center;" width="33%">QR 코드</th>
   </tr>
   <tr>
-    <td style="text-align: center;" width="50%"><img height="400" alt="결제 방식 선택 페이지" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/pay/nfc_or_qrcode.jpg"></td>
-    <td style="text-align: center;" width="50%"><img height="400" alt="NFC" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/pay/nfc.jpg"></td>
-    <td style="text-align: center;" width="50%"><img height="400" alt="QRCODE" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/pay/qrcode.jpg"></td>
+    <td style="text-align: center;" width="33%"><img height="400" alt="결제 방식 선택 페이지" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/pay/nfc_or_qrcode.jpg"></td>
+    <td style="text-align: center;" width="33%"><img height="400" alt="NFC" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/pay/nfc.jpg"></td>
+    <td style="text-align: center;" width="33%"><img height="400" alt="QRCODE" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/pay/qrcode.jpg"></td>
  </tr>
 </table>
 
