@@ -22,7 +22,9 @@
 
 > 🔗 [노션 링크](https://relic-sea-1e3.notion.site/1a412a0174e780b4870bd63cd477cac6)
 
-> 📲 [배포 URL - 모바일]()
+> 📲 [배포 URL - 모바일](https:j12e106.p.ssafy.io)
+
+> 📝 [발표 자료](https://www.canva.com/design/DAGj4Cf_xWE/_Rcu9Lm_w1HBxPY1ytvvGQ/view?utm_content=DAGj4Cf_xWE&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h840401bd48)
 
 
 ### 
@@ -32,10 +34,6 @@
 이를 통해 사용자는 복잡한 절차 없이 간편하게 결제 수단을 선물하고, 가맹점은 별도의 인프라 없이 디지털 고객을 확보할 수 있는 상호 혜택 구조를 실현하고자 합니다.
 
 **😻 NFC 결제**<br />
-실시간으로 친구와 함께하는 보스 레이드<br />
-달리면서 쌓이는 공격게이지로 짜릿한 보스 처치<br />
-러닝 후 받은 코인으로 귀여운 캐릭터 꾸미기<br />
-일별/주별/월별 상세한 러닝 통계<br />
 
 **💪 이런 사람 사용해보세요!**<br />
 1️⃣ 부모님께 효도하고 싶어요!<br />
@@ -346,7 +344,7 @@
 
 <details>
   <summary><strong>ERD</strong></summary>
-  <img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddo-store-architecture.png" alt="erd">
+  <img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ERD.png" alt="erd">
 </details>
 
 <details>
