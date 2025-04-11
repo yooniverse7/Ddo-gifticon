@@ -328,18 +328,11 @@
 
 ## 📜 산출물
 <details>
-  <summary><strong>기능 명세서</strong></summary>
-  <h3>🔹 유저 관리</h3>
-  <img src="https://github.com/user-attachments/assets/user-domain.pgn" alt="기능명세서">
-  <h3>🔹 기프티콘 관리</h3>
-  <img src="https://github.com/user-attachments/assets/gift-domain.png" alt="기능명세서">
-  <h3>🔹 자체 페이 관리</h3>
-  <img src="https://github.com/user-attachments/assets/pay-domain.png" alt="기능명세서">
-  <h3>🔹 맛집 페이 관리</h3>
-  <img src="https://github.com/user-attachments/assets/restaurant-domain.png" alt="기능명세서">
-  <h3>🔹 은행 관리</h3>
-  <img src="https://github.com/user-attachments/assets/bank-domain.png" alt="기능명세서">
-
+  <summary><strong>요구사항 명세서</strong></summary>
+  <h3>🔹 유저 및 지도 관리</h3>
+  <img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/requirements/re1.png" alt="요구사항명세서">
+  <h3>🔹 기프티콘 및 친구 관리</h3>
+  <img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/requirements/re2.png" alt="요구사항명세서">
 </details>
 
 <details>
