@@ -93,34 +93,12 @@
     <th style="text-align: center;" width="25%">기프티콘 지도 페이지</th>
   </tr>
   <tr>
-    <td style="text-align: center;" width="25%"><img height="400" alt="소셜 로그인" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/gifticon-custom.jpg" ></td>
-    <td style="text-align: center;" width="25%"><img height="400" alt="유저 정보 입력" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/gifticon-custom.jpg"></td>
-    <td style="text-align: center;" width="25%"><img height="400" alt="코칭마크 페이지" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/gifticon-custom.jpg"></td>
-    <td style="text-align: center;" width="25%"><img height="400" alt="메인 페이지" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/gifticon-custom.jpg"></td>
-  </tr>
-  <tr>
-    <td style="text-align: center;" width="25%">카카오, 네이버, 구글 3가지의 소셜 회원가입/로그인 기능을 제공합니다.</td>
-    <td style="text-align: center;" width="25%">회원가입을 한 신규 유저는 게임에서 사용할 닉네임, 칼로리 계산을 위한 신체 정보를 입력할 수 있습니다.</td>
-    <td style="text-align: center;" width="25%">코칭 마크를 통해 각 버튼의 기능을 소개합니다. (Skip으로 바로 메인페이지로 이동 가능)</td>
-    <td style="text-align: center;" width="25%">자신의 캐릭터 위의 닉네임을 누르면 세계관 스토리와 소개페이지를 다시 볼 수 있습니다. </br> 자신의 캐릭터 고양이를 누르면 랜덤 메세지가 뜨게 됩니다.</td>
+    <td style="text-align: center;" width="25%"><img height="400" alt="기프티콘 커스텀 페이지" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/custom/custom-gift.jpg" ></td>
+    <td style="text-align: center;" width="25%"><img height="400" alt="받은 선물함 페이지" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/custom/recieved-gift.jpg"></td>
+    <td style="text-align: center;" width="25%"><img height="400" alt="보낸 선물함 페이지" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/custom/send-gift.jpg"></td>
+    <td style="text-align: center;" width="25%"><img height="400" alt="기프티콘 지도 페이지" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/custom/gifticon-map.jpg"></td>
   </tr>
 </table>
-
-<table style="text-align: center;" width="100%">
-  <tr>
-    <th style="text-align: center;" width="50%">유저 프로필 모달</th>
-    <th style="text-align: center;" width="50%">랭킹 모달</th>
-  </tr>
-  <tr>
-    <td style="text-align: center;" width="50%"><img height="400" alt="유저 프로필 모달" src="https://github.com/user-attachments/assets/cb74b667-0715-4466-8032-c61ad244e9b1"></td>
-    <td style="text-align: center;" width="50%"><img height="400" alt="랭킹 모달" src="https://github.com/user-attachments/assets/99f86ae0-904c-4999-98f5-400d007bc148"></td>
-  </tr>
-  <tr>
-    <td style="text-align: center;" width="50%">유저정보 모달에서 정보 수정 터치 시 닉네임, 신체 정보를 수정가능하며 </br> 중복, 입력 검사 완료시 저장 버튼이 활성화됩니다. </br> 하단에는 회원탈퇴 로그아웃 버튼도 위치해있습니다.</td>
-    <td style="text-align: center;" width="50%">랭킹 모달에서는 유저들의 순위를 볼 수 있습니다. </br> 자신의 순위는 상단에 고정되며 각 플레이어의 프로필 사진도 확인 가능합니다.</td>
-  </tr>
-</table>
-
 </details>
 
 <details>
@@ -128,38 +106,15 @@
 
 <table style="text-align: center;" width="100%">
   <tr>
+    <th style="text-align: center;" width="50%">결제 방식 선택 페이지</th>
     <th style="text-align: center;" width="50%">NFC</th>
     <th style="text-align: center;" width="50%">QR 코드</th>
   </tr>
   <tr>
-    <td style="text-align: center;" width="50%"><img height="400" alt="통계 페이지 (일별)" src="https://github.com/user-attachments/assets/56ad2aae-04b3-410c-9b28-e05b80689b50" ></td>
-    <td style="text-align: center;" width="50%"><img height="400" alt="통계 페이지 (세부)" src="https://github.com/user-attachments/assets/10fbf3dc-015c-4523-9420-2d33ae75ef55"></td>
-  </tr>
-  <tr>
-    <td style="text-align: center;" width="50%">일/주/월 페이지는 탭을 터치하거나 슬라이드를 통해 넘어갈 수 있습니다. </br> 일별 데이터는 모든 기록이 최근순으로 보여집니다.</td>
-    <td style="text-align: center;" width="50%">일별 데이터 중 개인 기록 터치 시, 해당 일자에 달린 상세 정보가 모달로 나타납니다.</td>
-  </tr>
-</table>
-
-<table style="text-align: center;" width="100%">
-  <tr>
-    <th style="text-align: center;" width="25%">아이템 뽑기 결과 모달</th>
-    <th style="text-align: center;" width="25%">옷장 페이지</th>
-    <th style="text-align: center;" width="25%">아이템 설명 모달</th>
-    <th style="text-align: center;" width="25%">판매 페이지</th>
-  </tr>
-  <tr>
-    <td style="text-align: center;" width="25%"><img height="400" alt="아이템 뽑기 결과 모달" src="https://github.com/user-attachments/assets/fcb0fe9c-9635-4cc9-839e-b66cf76e4e7d" ></td>
-    <td style="text-align: center;" width="25%"><img height="400" alt="옷장 페이지" src="https://github.com/user-attachments/assets/66d47646-a4a1-4a26-a15a-ea1567bc22d5"></td>
-    <td style="text-align: center;" width="25%"><img height="400" alt="아이템 설명 모달" src="https://github.com/user-attachments/assets/67b7e94d-00d0-4246-89be-23a91d0e0171"></td>
-    <td style="text-align: center;" width="25%"><img height="400" alt="판매 페이지" src="https://github.com/user-attachments/assets/94d44db6-3d7a-4363-b005-cb9553a8d530"></td>
-  </tr>
-  <tr>
-    <td style="text-align: center;" width="25%">뽑기 버튼을 누르게 되면 100 캔코인이 차감되며, 확률에 의해 아이템이 뜨게됩니다.</td>
-    <td style="text-align: center;" width="25%">뽑기를 통해 수집된 아이템들을 확인할 수 있습니다. </br> (중복된 아이템은 보이지 않습니다.) 항목별 아이템은 1개씩 착용 가능합니다.</td>
-    <td style="text-align: center;" width="25%">아이템 사진을 누르게 되면 해당 아이템에 관련된 정보를 볼 수 있습니다. </br> (모달창 색은 등급별로 다르게 나타납니다)</td>
-    <td style="text-align: center;" width="25%">상점에서 자신이 소지한 아이템을 선택하여 판매할 수 있습니다. </br> (장착중인 아이템은 선택할 수 없습니다.)</td>
-  </tr>
+    <td style="text-align: center;" width="50%"><img height="400" alt="결제 방식 선택 페이지" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/pay/nfc_or_qrcode.jpg"></td>
+    <td style="text-align: center;" width="50%"><img height="400" alt="NFC" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/pay/nfc.jpg"></td>
+    <td style="text-align: center;" width="50%"><img height="400" alt="QRCODE" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/pay/qrcode.jpg"></td>
+ </tr>
 </table>
 
 </details>
@@ -176,39 +131,13 @@
     <th style="text-align: center;" width="20%">또갈집 확인 화면</th>
   </tr>
   <tr>
-    <td style="text-align: center;" width="20%"><img height="400" alt="맛집 지도 화면" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddostore-map.jpg" ></td>
-    <td style="text-align: center;" width="20%"><img height="400" alt="맛집 등록 화면" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/dstore-register.jpg"></td>
-    <td style="text-align: center;" width="20%"><img height="400" alt="나만의 메뉴" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddostore-add-menu.jpg"></td>
-    <td style="text-align: center;" width="20%"><img height="400" alt="또갈집 지도 화면" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddostore-map.jpg"></td>
-   <td style="text-align: center;" width="20%"><img height="400" alt="또갈집 확인 화면" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddostore-check.jpg"></td>
-  </tr>
-  <tr>
-    <td style="text-align: center;" width="20%"> ? 버튼을 누르면 게임 Rule 모달창이 켜지고, </br> ! 버튼을 누르면 보스 정보 모달창이 켜집니다.</td>
-    <td style="text-align: center;" width="20%">게임 Rule 모달창에서 자세한 게임 방법을 볼 수 있습니다.</td>
-    <td style="text-align: center;" width="20%">방 만들기 버튼 터치 시, 난이도와 인원을 선택할 수 있습니다. </br> 방 생성 버튼을 터치하면 대기 화면으로 넘어갑니다.</td>
-    <td style="text-align: center;" width="20%">생성된 초대코드는 복사 버튼을 통해 복사할 수 있습니다. </br> 현재 인원을 확인할 수 있습니다.</td>
-    <td style="text-align: center;" width="20%">생성된 초대코드는 복사 버튼을 통해 복사할 수 있습니다. </br> 현재 인원을 확인할 수 있습니다.</td>
+    <td style="text-align: center;" width="20%"><img height="400" alt="맛집 지도 화면" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddostore_register/dostore-map.jpg" ></td>
+    <td style="text-align: center;" width="20%"><img height="400" alt="맛집 등록 화면" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddostore_register/dstore-register.jpg"></td>
+    <td style="text-align: center;" width="20%"><img height="400" alt="나만의 메뉴" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddostore_register/ddostore-add-menu.jpg"></td>
+    <td style="text-align: center;" width="20%"><img height="400" alt="또갈집 지도 화면" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddostore_register/ddostore-map.jpg"></td>
+   <td style="text-align: center;" width="20%"><img height="400" alt="또갈집 확인 화면" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddostore_register/ddostore-check.jpg"></td>
   </tr>
 </table>
-
-<table style="text-align: center;" width="100%">
-  <tr>
-    <th style="text-align: center;" width="33.33%">게임 중 화면</th>
-    <th style="text-align: center;" width="33.33%">싱글 결과</th>
-    <th style="text-align: center;" width="33.33%">멀티 결과</th>
-  </tr>
-  <tr>
-    <td style="text-align: center;" width="33.33%"><img height="400" alt="게임 중 화면" src="https://github.com/user-attachments/assets/04553c15-5aee-4654-99e0-5f11dc5a113b"></td>
-    <td style="text-align: center;" width="33.33%"><img height="400" alt="싱글 결과" src="https://github.com/user-attachments/assets/316ac3da-5b82-4808-8564-5695535d062f"></td>
-    <td style="text-align: center;" width="33.33%"><img height="400" alt="멀티 결과" src="https://github.com/user-attachments/assets/cc2df19f-21f3-425f-ab8b-a858dee6b702"></td>
-  </tr>
-  <tr>
-    <td style="text-align: center;" width="33.33%">모든 인원이 들어오거나, 게임에 입장하게 되면 보이는 화면입니다. </br> 상단에는 선택한 난이도에 해당하는 보스 이미지가 움직이고 있습니다.</td>
-    <td style="text-align: center;" width="33.33%">싱글 게임에서 패배한 경우 보이는 결과 모달창입니다.</td>
-    <td style="text-align: center;" width="33.33%">멀티 게임에서 승리한 경우 보이는 결과 모달창입니다. </br> 러닝, 게임과 관련된 상세 정보가 보입니다. </br> 슬라이드로 넘기면 플레이어의 순위가 나타납니다.</td>
-  </tr>
-</table>
-
 </details>
 
 
