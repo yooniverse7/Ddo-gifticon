@@ -129,8 +129,8 @@
     <th style="text-align: center;" width="20%">또갈집 확인 화면</th>
   </tr>
   <tr>
-    <td style="text-align: center;" width="20%"><img height="400" alt="맛집 지도 화면" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddostore_register/dostore-map.jpg" ></td>
-    <td style="text-align: center;" width="20%"><img height="400" alt="맛집 등록 화면" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddostore_register/dostore-register.jpg"></td>
+    <td style="text-align: center;" width="20%"><img height="400" alt="맛집 지도 화면" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddostore_register/dstore-map.jpg" ></td>
+    <td style="text-align: center;" width="20%"><img height="400" alt="맛집 등록 화면" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddostore_register/dstore-register.jpg"></td>
     <td style="text-align: center;" width="20%"><img height="400" alt="나만의 메뉴" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddostore_register/ddostore-add-menu.jpg"></td>
     <td style="text-align: center;" width="20%"><img height="400" alt="또갈집 지도 화면" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddostore_register/ddostore-map.jpg"></td>
    <td style="text-align: center;" width="20%"><img height="400" alt="또갈집 확인 화면" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/ddostore_register/ddostore-check.jpg"></td>
