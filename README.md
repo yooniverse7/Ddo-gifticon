@@ -47,12 +47,12 @@
 ## 👥 팀 소개
 <table style="text-align: center;" width="100%">
   <tr>
-    <th style="text-align: center;" width="16.66%"><img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/cheon.png" width="150" height="150"/></th>
-    <th style="text-align: center;" width="16.66%"><img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/min.png" width="150" height="150"/></th>
-    <th style="text-align: center;" width="16.66%"><img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/jeong.png" width="150" height="150"/></th>
-    <th style="text-align: center;" width="16.66%"><img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/lee.png" width="150" height="150"/></th>
-    <th style="text-align: center;" width="16.66%"><img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/choi.png" width="150" height="150"/></th>
-    <th style="text-align: center;" width="16.66%"><img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/sin.png" width="150" height="150"/></th>
+    <th style="text-align: center;" width="16.66%"><img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/member/cheon.png" width="150" height="150"/></th>
+    <th style="text-align: center;" width="16.66%"><img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/member/min.png" width="150" height="150"/></th>
+    <th style="text-align: center;" width="16.66%"><img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/member/jeong.png" width="150" height="150"/></th>
+    <th style="text-align: center;" width="16.66%"><img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/member/lee.png" width="150" height="150"/></th>
+    <th style="text-align: center;" width="16.66%"><img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/member/choi.png" width="150" height="150"/></th>
+    <th style="text-align: center;" width="16.66%"><img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/member/sin.png" width="150" height="150"/></th>
   </tr>
   <tr>
     <td style="text-align: center;" width="16.66%">천세윤<br/><a href="https://github.com/yooniverse7">@yooniverse7</a></td>
@@ -87,16 +87,16 @@
 
 <table style="text-align: center;" width="100%">
   <tr>
-    <th style="text-align: center;" width="25%">소셜 로그인</th>
-    <th style="text-align: center;" width="25%">유저 정보 입력</th>
-    <th style="text-align: center;" width="25%">코칭마크 페이지</th>
-    <th style="text-align: center;" width="25%">메인 페이지</th>
+    <th style="text-align: center;" width="25%">기프티콘 커스텀 페이지</th>
+    <th style="text-align: center;" width="25%">받은 선물함 페이지</th>
+    <th style="text-align: center;" width="25%">보낸 선물함 페이지</th>
+    <th style="text-align: center;" width="25%">기프티콘 지도 페이지</th>
   </tr>
   <tr>
-    <td style="text-align: center;" width="25%"><img height="400" alt="소셜 로그인" src="https://github.com/user-attachments/assets/24fcb4b9-c25c-4f4e-9cf4-21317310b16c" ></td>
-    <td style="text-align: center;" width="25%"><img height="400" alt="유저 정보 입력" src="https://github.com/user-attachments/assets/72bc2ec1-0c10-4651-9a9a-77e475f66062"></td>
-    <td style="text-align: center;" width="25%"><img height="400" alt="코칭마크 페이지" src="https://github.com/user-attachments/assets/a676af09-8c10-4283-8206-84e0b789536b"></td>
-    <td style="text-align: center;" width="25%"><img height="400" alt="메인 페이지" src="https://github.com/user-attachments/assets/6630ee1b-3acf-4f3a-ac78-bb8573b0bbc3"></td>
+    <td style="text-align: center;" width="25%"><img height="400" alt="소셜 로그인" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/gifticon-custom.jpg" ></td>
+    <td style="text-align: center;" width="25%"><img height="400" alt="유저 정보 입력" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/gifticon-custom.jpg"></td>
+    <td style="text-align: center;" width="25%"><img height="400" alt="코칭마크 페이지" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/gifticon-custom.jpg"></td>
+    <td style="text-align: center;" width="25%"><img height="400" alt="메인 페이지" src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/gifticon-custom.jpg"></td>
   </tr>
   <tr>
     <td style="text-align: center;" width="25%">카카오, 네이버, 구글 3가지의 소셜 회원가입/로그인 기능을 제공합니다.</td>
@@ -124,23 +124,20 @@
 </details>
 
 <details>
-<summary><strong>NFC 결제</strong></summary>
+<summary><strong>결제 기능</strong></summary>
 
 <table style="text-align: center;" width="100%">
   <tr>
-    <th style="text-align: center;" width="33.33%">통계 페이지 (일별)</th>
-    <th style="text-align: center;" width="33.33%">통계 페이지 (세부)</th>
-    <th style="text-align: center;" width="33.33%">통계 페이지 (주별)</th>
+    <th style="text-align: center;" width="50%">NFC</th>
+    <th style="text-align: center;" width="50%">QR 코드</th>
   </tr>
   <tr>
-    <td style="text-align: center;" width="33.33%"><img height="400" alt="통계 페이지 (일별)" src="https://github.com/user-attachments/assets/56ad2aae-04b3-410c-9b28-e05b80689b50" ></td>
-    <td style="text-align: center;" width="33.33%"><img height="400" alt="통계 페이지 (세부)" src="https://github.com/user-attachments/assets/10fbf3dc-015c-4523-9420-2d33ae75ef55"></td>
-    <td style="text-align: center;" width="33.33%"><img height="400" alt="통계 페이지 (주별)" src="https://github.com/user-attachments/assets/f51a3001-2918-4ace-9f34-e676e9dd3045"></td>
+    <td style="text-align: center;" width="50%"><img height="400" alt="통계 페이지 (일별)" src="https://github.com/user-attachments/assets/56ad2aae-04b3-410c-9b28-e05b80689b50" ></td>
+    <td style="text-align: center;" width="50%"><img height="400" alt="통계 페이지 (세부)" src="https://github.com/user-attachments/assets/10fbf3dc-015c-4523-9420-2d33ae75ef55"></td>
   </tr>
   <tr>
-    <td style="text-align: center;" width="33.33%">일/주/월 페이지는 탭을 터치하거나 슬라이드를 통해 넘어갈 수 있습니다. </br> 일별 데이터는 모든 기록이 최근순으로 보여집니다.</td>
-    <td style="text-align: center;" width="33.33%">일별 데이터 중 개인 기록 터치 시, 해당 일자에 달린 상세 정보가 모달로 나타납니다.</td>
-    <td style="text-align: center;" width="33.33%">주/월의 경우 날짜를 선택할 수 잇는 모달이 있습니다.</td>
+    <td style="text-align: center;" width="50%">일/주/월 페이지는 탭을 터치하거나 슬라이드를 통해 넘어갈 수 있습니다. </br> 일별 데이터는 모든 기록이 최근순으로 보여집니다.</td>
+    <td style="text-align: center;" width="50%">일별 데이터 중 개인 기록 터치 시, 해당 일자에 달린 상세 정보가 모달로 나타납니다.</td>
   </tr>
 </table>
 
