@@ -22,7 +22,7 @@
 
 > 🔗 [노션 링크](https://relic-sea-1e3.notion.site/1a412a0174e780b4870bd63cd477cac6)
 
-> 📲 [배포 URL - 모바일](https:j12e106.p.ssafy.io)
+> 📲 [배포 URL - 모바일](https://j12e106.p.ssafy.io)
 
 > 📝 [발표 자료](https://www.canva.com/design/DAGj4Cf_xWE/_Rcu9Lm_w1HBxPY1ytvvGQ/view?utm_content=DAGj4Cf_xWE&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h840401bd48)
 
