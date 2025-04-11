@@ -1,4 +1,4 @@
-![첫페이지__1_](/uploads/76feb40989defdf948a4ee19189d1908/첫페이지__1_.png)
+![first-screen.png](exec%2Freadme_assets%2Ffirst-screen.png)
 <br />
 
 ## 📌 목차
@@ -360,13 +360,13 @@
   <h3>🔹 유저 도메인</h3>
   <img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/domain/user-domain.png" alt="api명세서">
   <h3>🔹 기프티콘 도메인</h3>
-  <img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/domain/gifticon-domain.jpg" alt="api명세서">
+  <img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/domain/gifticon-domain.png" alt="api명세서">
   <h3>🔹 페이 도메인</h3>
-  <img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/domain/pay-domain.jpg" alt="api명세서">
+  <img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/domain/pay-domain.png" alt="api명세서">
   <h3>🔹 맛집 도메인</h3>
-  <img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/domain/restaurant-domain.jpg" alt="api명세서">
+  <img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/domain/restaurant-domain.png" alt="api명세서">
   <h3>🔹 포스 도메인</h3>
-  <img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/domain/pos-domain.jpg" alt="api명세서">
+  <img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/domain/pos-domain.png" alt="api명세서">
   <h3>🔹 은행 도메인</h3>
-  <img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/domain/bank-domain.jpg" alt="api명세서">
+  <img src="https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21E106/-/raw/readme/exec/readme_assets/domain/bank-domain.png" alt="api명세서">
 </details>
