@@ -170,6 +170,10 @@ API 요청 라우팅, SSL 인증서 설정, 로드밸런싱 등 웹 서버 최�
 
 </details>
 
+### FrontEnd
+
+![skill.png](./exec/readme_assets/FrontEnd.png)
+
 ## 🚀 프로젝트 소개
 
 **_SSAFY 12기 2학기 공통 프로젝트_**
