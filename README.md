@@ -255,7 +255,7 @@ API 요청 라우팅, SSL 인증서 설정, 로드밸런싱 등 웹 서버 최�
 -   **Shadcn**  
     -  코드의 안정성 및 유지 보수성을 높이는 강력한 타입 시스템 제공
 -   **Axios**  
-    -  Promise 기반의 HTTP 클라이언트 라이브러리로, 비동기 요청과 API 통신을 간편하게 처리.
+    -  Promise 기반의 HTTP 클라이언트 라이브러리로, 비동기 요청과 API 통신을 간편하게 처리
 
 
 
@@ -321,7 +321,7 @@ API 요청 라우팅, SSL 인증서 설정, 로드밸런싱 등 웹 서버 최�
 
 ## 🗺️ 기술 아키텍처
 
-![ddo-store-architecture](./exec/readme_assets/ddo-store-architecture.png)
+![ddo-store-architecture](./exec/readme_assets/또가게아키텍처.png)
 
 ## 📂 프로젝트 구조
 
