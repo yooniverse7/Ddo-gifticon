@@ -23,7 +23,18 @@
     또가게
   </span>
 </a>
-&nbsp; <!-- 간격 -->
+&nbsp;
+<!-- 시연 영상 배지 -->
+<a href="https://drive.google.com/file/d/1KMUg1nCRlpERWugAJ2aPaE8FoP9dPdUt/view" target="_blank" style="text-decoration:none;">
+  <span style="display:inline-flex;align-items:center;gap:8px;
+               background:linear-gradient(90deg,#AAA00,#FFB300);
+               padding:8px 14px;border-radius:12px;
+               font-weight:600;color:#fff;">
+    <img src="./exec/readme_assets/google-drive.png" width="18" height="18" style="border-radius:4px;" alt="Store"/>
+    시연영상
+  </span>
+</a>
+&nbsp;
 <!-- 발표자료 배지 -->
 <a href="https://www.canva.com/design/DAGj4Cf_xWE/_Rcu9Lm_w1HBxPY1ytvvGQ/view?utm_content=DAGj4Cf_xWE&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h840401bd48" target="_blank" style="text-decoration:none;">
   <span style="
@@ -171,6 +182,10 @@ API 요청 라우팅, SSL 인증서 설정, 로드밸런싱 등 웹 서버 최�
 </details>
 
 ### FrontEnd
+
+<p align="center">
+  <img src="./exec/readme_assets/FrontEnd.png" with=500px>
+</p>
 
 ![skill.png](./exec/readme_assets/FrontEnd.png)
 
